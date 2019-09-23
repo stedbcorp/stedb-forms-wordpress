@@ -50,10 +50,10 @@ class STEDB_Account{
      return $array;
 }
 
-    public function stedb_create_custom_field($user_id, $secret, $base_url, $listData)
+    public function stedb_create_custom_field($user_id, $secret, $base_url, $list_data)
     {
         global $wpdb; 
-        $get_custom_data = json_decode($listData['field_detail'], true);  
+        $get_custom_data = json_decode($list_data['field_detail'], true);  
         $get_custom = $this->stedb_removeElementWithValue($get_custom_data,"field_type");
         $id_arr =array();
         foreach ($get_custom as $key => $value) {  
@@ -76,13 +76,13 @@ class STEDB_Account{
         return $output_id;  
     }
 
-    public function stedb_update_custom_field($user_id , $secret , $base_url, $listData,$id,$field_ids){
+    public function stedb_update_custom_field($user_id , $secret , $base_url, $list_data,$id,$field_ids){
         global $wpdb;
         $del_ids = explode(',', $field_ids); 
         foreach ($del_ids as  $del_id) {
            $output_del[]=$this->stedb_delete_custom_field($user_id, $secret, $base_url, $del_id);
         }
-        $get_custom_data = json_decode($listData['field_detail'], true); 
+        $get_custom_data = json_decode($list_data['field_detail'], true); 
         $get_custom = $this->stedb_removeElementWithValue($get_custom_data,"field_type");
         $id_arr =array();
         foreach ($get_custom as $key => $value) {  
@@ -121,11 +121,11 @@ class STEDB_Account{
         $output =$delete_form_list->ste_sendRequest('fields/"'.$id.'"', 'DELETE', $data);
     }
 
-    public function stedb_create_form_list($user_id, $secret, $base_url , $listData)
+    public function stedb_create_form_list($user_id, $secret, $base_url , $list_data)
     {
         global $wpdb;  
-        // $data = array('list_name' => (string)$listData['form_name']); 
-        $data =array('list_name' => $listData['form_name'] ,'receiver' => $listData['receiver']);
+        // $data = array('list_name' => (string)$list_data['form_name']); 
+        $data =array('list_name' => $list_data['form_name'] ,'receiver' => $list_data['receiver']);
         $create_form_list = new STEDB_Api_Client($user_id, $secret, $base_url);
         $output =$create_form_list->ste_sendRequest('lists/', 'POST', $data); 
         $id=$output->data->id;    
