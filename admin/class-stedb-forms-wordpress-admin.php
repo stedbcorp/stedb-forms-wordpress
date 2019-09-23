@@ -611,16 +611,16 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			);
 			die;
 		}
-		public function stedb_removeElementWithValue( $array ) {
-			foreach ( $array as $subKey => $subArray ) {
-				if ( $subArray == 'social_gmail' ) {
-					 unset( $array[ $subKey ] );
+		public function stedb_remove_element_with_value( $array ) {
+			foreach ( $array as $sub_key => $sub_array ) {
+				if ( $sub_array == 'social_gmail' ) {
+					 unset( $array[ $sub_key ] );
 				}
-				if ( $subArray == 'social_yahoo' ) {
-					unset( $array[ $subKey ] );
+				if ( $sub_array == 'social_yahoo' ) {
+					unset( $array[ $sub_key ] );
 				}
-				if ( $subArray == 'social_linkedin' ) {
-					unset( $array[ $subKey ] );
+				if ( $sub_array == 'social_linkedin' ) {
+					unset( $array[ $sub_key ] );
 				}
 			}
 			return $array;
@@ -654,7 +654,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				}
 			}
 
-			$form_data_arr = $this->stedb_removeElementWithValue( $form_data_array );
+			$form_data_arr = $this->stedb_remove_element_with_value( $form_data_array );
 			$new_arr       = array_combine( $api_field_id, $form_data_arr );
 
 			// $_SESSION['form_data_array'] = $form_data_array;
