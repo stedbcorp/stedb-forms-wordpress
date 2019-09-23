@@ -1,0 +1,555 @@
+/* Globals */
+.ste-container *
+{
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: #000000;
+  word-wrap: break-word;
+}
+.ste-container input
+{
+  font-size: 2.5vh;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #000000;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #000000;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #000000;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #000000;
+}
+
+/* Flex Basis */
+.ste-flexb-5 { flex-basis: 5%; }
+.ste-flexb-6 { flex-basis: 6%; }
+.ste-flexb-7 { flex-basis: 7%; }
+.ste-flexb-8 { flex-basis: 8%; }
+.ste-flexb-9 { flex-basis: 9%; }
+.ste-flexb-10 { flex-basis: 10%; }
+.ste-flexb-15 { flex-basis: 15%; }
+.ste-flexb-16 { flex-basis: 16%; }
+.ste-flexb-20 { flex-basis: 20%; }
+.ste-flexb-30 { flex-basis: 30%; }
+.ste-flexb-35 { flex-basis: 35%; }
+.ste-flexb-40 { flex-basis: 40%; }
+.ste-flexb-49 { flex-basis: 49%; }
+.ste-flexb-50 { flex-basis: 50%; }
+.ste-flexb-60 { flex-basis: 60%; }
+.ste-flexb-65 { flex-basis: 65%; }
+.ste-flexb-70 { flex-basis: 70%; }
+.ste-flexb-80 { flex-basis: 80%; }
+.ste-flexb-90 { flex-basis: 90%; }
+.ste-flexb-95 { flex-basis: 95%; }
+.ste-flexb-100 { flex-basis: 100%; }
+
+/* Grid Classes */
+[class*="ste-col-"] { display: inline-block; }
+
+.ste-col-10 { width: 10%; }
+.ste-col-20 { width: 20%; }
+.ste-col-25 { width: 25%; }
+.ste-col-30 { width: 30%; }
+.ste-col-35 { width: 35%; }
+.ste-col-40 { width: 40%; }
+.ste-col-45 { width: 45%; }
+.ste-col-50 { width: 50%; }
+.ste-col-60 { width: 60%; }
+.ste-col-65 { width: 65%; }
+.ste-col-70 { width: 70%; }
+.ste-col-75 { width: 75%; }
+.ste-col-80 { width: 80%; }
+.ste-col-90 { width: 90%; }
+.ste-col-95 { width: 95%; }
+.ste-col-100 { width: 100%; }
+
+/* Display Classes */
+.ste-block { display: block; }
+.ste-flex { display: flex; flex-wrap: wrap; }
+
+/* Content align Classes */
+.ste-flex-center { align-items: center; justify-content: center; }
+.ste-align-center { align-items: center; }
+.ste-justify-center { justify-content: center; }
+.ste-justify-space { justify-content: space-between; }
+.ste-justify-space-even { justify-content: space-evenly; }
+
+/* Padding Classes */
+.ste-py-rm-0-2 { padding-top: 0.2rem; padding-bottom: 0.2rem; }
+.ste-py-rm-0-4 { padding-top: 0.4rem; padding-bottom: 0.4rem; }
+.ste-px-rm-1-2 { padding-left: 1.2rem; padding-right: 1.2rem; }
+.ste-p-rm-0-5 { padding: 0.5rem; }
+.ste-px-1 { padding-left: 1rem; padding-right: 1rem; }
+.ste-p-1 { padding: 1rem; }
+.ste-py-2 { padding-top: 2rem; padding-bottom: 2rem; }
+.ste-px-1-5 { padding-left: 1.5rem; padding-right: 1.5rem;  }
+.ste-p-2-5 { padding: 2.5rem; }
+.ste-px-0-5{ padding-left: 0.5rem; padding-right: 0.5rem; }
+
+/* Margin Classes */
+.ste-m-0 { margin: 0; }
+.ste-m-auto { margin: auto; }
+.ste-my-p3 { margin-top: 0.3rem; margin-bottom: 0.3rem; }
+
+.ste-mb-0-4 { margin-bottom: 0.4rem; }
+.ste-mb-1 {margin-bottom: 1rem; }
+
+.ste-my-1 { margin-top: 1rem; margin-bottom: 1rem; }
+.ste-my-2 { margin-top: 2rem; margin-bottom: 2rem; }
+.ste-my-3 { margin-top: 3rem; margin-bottom: 3rem; }
+.ste-my-4 { margin-top: 4rem; margin-bottom: 4rem; }
+.ste-my-5 { margin-top: 5rem; margin-bottom: 5rem; }
+.ste-my-0-5 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+
+.ste-ml-1 { margin-left: 1rem; }
+.ste-ml-2 { margin-left: 2rem; }
+.ste-ml-3 { margin-left: 3rem; }
+.ste-ml-4 { margin-left: 4rem; }
+.ste-ml-5 { margin-left: 5rem; }
+.ste-ml-6 { margin-left: 6rem; }
+.ste-ml-7 { margin-left: 7rem; }
+.ste-ml-8 { margin-left: 8rem; }
+.ste-ml-9 { margin-left: 9rem; }
+.ste-ml-10 { margin-left: 10rem; }
+
+.ste-mr-0-5 { margin-right: 0.5rem; }
+
+.ste-mt-1 { margin-top: 1rem; }
+.ste-mt-2 { margin-top: 2rem; }
+.ste-mt-0-2 { margin-top: 0.2rem; }
+
+/* Text Align Classes */
+.ste-text-center { text-align: center; }
+.ste-text-left { text-align: left; }
+.ste-text-right { text-align: right; }
+
+/* Border Classes */
+.ste-border-1 { border: 1px solid; }
+.ste-border-2 { border: 2px solid; }
+
+/* Border Color Classes */
+.ste-border-primary { border-color: #007bff; }
+.ste-border-secondary { border-color: #6c757d; }
+.ste-border-success { border-color: #28a745; }
+.ste-border-danger { border-color: #dc3545; }
+.ste-border-warning { border-color: #ffc107; }
+.ste-border-info { border-color: #17a2b8; }
+.ste-border-light { border-color: #f8f9fa; }
+.ste-border-dark { border-color: #343a40; }
+.ste-border-default { border-color: transparent; }
+
+/* Font Size Classes */
+.ste-font-1 { font-size: 1vh; }
+.ste-font-2 { font-size: 2vh; }
+.ste-font-2-5 { font-size: 2.5vh; }
+.ste-font-3 { font-size: 3vh; }
+.ste-font-4 { font-size: 4vh; }
+.ste-font-5 { font-size: 5vh; }
+.ste-font-6 { font-size: 6vh; }
+.ste-font-7 { font-size: 7vh; }
+.ste-font-8 { font-size: 8vh; }
+.ste-font-9 { font-size: 9vh; }
+.ste-font-10 { font-size: 10vh; }
+.ste-font-11 { font-size: 11vh; }
+.ste-font-12 { font-size: 12vh; }
+.ste-font-13 { font-size: 13vh; }
+.ste-font-14 { font-size: 14vh; }
+.ste-font-15 { font-size: 15vh; }
+.ste-font-16 { font-size: 16vh; }
+
+/* Height Classes */
+.ste-height-r-2-3 { height: 2.3rem; }
+.ste-height-r-2 { height: 2rem; }
+.ste-h-auto{
+  min-height: auto;
+}
+
+/* Position Classes */
+.ste-pos-relative { position: relative; }
+.ste-pos-absolute { position: absolute; }
+.ste-pos-fixed { position: fixed; }
+.ste-pos-static { position: static; }
+.ste-pos-sticky { position: sticky; }
+
+/* Buttons Classes */
+.ste-btn-primary { background: #007bff; color: #ffffff; }
+.ste-btn-secondary { background: #6c757d; color: #ffffff; }
+.ste-btn-success { background: #28a745; color: #ffffff; }
+.ste-btn-danger { background: #dc3545; color: #ffffff; }
+.ste-btn-warning { background: #ffc107; color: #000000; }
+.ste-btn-info { background: #17a2b8; color: #ffffff; }
+.ste-btn-light { background: #f8f9fa; color: #000000; }
+.ste-btn-dark { background: #343a40; color: #ffffff; }
+.ste-btn-default { background: transparent; color: #007bff; }
+
+.ste-header-title { font-size: 5vh; margin: 0; text-align:center; }
+.ste-help-img { width: 15vh; display: inline-block; }
+.ste-help-title { font-size: 2.5vh; }
+.ste-header-tel { font-size: 2.5vh; }
+.ste-header-email { font-size: 2.5vh; }
+.ste-header-account-id { font-size: 2.5vh; }
+.ste-header-tab-item { box-shadow: 0 3px 2px black; }
+.ste-tab-item-title { font-weight: 600; text-transform: uppercase; text-decoration: none; }
+.ste-form-label { font-weight: 600; }
+.ste-form-creator-container { min-height: 500px; }
+.ste-form-stiky-tag { top: -10px; left: 10px; background: #fff; padding: 2px; }
+.ste-form-btn-show-shortcode { box-shadow: 3px 3px black; }
+
+
+.ste-fields img{
+  width: 100%;
+   transition: transform .2s
+}
+.ste-fields img:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+/* draggable css */
+#ste-sortable .placeholder {
+    width: 100% !important;
+    background-color: #bfb !important;
+    border: 1px dashed #666 !important;
+    margin-bottom: 5px !important;
+}
+#ste-sortable {
+  min-height: 100vh;
+}
+.ste-builder-field {
+    background-color: aliceblue;
+    padding: 10px;
+    width: 55% !important;
+    margin-bottom: 15px;
+}
+.ste-builder-field label{
+  font-weight: 700;
+}
+.ste-builder-field .ste-field{
+  height: 2rem;
+  width: 100%;
+  margin-top: 10px;
+}
+.ste-remove-field {
+    background-color: #0d8eff;
+    border: 1px solid #0d8eff;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 4px 8.25px;
+}
+.sign-up-button.yh{
+  background: #6B3695;
+    border-color: #6B3695;
+}
+
+.sign-up-button.gp{
+  background:#DF4B38;
+    border-color:#DF4B38;
+}
+
+.sign-up-button.ln{
+  background: #117BB8;
+    border-color: #117BB8;
+}
+
+.sign-up-button a {
+    color:#fff;
+    font-size: 12px;
+    
+    padding:0px 12px;
+    text-decoration: none;
+}
+.sign-up-button a span{
+  color: #ffffff;
+  padding-left: 10px;
+}
+.ste-img{
+  max-width: 100%;
+}
+/* custom- radio and checkbox */
+/* radio */
+/* The container */
+.ste-custom-input {
+    /*display: block;*/
+    position: relative;
+    /*padding-left: 28px;
+    margin-bottom: 11px;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*height: 20px;*/
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.ste-custom-input input {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark-radio {
+  /*position: absolute;
+  top: 0;
+  left: 0;*/
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.ste-custom-input:hover input ~ .checkmark-radio {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+/* .ste-custom-input input:checked ~ .checkmark {
+  background-color: #2196F3;
+} */
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark-radio:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.ste-custom-input input:checked ~ .checkmark-radio:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.ste-custom-input .checkmark-radio:after {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2196F3;
+}
+
+.ste-custom-input .checkmark-checkbox:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/* Create a custom checkbox */
+.checkmark-checkbox {
+  /*position: absolute;*/
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.ste-custom-input:hover input ~ .checkmark-checkbox {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.ste-custom-input input:checked ~ .checkmark-checkbox {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark-checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.ste-custom-input input:checked ~ .checkmark-checkbox:after {
+  display: block;
+}
+/* responsive design */
+@media only screen and (min-width : 1441px) and (max-width : 2560px) {
+
+}
+@media only screen and (min-width : 1025px) and (max-width : 1440px) {
+
+}
+@media only screen and (min-width : 769px) and (max-width : 1024px) {
+
+}
+@media only screen and (min-width : 426px) and (max-width : 768px) {
+
+}
+@media only screen and (min-width : 376px) and (max-width : 425px) {
+  [class*="ste-col-"] { width: 100% !important; text-align: center; }
+
+  /* Text Align Classes */
+  .ste-text-m-center { text-align: center !important; }
+  .ste-text-m-left { text-align: left !important; }
+  .ste-text-m-right { text-align: right !important; }
+
+  /* Margin Classes */
+  .ste-my-m-1 { margin-top: 1rem; margin-bottom: 1rem; }
+
+  /* Padding Classes */
+  .ste-p-m-1 { padding: 1rem !important; }
+
+  /* Flex Basis Classes */
+  .ste-flexb-m-100 { flex-basis: 100% !important; }
+
+  .cke_editor_ste-sc-ckeditor { width: 100% !important; }
+}
+@media only screen and (min-width : 321px) and (max-width : 375px) {
+  [class*="ste-col-"] { width: 100% !important; text-align: center; }
+
+  /* Text Align Classes */
+  .ste-text-m-center { text-align: center !important; }
+  .ste-text-m-left { text-align: left !important; }
+  .ste-text-m-right { text-align: right !important; }
+
+  /* Margin Classes */
+  .ste-my-m-1 { margin-top: 1rem; margin-bottom: 1rem; }
+
+  /* Padding Classes */
+  .ste-p-m-1 { padding: 1rem !important; }
+
+  /* Flex Basis Classes */
+  .ste-flexb-m-100 { flex-basis: 100% !important; }
+
+  .cke_editor_ste-sc-ckeditor { width: 100% !important; }
+}
+@media only screen and (max-width : 320px) {
+  [class*="ste-col-"] { width: 100% !important; text-align: center; }
+
+  /* Text Align Classes */
+  .ste-text-m-center { text-align: center !important; }
+  .ste-text-m-left { text-align: left !important; }
+  .ste-text-m-right { text-align: right !important; }
+
+  /* Margin Classes */
+  .ste-my-m-1 { margin-top: 1rem; margin-bottom: 1rem; }
+
+  /* Padding Classes */
+  .ste-px-rm-m-1 { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .ste-p-m-1 { padding: 1rem !important; }
+
+  /* Flex Basis Classes */
+  .ste-flexb-m-100 { flex-basis: 100% !important; }
+
+  /* Display Classes */
+  .ste-m-dnone { display: none !important; }
+
+  .ste-ac-right { margin-top: 1rem; }
+  .cke_editor_ste-sc-ckeditor { width: 100% !important; }
+}
+
+/* Dragnova 15-05-2019 */
+.ste-radio-title, .ste-checkbox-title
+{
+    padding-left: 25px;
+}
+.ste-btn-add-option
+{
+    background: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 0px 6px;
+    font-size: 20px;
+    border-radius: 2px;
+    box-shadow: 0.5px -0.5px 1px #757575;
+}
+
+
+/* Custom Table Css */
+.ste-se-tr
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.ste-se-td-10 { width: 10%; }
+.ste-se-td-15 { width: 15%; }
+.ste-se-td-16-66 {width: 16.66%}
+.ste-se-td-20 { width: 20%; }
+.ste-se-td-25 { width: 25%; }
+.ste-se-td-30 { width: 30%; }
+.ste-se-td-35 { width: 35%; }
+.ste-se-td-40 { width: 40%; }
+.ste-se-td-45 { width: 45%; }
+.ste-se-td-50 { width: 50%; }
+.ste-se-td-55 { width: 55%; }
+.ste-se-td-60 { width: 60%; }
+.ste-se-td-65 { width: 65%; }
+.ste-se-td-70 { width: 70%; }
+.ste-se-td-75 { width: 75%; }
+.ste-se-td-80 { width: 80%; }
+.ste-se-td-85 { width: 85%; }
+.ste-se-td-90 { width: 90%; }
+.ste-se-td-95 { width: 95%; }
+.ste-se-td-100 { width: 100%; }
+
+.ste-se-tr-even { background: #e8e8e8; }
+.ste-send-email-tbl-container { border: 2px solid #000000; }
+.ste-se-td.ste-se-td-20 { padding: 7px; }
+.ste-se-body { max-height: 150px; overflow-y: scroll; }
+.ste-se-thead .ste-se-tr { background: #cacaca; }
+
+.ste-autosponder-creator { border: 2px solid #000000; }
+
+.ste-send-email-tbl .ste-se-body .ste-se-td { font-size: 2vh; }
+.ste-send-email-tbl .ste-se-thead .ste-se-td { font-size: 2.3vh; font-weight: 600; }
+.cke_editor_ste-sc-ckeditor { width: 80%; }
+
+.ste-btn-preview, .ste-btn-draft { width: 100%; padding: 8px 0; font-size: 2.5vh; background: #ffc107; border: none; box-shadow: 2px 2px 3px #bfbfbf; margin-bottom: 1rem; }
+.ste-btn-autoresponder, .ste-btn-send-email { width: 100%; background: #28a745; color: #ffffff; border: none; padding: 10px 0; font-size: 2.5vh; box-shadow: 2px 2px 3px #bfbfbf; margin-bottom: 1rem; }
+.ste-btn-cancel { background: #dc3545; color: #ffffff; border: none; font-size: 2.5vh; padding: 10px 0; width: 100%; box-shadow: 2px 2px 3px #bfbfbf; margin-bottom: 1rem; }
+
+/*****height auto *****/
+.ste-height-auto{
+  height: auto !important;
+}
+
+.ste-public-form-label-text{
+    font-size: 16px;
+    font-weight: bold;
+}
+.ste-sign-up-button a {
+    color:#fff;
+    font-size: 12px;
+    display: flex;
+    padding:0px 12px;
+    text-decoration: none;
+}
+.ste-sign-up-button a span {
+    color: #ffffff;
+    padding: 10px;
+}
+
+img#loader {
+    width: 100px;
+    height: 100px;
+    margin: -22px 0px 0px 20px;
+  display:none;
+}
+
+#email_preview{
+display: none;
+}
