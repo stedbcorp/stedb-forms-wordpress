@@ -95,7 +95,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					$userId       = get_option( 'stedb_user_id' );
 					$secret       = get_option( 'stedb_secret' );
 					$baseUrl      = get_option( 'stedb_baseUrl' );
-					$stedb_public = new STE_DB_Account();
+					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $userId, $secret, $baseUrl, $form_data );
 					//echo $output. '</br>';
 					//print_r($_REQUEST['email']);

@@ -256,7 +256,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$user_id                 = get_option( 'stedb_user_id' );
 			$secret                  = get_option( 'stedb_secret' );
 			$base_url                = get_option( 'stedb_base_url' );
-			$stedb_obj               = new STE_DB_Account();
+			$stedb_obj               = new STEDB_Account();
 			$create_form_list_output = $stedb_obj->stedb_create_form_list( $user_id, $secret, $base_url, $data );
 			// if(!get_option('stedb_gmail') && !get_option('stedb_yahoo') && !get_option('stedb_linkedin')) {
 			$social_links                 = [];
@@ -327,7 +327,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$get_form_field_id     = $get_form_field_detail[0]->stedb_form_id;
 			$get_form_list_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_id` FROM `stedb_form_list` WHERE id = %d', $form_id ) );
 			$get_form_list_id      = $get_form_list_detail[0]->form_id;
-			$stedb_obj             = new STE_DB_Account();
+			$stedb_obj             = new STEDB_Account();
 			$output                = $stedb_obj->stedb_update_custom_field( $user_id, $secret, $base_url, $data, $get_form_list_id, $get_form_field_id );
 			return $output;
 		}
@@ -382,7 +382,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$secret    = get_option( 'stedb_secret' );
 			$base_url  = get_option( 'stedb_base_url' );
 			$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
-			$stedb_obj = new STE_DB_Account();
+			$stedb_obj = new STEDB_Account();
 			$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
 			echo json_encode(
 				array(
@@ -443,7 +443,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$user_id     = get_option( 'stedb_user_id' );
 			$secret      = get_option( 'stedb_secret' );
 			$base_url    = get_option( 'stedb_base_url' );
-			$stedb_obj   = new STE_DB_Account();
+			$stedb_obj   = new STEDB_Account();
 			$list_id     = $_POST['list_id'];
 			$get_list_id = $wpdb->get_results( "SELECT * FROM stedb_send_email_entries WHERE list_id = $list_id" );
 			if ( $get_list_id[0]->list_id && $get_list_id[0]->status == 1 ) {
@@ -494,7 +494,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$user_id       = get_option( 'stedb_user_id' );
 			$secret        = get_option( 'stedb_secret' );
 			$base_url      = get_option( 'stedb_base_url' );
-			$stedb_obj     = new STE_DB_Account();
+			$stedb_obj     = new STEDB_Account();
 			$get_list_id   = $wpdb->get_results( "SELECT * FROM stedb_send_email_entries WHERE list_id = $list_id" );
 			if ( ! empty( $get_list_id ) ) {
 				if ( $get_list_id[0]->status == 1 ) {
@@ -555,7 +555,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$user_id       = get_option( 'stedb_user_id' );
 			$secret        = get_option( 'stedb_secret' );
 			$base_url      = get_option( 'stedb_base_url' );
-			$stedb_obj     = new STE_DB_Account();
+			$stedb_obj     = new STEDB_Account();
 			$get_list_id   = $wpdb->get_results( "SELECT list_id FROM stedb_send_email_entries WHERE list_id = $list_id" );
 
 			if ( ! empty( $get_list_id ) ) {

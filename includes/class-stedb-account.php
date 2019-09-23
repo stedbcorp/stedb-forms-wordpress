@@ -1,5 +1,5 @@
 <?php
-class STE_DB_Account{ 
+class STEDB_Account{ 
 
     public $userId;
     public $secret;

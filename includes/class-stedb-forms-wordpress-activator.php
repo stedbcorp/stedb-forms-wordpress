@@ -34,7 +34,7 @@ class Stedb_Forms_Wordpress_Activator {
 		$db_manager = new STE_DB_Migration();
 		$db_manager->stedb_migrate();
 
-		$account = new STE_DB_Account();
+		$account = new STEDB_Account();
 		$account->stedb_registration();
 	}
 
