@@ -20,9 +20,9 @@
  * @subpackage Stedb_Forms_Wordpress/admin
  * @author     STEdb <info@stedb.com>
  */
-if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
+if ( ! class_exists( 'STEDB_Forms_WordPress_I18n' ) ) {
 
-	class Stedb_Forms_Wordpress_Admin {
+	class STEDB_Forms_WordPress_I18n {
 
 
 		/**
@@ -249,7 +249,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				'receiver'       => sanitize_email( $_POST['receiver'] ),
 				'html_code'      => $_POST['html_code'],
 				'full_html_code' => $_POST['full_html_code'],
-				'field_detail'   => json_encode( $_POST['field_detail_array'] ),
+				'field_detail'   => wp_wp_json_encode( $_POST['field_detail_array'] ),
 				'creation_date'  => date( 'Y-m-d' ),
 			);
 			$to                      = $_POST['receiver'];
@@ -277,7 +277,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 					}
 				}
 			}
-			$social_link = json_encode( $social_links );
+			$social_link = wp_wp_json_encode( $social_links );
 			// }
 			if ( ! empty( $create_form_list_output ) && ! empty( $social_link ) ) {
 				$create_list_data = array(
@@ -293,12 +293,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				}
 				$wpdb->insert( 'stedb_form_list', $create_list_data );
 				$create_list_id     = $wpdb->insert_id;
-				$create_list_detail = $wpdb->get_results( "SELECT * FROM `stedb_form_list` WHERE id = $create_list_id" );
+				$create_list_detail = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM `stedb_form_list` WHERE create_list_id = %d', $create_list_id ) );
 				$stedb_obj->stedb_get_list_information( $user_id, $secret, $base_url, $create_list_detail[0]->form_id );
 				$wpdb->insert( $table, $data );
 				$lastid = $wpdb->insert_id;
 			}
-			$get_user_detail   = $wpdb->get_results( "SELECT * FROM $table WHERE user_id = $user->ID ORDER BY form_id DESC" );
+			$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM $table WHERE user_id = $user->ID ORDER BY form_id DESC' ) );
 			$shortcode_main_id = $create_list_detail[0]->form_id;
 			$shortcode         = "[STE_db_form id='" . $lastid . "' list-id='" . $create_form_list_output . "']";
 			// $shortcode = "[STE_db_form id='".$lastid."']";
@@ -308,7 +308,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$subject  = 'STEDB Form Confirmation';
 			$headers  = array( 'Content-Type: text/html; charset=UTF-8' );
 			$retval   = wp_mail( $to, $subject, $message, $headers );
-			echo json_encode(
+			echo wp_json_encode(
 				array(
 					'success'   => true,
 					'shortcode' => $shortcode,
@@ -350,7 +350,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 					'receiver'       => sanitize_email( $_POST['receiver'] ),
 					'html_code'      => $_POST['html_code'],
 					'full_html_code' => $_POST['full_html_code'],
-					'field_detail'   => json_encode( $_POST['field_detail_array'] ),
+					'field_detail'   => wp_wp_json_encode( $_POST['field_detail_array'] ),
 				);
 			}
 			$form_id = $_POST['form_id'];
@@ -370,21 +370,22 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 					$wpdb->update( $table, $data, array( 'form_id' => $form_id ) );
 				}
 			}
-			echo json_encode( array( 'success' => true ) );
+			echo wp_json_encode( array( 'success' => true ) );
 			die;
 		}
 		public function ste_get_edit_form_data() {
 			global $wpdb;
-			$user      = wp_get_current_user();
-			$form_id   = $_POST['form_id'];
-			print_r($_POST);die;
+			$user    = wp_get_current_user();
+			$form_id = $_POST['form_id'];
+			// print_r( $_POST );
+			// die;
 			$user_id   = get_option( 'stedb_user_id' );
 			$secret    = get_option( 'stedb_secret' );
 			$base_url  = get_option( 'stedb_base_url' );
 			$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
 			$stedb_obj = new STEDB_Account();
 			$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
-			echo json_encode(
+			echo wp_json_encode(
 				array(
 					'success' => true,
 					'result'  => $results,
@@ -396,12 +397,15 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			global $wpdb;
 			$user    = wp_get_current_user();
 			$results = $wpdb->get_results(
-				"SELECT stedb_form_builder_data.*,stedb_form_list.id,stedb_form_list.form_id,stedb_send_email_entries.* FROM stedb_form_builder_data 
+				$wpdb->prepare(
+					'SELECT stedb_form_builder_data.*,stedb_form_list.id,stedb_form_list.form_id,stedb_send_email_entries.* FROM stedb_form_builder_data 
 	    	LEFT JOIN stedb_send_email_entries ON stedb_form_builder_data.form_id = stedb_send_email_entries.main_form_id 
 	    	LEFT JOIN stedb_form_list ON stedb_form_builder_data.form_id = stedb_form_list.id 
-	    	WHERE stedb_form_builder_data.user_id = $user->ID"
+			WHERE stedb_form_builder_data.user_id = %d',
+					$user->ID
+				)
 			);
-			echo json_encode(
+			echo wp_json_encode(
 				array(
 					'success' => true,
 					'result'  => $results,
@@ -416,12 +420,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$form_id = $_POST['form_id'];
 			if ( is_array( $form_id ) ) {
 				foreach ( $form_id as $id ) {
-					 $wpdb->delete( $table, array( 'form_id' => $id ) );
+					$wpdb->delete( $table, array( 'form_id' => $id ) );
 				}
 			} else {
 				$wpdb->delete( $table, array( 'form_id' => $form_id ) );
 			}
-			echo json_encode( array( 'success' => true ) );
+			echo wp_json_encode( array( 'success' => true ) );
 			die;
 		}
 
@@ -445,12 +449,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$base_url    = get_option( 'stedb_base_url' );
 			$stedb_obj   = new STEDB_Account();
 			$list_id     = $_POST['list_id'];
-			$get_list_id = $wpdb->get_results( "SELECT * FROM stedb_send_email_entries WHERE list_id = $list_id" );
+			$get_list_id = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 			if ( 1 == $get_list_id[0]->list_id && $get_list_id[0]->status ) {
 				$id                = $get_list_id[0]->stedb_campaign_id;
 				$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 				$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
-				echo json_encode(
+				echo wp_json_encode(
 					array(
 						'success' => true,
 						'status'  => 'updated',
@@ -465,7 +469,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				$wpdb->insert( $table, $data );
 				$lastid = $wpdb->insert_id;
 				if ( $lastid > 0 ) {
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'status'  => 'created',
@@ -495,13 +499,13 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$secret        = get_option( 'stedb_secret' );
 			$base_url      = get_option( 'stedb_base_url' );
 			$stedb_obj     = new STEDB_Account();
-			$get_list_id   = $wpdb->get_results( "SELECT * FROM stedb_send_email_entries WHERE list_id = $list_id" );
+			$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 			if ( ! empty( $get_list_id ) ) {
-				if ( $get_list_id[0]->status == 1 ) {
+				if ( 1 == $get_list_id[0]->status ) {
 					$id                = $get_list_id[0]->stedb_campaign_id;
 					$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 					$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'status'  => 'updated',
@@ -509,7 +513,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 					);
 					die;
 				} else {
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'status'  => 'not_updated',
@@ -525,7 +529,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				$wpdb->insert( $table, $data );
 				$lastid = $wpdb->insert_id;
 				if ( $lastid > 0 ) {
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'result'  => $lastid,
@@ -556,14 +560,14 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			$secret        = get_option( 'stedb_secret' );
 			$base_url      = get_option( 'stedb_base_url' );
 			$stedb_obj     = new STEDB_Account();
-			$get_list_id   = $wpdb->get_results( "SELECT list_id FROM stedb_send_email_entries WHERE list_id = $list_id" );
+			$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT list_id FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 
 			if ( ! empty( $get_list_id ) ) {
-				if ( $get_list_id[0]->status == 1 ) {
+				if ( 1 == $get_list_id[0]->status ) {
 					$id                = $get_list_id[0]->stedb_campaign_id;
 					$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 					$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'status'  => 'updated',
@@ -571,7 +575,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 					);
 					die;
 				} else {
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'status'  => 'not_updated',
@@ -587,7 +591,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 				$wpdb->insert( $table, $data );
 				$lastid = $wpdb->insert_id;
 				if ( $lastid > 0 ) {
-					echo json_encode(
+					echo wp_json_encode(
 						array(
 							'success' => true,
 							'result'  => $lastid,
@@ -602,8 +606,8 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 		public function ste_get_email_data() {
 			global $wpdb;
 			$list_id        = $_POST['list_id'];
-			$get_email_data = $wpdb->get_results( "SELECT * FROM stedb_send_email_entries WHERE list_id = $list_id" );
-			echo json_encode(
+			$get_email_data = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
+			echo wp_json_encode(
 				array(
 					'success' => true,
 					'result'  => $get_email_data,
@@ -613,26 +617,26 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 		}
 		public function stedb_remove_element_with_value( $array ) {
 			foreach ( $array as $sub_key => $sub_array ) {
-				if ( $sub_array == 'social_gmail' ) {
-					 unset( $array[ $sub_key ] );
-				}
-				if ( $sub_array == 'social_yahoo' ) {
+				if ( 'social_gmail' == $sub_array ) {
 					unset( $array[ $sub_key ] );
 				}
-				if ( $sub_array == 'social_linkedin' ) {
+				if ( 'social_yahoo' == $sub_array ) {
+					unset( $array[ $sub_key ] );
+				}
+				if ( 'social_linkedin' == $sub_array ) {
 					unset( $array[ $sub_key ] );
 				}
 			}
 			return $array;
 		}
-		function ste_save_form_data() {
-			$form_data   = json_encode( stripslashes( $_POST['form_data'] ) );
+		public function ste_save_form_data() {
+			$form_data   = wp_json_encode( stripslashes( $_POST['form_data'] ) );
 			$form_data   = json_decode( json_decode( $form_data, true ), true );
 			$insert_data = array();
 			global $wpdb;
 			$form_id          = $_POST['form_id'];
-			$get_max_entry_id = $wpdb->get_row( "SELECT MAX(entry_id) as max_entry_id FROM stedb_form_entries WHERE form_id = $form_id" );
-			$get_form_detail  = $wpdb->get_results( "SELECT * FROM stedb_form_builder_data WHERE form_id = $form_id" );
+			$get_max_entry_id = $wpdb->get_row( $wpdb->prepare( 'SELECT MAX(entry_id) as max_entry_id FROM stedb_form_entries WHERE form_id = %d', $form_id ) );
+			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
 			$api_field_ids    = $get_form_detail[0]->stedb_form_id;
 			$api_field_id     = explode( ',', $api_field_ids );
 			if ( $get_max_entry_id ) {
@@ -660,7 +664,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Admin' ) ) {
 			// $_SESSION['form_data_array'] = $form_data_array;
 			$_SESSION['form_data_array'] = $new_arr;
 			if ( $result > 0 ) {
-				echo json_encode( array( 'success' => true ) );
+				echo wp_json_encode( array( 'success' => true ) );
 				die;
 			}
 		}

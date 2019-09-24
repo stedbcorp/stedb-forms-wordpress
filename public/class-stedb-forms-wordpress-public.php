@@ -21,7 +21,7 @@
  * @author     STEdb <info@stedb.com>
  */
 if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
-	class Stedb_Forms_Wordpress_Public {
+	class Stedb_Forms_WordPress_Public {
 
 		public function __construct() {
 			/************ short code ************/
@@ -53,8 +53,8 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			global $wpdb;
 			$form_id          = $atts['id'];
 			$list_id          = $atts['list-id'];
-			$get_form_detail  = $wpdb->get_results( "SELECT * FROM stedb_form_builder_data WHERE form_id = $form_id" );
-			$get_social_links = $wpdb->get_results( "SELECT `form_social_link` FROM stedb_form_list WHERE form_id = $list_id" );
+			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
+			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
 
 			$api_field_ids                 = $get_form_detail[0]->stedb_form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
@@ -88,15 +88,15 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					$form_data = array(
 						'email'         => $_REQUEST['email'],
 						'list_id'       => $list_id,
-						'custom_fileds' => json_encode( $_SESSION['form_data_array'] ),
+						'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
 					);
 
 					session_destroy();
-					$userId       = get_option( 'stedb_user_id' );
+					$user_id      = get_option( 'stedb_user_id' );
 					$secret       = get_option( 'stedb_secret' );
-					$baseUrl      = get_option( 'stedb_baseUrl' );
+					$base_url     = get_option( 'stedb_base_url' );
 					$stedb_public = new STEDB_Account();
-					$output       = $stedb_public->stedb_save_subscriber( $userId, $secret, $baseUrl, $form_data );
+					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
 					//echo $output. '</br>';
 					//print_r($_REQUEST['email']);
 

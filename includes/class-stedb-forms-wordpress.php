@@ -27,7 +27,7 @@
  * @subpackage Stedb_Forms_Wordpress/includes
  * @author     STEdb <info@stedb.com>
  */
-class Stedb_Forms_Wordpress {
+class Stedb_Forms_WordPress {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -87,8 +87,8 @@ class Stedb_Forms_Wordpress {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Stedb_Forms_Wordpress_Loader. Orchestrates the hooks of the plugin.
-	 * - Stedb_Forms_Wordpress_i18n. Defines internationalization functionality.
-	 * - Stedb_Forms_Wordpress_Admin. Defines all hooks for the admin area.
+	 * - Stedb_Forms_WordPress_I18n. Defines internationalization functionality.
+	 * - STEDB_Forms_WordPress_I18n. Defines all hooks for the admin area.
 	 * - Stedb_Forms_Wordpress_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -144,7 +144,7 @@ class Stedb_Forms_Wordpress {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Stedb_Forms_Wordpress_i18n class in order to set the domain and to register the hook
+	 * Uses the Stedb_Forms_WordPress_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -152,7 +152,7 @@ class Stedb_Forms_Wordpress {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Stedb_Forms_Wordpress_i18n();
+		$plugin_i18n = new Stedb_Forms_WordPress_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -167,7 +167,7 @@ class Stedb_Forms_Wordpress {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Stedb_Forms_Wordpress_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new STEDB_Forms_WordPress_I18n( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

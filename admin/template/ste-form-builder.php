@@ -5,7 +5,7 @@
 		<div class="ste-row ste-flex ste-flex-center-">
 			<div class="ste-col-70">
 				<div class="ste-form-inpt-container">
-					 <div class="ste-form-name-field ste-flex ste-align-center ste-my-0-5">
+				<div class="ste-form-name-field ste-flex ste-align-center ste-my-0-5">
 						<label class="ste-form-label ste-font-2-2 ste-flexb-16"><?php esc_html_e( 'Form Name', 'ste-social-form-builder' ); ?></label>
 						<!--name="ste-form-name" --->
 						<input type="text" name="form_name" id="form_name" class="ste-form-name ste-flexb-70 ste-border-2 ste-height-r-2-3 ste-p-rm-0-5" placeholder=" Enter the name of your form">

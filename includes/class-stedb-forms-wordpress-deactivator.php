@@ -20,7 +20,7 @@
  * @subpackage Stedb_Forms_Wordpress/includes
  * @author     STEdb <info@stedb.com>
  */
-class Stedb_Forms_Wordpress_Deactivator {
+class Stedb_Forms_WordPress_Deactivator {
 
 	/**
 	 * Short Description. (use period)

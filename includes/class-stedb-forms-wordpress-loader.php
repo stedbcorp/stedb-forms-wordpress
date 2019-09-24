@@ -21,7 +21,7 @@
  * @subpackage Stedb_Forms_Wordpress/includes
  * @author     STEdb <info@stedb.com>
  */
-class Stedb_Forms_Wordpress_Loader {
+class Stedb_Forms_WordPress_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -102,7 +102,7 @@ class Stedb_Forms_Wordpress_Loader {
 			'component'     => $component,
 			'callback'      => $callback,
 			'priority'      => $priority,
-			'accepted_args' => $accepted_args
+			'accepted_args' => $accepted_args,
 		);
 
 		return $hooks;

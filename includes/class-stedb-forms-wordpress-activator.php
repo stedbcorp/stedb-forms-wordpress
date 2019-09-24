@@ -20,7 +20,7 @@
  * @subpackage Stedb_Forms_Wordpress/includes
  * @author     STEdb <info@stedb.com>
  */
-class Stedb_Forms_Wordpress_Activator {
+class Stedb_Forms_WordPress_Activator {
 
 	/**
 	 * Short Description. (use period)

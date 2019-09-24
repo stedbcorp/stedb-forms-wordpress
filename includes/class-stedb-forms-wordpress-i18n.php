@@ -24,7 +24,7 @@
  * @subpackage Stedb_Forms_Wordpress/includes
  * @author     STEdb <info@stedb.com>
  */
-class Stedb_Forms_Wordpress_i18n {
+class Stedb_Forms_WordPress_I18n {
 
 
 	/**

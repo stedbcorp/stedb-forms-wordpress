@@ -41,10 +41,10 @@ class STEDB_Account {
 			if ( 'social_gmail' == $sub_array[ $key ] ) {
 				unset( $array[ $sub_key ] );
 			}
-			if ( $sub_array[ $key ] == 'social_yahoo' ) {
+			if ( 'social_yahoo' == $sub_array[ $key ] ) {
 				unset( $array[ $sub_key ] );
 			}
-			if ( $sub_array[ $key ] == 'social_linkedin' ) {
+			if ( 'social_linkedin' == $sub_array[ $key ] ) {
 				unset( $array[ $sub_key ] );
 			}
 		}
@@ -57,8 +57,8 @@ class STEDB_Account {
 		$get_custom      = $this->stedb_remove_element_with_value( $get_custom_data, 'field_type' );
 		$id_arr          = array();
 		foreach ( $get_custom as $key => $value ) {
-			if ( $value['field_type'] == 'radio' || $value['field_type'] == 'checkbox' || $value['field_type'] == 'select' ) {
-				$default_vale = json_encode( $value['default_value'] );
+			if ( 'radio' == $value['field_type'] || 'checkbox' == $value['field_type'] || 'select' == $value['field_type'] ) {
+				$default_vale = wp_json_encode( $value['default_value'] );
 			} else {
 
 				$default_vale = $value['default_value'];
@@ -89,8 +89,8 @@ class STEDB_Account {
 		$get_custom      = $this->stedb_remove_element_with_value( $get_custom_data, 'field_type' );
 		$id_arr          = array();
 		foreach ( $get_custom as $key => $value ) {
-			if ( $value['field_type'] == 'radio' || $value['field_type'] == 'checkbox' || $value['field_type'] == 'select' ) {
-				$default_vale = json_encode( $value['default_value'] );
+			if ( 'radio' == $value['field_type'] || 'checkbox' == $value['field_type'] || 'select' == $value['field_type'] ) {
+				$default_vale = wp_json_encode( $value['default_value'] );
 			} else {
 
 				$default_vale = $value['default_value'];

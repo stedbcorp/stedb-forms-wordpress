@@ -16,11 +16,10 @@
 					</div>
 					<div class="ste-se-body email_list">
 						<?php //for($i=1;$i<=11;$i++){ ?>
-							<?php if($i % 2 == 0){ ?>
-								<?php $tr_class = "ste-se-tr-odd"; ?>
-							<?php }
-							else { ?>
-								<?php $tr_class = "ste-se-tr-even"; ?>
+							<?php if ( 0 == $i % 2 ) { ?>
+								<?php $tr_class = 'ste-se-tr-odd'; ?>
+							<?php } else { ?>
+								<?php $tr_class = 'ste-se-tr-even'; ?>
 							<?php } ?>
 							<!-- <div class="ste-se-tr <?php echo $tr_class; ?>">
 								<div class="ste-se-td ste-se-td-20">Schedul a Call 1</div>
@@ -36,7 +35,7 @@
 		</div>
 
 		<div class="ste-autosponder-creator ste-mt-2 ste-py-2 ste-px-1-5 ste-pos-relative">
-			<img id="loader1" src="<?php echo esc_url(stedb_plugin_url().'admin/images/giphy.gif');?>" />
+			<img id="loader1" src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/giphy.gif' ); ?>" />
 			<span class="ste-form-stiky-tag ste-font-2-2 ste-fontweight-6 ste-pos-absolute"><?php esc_html_e( 'Create your autoresponder', 'ste-social-form-builder' ); ?></span>
 			<div class="ste-row ste-flex">
 				<div class="ste-ac-left ste-flexb-65 ste-flexb-m-100">
@@ -82,16 +81,16 @@
 
 </div>
 <!-- Modal -->
-  <div class="modal fade  ste-modal" id="email_preview" role="dialog">
-    <div class="modal-dialog ste-modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header ste-text-right ste-modal-header">
-          <button type="button" class="close email_preview_close" id="email_preview_close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title ste-text-center"><img src="<?php echo esc_url(stedb_plugin_url().'admin/images/ste_mainlogo.png'); ?>"></h4>
-        </div>
-        <div class="modal-body ste-modal-body">
+	<div class="modal fade  ste-modal" id="email_preview" role="dialog">
+		<div class="modal-dialog ste-modal-dialog">
+
+	<!-- Modal content-->
+		<div class="modal-content">
+		<div class="modal-header ste-text-right ste-modal-header">
+			<button type="button" class="close email_preview_close" id="email_preview_close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title ste-text-center"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/ste_mainlogo.png' ); ?>"></h4>
+		</div>
+			<div class="modal-body ste-modal-body">
 			<html>
 				<head>
 					<style>
@@ -135,23 +134,23 @@
 																	<td valign="middle" class="td1" width="50%" align="right" style="padding:0 0 0 10px"><span class="current_date" style="margin:0;color:#4c4c4c;white-space:normal;display:inline-block;text-decoration:none;font-size:12px;line-height:20px"></span></td>
 																	<td width="1">&nbsp;</td>
 																</tr>
-														    </tbody>
+														</tbody>
 														</table>
 													</td>
 												</tr>
 												<tr>
 													<td align="left">
 														<table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
-														    <tbody>
-														        <tr>
-															        <td width="100%">
+															<tbody>
+																<tr>
+																	<td width="100%">
 																		<table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
-    <tbody>
-	    <tr>
-		    <td align="center" bgcolor="#8BC34A" style="padding:20px 48px;color:#ffffff;background-color: rgb(139, 195, 74);" class="banner-color">
-			    <table class="t3" border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
-			        <tbody class="tb3">
-					    <tr class="tr3" >
+	<tbody>
+		<tr>
+			<td align="center" bgcolor="#8BC34A" style="padding:20px 48px;color:#ffffff;background-color: rgb(139, 195, 74);" class="banner-color">
+				<table class="t3" border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
+					<tbody class="tb3">
+						<tr class="tr3" >
 							<td class="td3" width="100%">
 							<p class="from_name"></p>
 							<p class="subject"></p>
@@ -163,11 +162,11 @@
 			</td>
 		</tr>
 		<tr style="background-color:#f3f3f3;">
-		    <td align="center" style="padding:20px 0 10px 0">
-			    <table class="t2" border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
-			        <tbody class="tb2">
-				        <tr class="tr2">
-					        <td class="td2" align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
+			<td align="center" style="padding:20px 0 10px 0">
+				<table class="t2" border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
+					<tbody class="tb2">
+						<tr class="tr2">
+							<td class="td2" align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
 								<div style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;" id="explanation-preview"></div>
 							</td>
 						</tr>
@@ -175,7 +174,7 @@
 				</table>
 			</td>
 		</tr>
-    </tbody>
+	</tbody>
 </table>
 </td>
 </tr>
@@ -195,8 +194,8 @@
 </html>
 </div>
 	<div class="modal-footer ste-text-right ste-modal-footer">
-	    <button type="button" class="btn btn-default email_preview_close_1" data-dismiss="modal"><?php esc_html_e( 'Close', 'ste-social-form-builder' ); ?></button>
+		<button type="button" class="btn btn-default email_preview_close_1" data-dismiss="modal"><?php esc_html_e( 'Close', 'ste-social-form-builder' ); ?></button>
 	</div>
-  </div>
+	</div>
 </div>
 </div>

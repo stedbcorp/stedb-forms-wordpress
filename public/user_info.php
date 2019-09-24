@@ -1,1 +1,2 @@
-<?php print_r($_REQUEST); die; ?>
+<?php print_r( $_REQUEST );
+ die; ?>

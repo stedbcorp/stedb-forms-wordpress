@@ -5,7 +5,6 @@
 
 ?>
 <div class="ste-container">
-	
 	<div class="ste-header-section">
 
 		<div class="ste-row ste-flex ste-flex-center">
@@ -38,17 +37,17 @@
 				<div class="ste-header-tabs-container ste-flex ste-flex-center ">
 					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1" id="form-page">
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item-title">
-							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( $current_page == 'ste-form-builder' ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Form Builder', 'ste-social-form-builder' ); ?></p>
+							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-form-builder' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Form Builder', 'ste-social-form-builder' ); ?></p>
 						</a>
 					</div>
 					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1">
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-send-email-template' ) ); ?>" class="ste-tab-item-title">
-							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( $current_page == 'ste-send-email-template' ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Send Email', 'ste-social-form-builder' ); ?></p>
+							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-send-email-template' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Send Email', 'ste-social-form-builder' ); ?></p>
 						</a>
 					</div>
 					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1">
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-report-template' ) ); ?>" class="ste-tab-item-title">
-						<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( $current_page == 'ste-report-template' ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?></p>
+						<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-report-template' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?></p>
 						</a>
 					</div>
 				</div>
