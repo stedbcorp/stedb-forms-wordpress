@@ -253,7 +253,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			}
 
 			die( print_r( $_POST, true ) );
-			if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'stedb_form_builder_' . date( 'h' ) ) ) {
+			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
 				die( 'yes' );
 				$data = array(
 					'user_id'        => $user->ID ? $user->ID : '',
