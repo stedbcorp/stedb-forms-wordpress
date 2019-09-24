@@ -244,16 +244,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			global $wpdb;
 			$table = 'stedb_form_builder_data';
 			$user  = wp_get_current_user();
-			
 			// Check for nonce security
-			$nonce = $_POST['nonce'];
 
-			if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				die( 'Busted!' );
-			}
-
-			die( print_r( $_POST, true ) );
-			if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'stedb_form_builder_' . date( 'h' ) ) ) {
+			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
 				die( 'yes' );
 				$data = array(
 					'user_id'        => $user->ID ? $user->ID : '',
@@ -347,65 +340,95 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		/*******************************/
 		public function ste_update_form_builder_data() {
 			global $wpdb;
-			die( print_r( $_POST, true ) );
 			$table  = 'stedb_form_builder_data';
-			$filter = $_POST['filter']; // $_FILTER('INPUT_POST', 'filter');
-			if ( 'move_to_trash' === $filter ) {
+			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+				die( 'yes' );
 				$data = array(
-					'is_deleted' => 1,
-				);
-			} elseif ( 'restore' === $filter ) {
-				$data = array(
-					'is_deleted' => 0,
-				);
-			} else {
-				$data = array(
+					'user_id'        => $user->ID ? $user->ID : '',
 					'form_name'      => sanitize_text_field( $_POST['form_name'] ),
 					'receiver'       => sanitize_email( $_POST['receiver'] ),
 					'html_code'      => $_POST['html_code'],
 					'full_html_code' => $_POST['full_html_code'],
-					'field_detail'   => wp_wp_json_encode( $_POST['field_detail_array'] ),
+					'field_detail'   => json_encode( $_POST['field_detail_array'] ),
+					'creation_date'  => date( 'Y-m-d' ),
 				);
-			}
-			$form_id = $_POST['form_id'];
+				die( print_r( $_POST, true ) )
+				$filter = $_POST['filter']; 
+				if ( 'move_to_trash' === $filter ) {
+					$data = array(
+						'is_deleted' => 1,
+					);
+				} elseif ( 'restore' === $filter ) {
+					$data = array(
+						'is_deleted' => 0,
+					);
+				} else {
+					$data = array(
+						'form_name'      => sanitize_text_field( $_POST['form_name'] ),
+						'receiver'       => sanitize_email( $_POST['receiver'] ),
+						'html_code'      => $_POST['html_code'],
+						'full_html_code' => $_POST['full_html_code'],
+						'field_detail'   => wp_wp_json_encode( $_POST['field_detail_array'] ),
+					);
+				}
+				$form_id = $_POST['form_id'];
 
-			if ( is_array( $form_id ) ) {
-				foreach ( $form_id as $id ) {
+				if ( is_array( $form_id ) ) {
+					foreach ( $form_id as $id ) {
+						$da = $this->ste_update_form_field_api_data( $id, $data );
+						if ( ! empty( $da ) ) {
+							$data['stedb_form_id'] = $da;
+							$wpdb->update( $table, $data, array( 'form_id' => $id ) );
+						}
+					}
+				} else {
 					$da = $this->ste_update_form_field_api_data( $id, $data );
 					if ( ! empty( $da ) ) {
 						$data['stedb_form_id'] = $da;
-						$wpdb->update( $table, $data, array( 'form_id' => $id ) );
+						$wpdb->update( $table, $data, array( 'form_id' => $form_id ) );
 					}
 				}
-			} else {
-				$da = $this->ste_update_form_field_api_data( $id, $data );
-				if ( ! empty( $da ) ) {
-					$data['stedb_form_id'] = $da;
-					$wpdb->update( $table, $data, array( 'form_id' => $form_id ) );
-				}
+				echo wp_json_encode( array( 'success' => true ) );
+				die;
 			}
-			echo wp_json_encode( array( 'success' => true ) );
-			die;
+			else {
+				echo ( 'Sorry error to show data' );
+			}
 		}
 		public function ste_get_edit_form_data() {
 			global $wpdb;
-			$user    = wp_get_current_user();
-			$form_id = $_POST['form_id'];
-			print_r( $_POST );
-			die;
-			$user_id   = get_option( 'stedb_user_id' );
-			$secret    = get_option( 'stedb_secret' );
-			$base_url  = get_option( 'stedb_base_url' );
-			$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
-			$stedb_obj = new STEDB_Account();
-			$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
-			echo wp_json_encode(
-				array(
-					'success' => true,
-					'result'  => $results,
-				)
-			);
-			die;
+			$user = wp_get_current_user();
+			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+				die( 'yes' );
+				$data = array(
+					'user_id'        => $user->ID ? $user->ID : '',
+					'form_name'      => sanitize_text_field( $_POST['form_name'] ),
+					'receiver'       => sanitize_email( $_POST['receiver'] ),
+					'html_code'      => $_POST['html_code'],
+					'full_html_code' => $_POST['full_html_code'],
+					'field_detail'   => json_encode( $_POST['field_detail_array'] ),
+					'creation_date'  => date( 'Y-m-d' ),
+				);
+				$form_id = $_POST['form_id'];
+				print_r( $_POST );
+				die;
+				$user_id   = get_option( 'stedb_user_id' );
+				$secret    = get_option( 'stedb_secret' );
+				$base_url  = get_option( 'stedb_base_url' );
+				$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
+				$stedb_obj = new STEDB_Account();
+				$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
+				echo wp_json_encode(
+					array(
+						'success' => true,
+						'result'  => $results,
+					)
+				);
+					die;
+			}
+			else {
+				echo ( 'Sorry error to show data' );
+			}
 		}
 		public function ste_get_form_data() {
 			global $wpdb;
