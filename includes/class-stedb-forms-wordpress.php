@@ -88,7 +88,7 @@ class Stedb_Forms_WordPress {
 	 *
 	 * - Stedb_Forms_Wordpress_Loader. Orchestrates the hooks of the plugin.
 	 * - Stedb_Forms_WordPress_I18n. Defines internationalization functionality.
-	 * - STEDB_Forms_WordPress_I18n. Defines all hooks for the admin area.
+	 * - STEDB_Forms_WordPress_Admin. Defines all hooks for the admin area.
 	 * - Stedb_Forms_Wordpress_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -167,7 +167,7 @@ class Stedb_Forms_WordPress {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new STEDB_Forms_WordPress_I18n( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new STEDB_Forms_WordPress_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

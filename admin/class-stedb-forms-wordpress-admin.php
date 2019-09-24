@@ -20,9 +20,9 @@
  * @subpackage Stedb_Forms_Wordpress/admin
  * @author     STEdb <info@stedb.com>
  */
-if ( ! class_exists( 'STEDB_Forms_WordPress_I18n' ) ) {
+if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
-	class STEDB_Forms_WordPress_I18n {
+	class STEDB_Forms_WordPress_Admin {
 
 
 		/**
