@@ -615,7 +615,7 @@ function getCheckboxFieldHTML() {
                         // url:site_url+'/wp-admin/admin-ajax.php',
                         url:ajax_url,
                         type:'post',
-                        data:{action: 'ste_update_form_builder_data', form_id : form_id, html_code : html, full_html_code : full_html_code, form_name : form_name, receiver : receiver , field_detail_array : field_detail_array},
+                        data:{action: 'ste_update_form_builder_data', nonce:ste.nonce, form_id : form_id, html_code : html, full_html_code : full_html_code, form_name : form_name, receiver : receiver , field_detail_array : field_detail_array},
                         dataType:'json',
 						beforeSend: function(){
 						$("#loader").show();
@@ -633,7 +633,7 @@ function getCheckboxFieldHTML() {
 						// url:site_url+'/wp-admin/admin-ajax.php',
 						url:ajax_url,
 						type:'post',
-						data:{action: 'ste_create_form_builder_data', html_code : html, full_html_code : full_html_code, form_name : form_name, receiver : receiver, field_detail_array : field_detail_array},
+						data:{action: 'ste_create_form_builder_data', nonce:ste.nonce, html_code : html, full_html_code : full_html_code, form_name : form_name, receiver : receiver, field_detail_array : field_detail_array},
 						dataType:'json',
 						beforeSend: function() {
 						$("#loader").show();
