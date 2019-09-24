@@ -244,15 +244,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			global $wpdb;
 			$table = 'stedb_form_builder_data';
 			$user  = wp_get_current_user();
-			
 			// Check for nonce security
-			$nonce = $_POST['nonce'];
 
-			if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-				die( 'Busted!' );
-			}
-
-			die( print_r( $_POST, true ) );
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
 				die( 'yes' );
 				$data = array(
