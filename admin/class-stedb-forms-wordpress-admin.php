@@ -232,7 +232,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$ste_report = sanitize_file_name( 'ste-report' );
 			require_once 'template/' . $ste_report . '.php';
 		}
-
 		/**
 		 * [ste_footer description]
 		 * HTML template for the footer
