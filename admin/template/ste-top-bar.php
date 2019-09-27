@@ -1,8 +1,17 @@
-<!-- stm-container start -->
 <?php
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    ste-top-bar
+	 * @subpackage ste-top-bar/admin/template
+	 */
 
-	$current_page = $_GET['page'];
-
+	$args = wp_unslash( $_GET );
+	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ) ) ) {
+		$current_page = $args['page'];
 ?>
 <div class="ste-container">
 	<div class="ste-header-section">
@@ -25,7 +34,7 @@
 						<span>Email:</span> <a class="ste_underline_none" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
 					</div>
 					<div class="ste-header-account-id ste-my-p3">
-						<span>Account ID:</span> <a class="ste_underline_none" href="javascript:void(0);"><?php echo get_option( 'stedb_secret' ); ?></a>
+						<span>Account ID:</span> <a class="ste_underline_none" href="javascript:void(0);"><?php get_option( esc_html_e( 'stedb_secret' ) ); ?></a>
 					</div>
 				</div>
 			</div>
@@ -55,3 +64,4 @@
 		</div>
 
 	</div>
+</div>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -21,24 +20,41 @@
  * @author     STEdb <info@stedb.com>
  */
 if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
+	/**
+	 * [STEDB_Forms_WordPress_Public description]
+	 * html template for main class
+	 */
 	class Stedb_Forms_WordPress_Public {
-
+		/**
+		 * Initialize the class and set its properties.
+		 *
+		 * @since    1.0.0
+		 */
 		public function __construct() {
-			/************ short code ************/
+			/************ Short code */
 			add_shortcode( 'STE_db_form', array( $this, 'ste_get_shortcode' ) );
-			/*************** public style & script************/
+			/*************** Public style & script*/
 			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_style' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_script' ) );
 		}
-
+		/**
+		 * Register the JavaScript for the admin area.
+		 *
+		 * @since    1.0.0
+		 */
 		public function ste_enqueue_style() {
 			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
-			// wp_enqueue_style('ste_public_bootstrap_css',plugins_url( '/css/bootstrap.min.css', __FILE__  ) , '', '0.1' );
+			// wp_enqueue_style('ste_public_bootstrap_css',plugins_url( '/css/bootstrap.min.css', __FILE__  ) , '', '0.1' );.
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
+		/**
+		 * Register the JavaScript for the admin area.
+		 *
+		 * @since    1.0.0
+		 */
 		public function ste_enqueue_script() {
 			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', true );
-			// Localize script
+			// Localize script.
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
@@ -47,8 +63,14 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			);
 			wp_localize_script( 'ste-public', 'ste', $stedata );
 		}
+		/**
+		 * [ste_get_shortcode description]
+		 * html template shortcode
+		 *
+		 * @param atts $atts attribute.
+		 */
 		public function ste_get_shortcode( $atts ) {
-			// wp_enqueue_style('ste_public_css');
+			// wp_enqueue_style('ste_public_css');.
 
 			global $wpdb;
 			$form_id          = $atts['id'];
@@ -84,21 +106,22 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			}
 
 			if ( isset( $get_form_detail ) && $get_form_detail ) {
-				if ( isset( $_REQUEST['email'] ) && $_REQUEST['email'] ) {
-					$form_data = array(
-						'email'         => $_REQUEST['email'],
-						'list_id'       => $list_id,
-						'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
-					);
-
+				if ( isset( $_REQUEST['email'] ) ) {
+					if ( null !== ( sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) && sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) {
+						$form_data = array(
+							'email'         => sanitize_email( wp_unslash( $_REQUEST['email'] ) ),
+							'list_id'       => $list_id,
+							'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
+						);
+					}
 					session_destroy();
 					$user_id      = get_option( 'stedb_user_id' );
 					$secret       = get_option( 'stedb_secret' );
 					$base_url     = get_option( 'stedb_base_url' );
 					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
-					//echo $output. '</br>';
-					//print_r($_REQUEST['email']);
+					// echo $output. '</br>';
+					// print_r($_REQUEST['email']);.
 
 					echo '<div class="thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
 					die;
@@ -106,14 +129,20 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			}
 			$html = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
 					'<div class="form-group">' .
-						/* '<h3 class="">'. ucfirst($get_form_detail[0]->form_name)
-						.'</h3>'. */
+
+						/*
+						'<h3 class="">'. ucfirst($get_form_detail[0]->form_name)
+						.'</h3>'.
+						 */
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
 					$html_code .
-					/* '<div class="form-group">'.
+
+					/*
+					'<div class="form-group">'.
 					'<input type="button" name="submit" class="btn btn-primary form_save" data-form_id="<?=$get_form_detail[0]->form_id;?>" value="Submit">'.
-					'</div>'.*/
+					'</div>'.
+					*/
 				'</form>';
 			$html .= '
 				<script type="text/javascript">

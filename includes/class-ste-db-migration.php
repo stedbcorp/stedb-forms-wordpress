@@ -1,6 +1,28 @@
 <?php
-class STE_DB_Migration {
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    class-ste-db-migration.php
+	 * @subpackage class-ste-db-migration/includes
+	 */
 
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    class-ste-db-migration
+	 * @subpackage class-ste-db-migration/includes
+	 */
+class STE_DB_Migration {
+	/**
+	 * [stedb_migrate description]
+	 * HTML template form migrate
+	 */
 	public function stedb_migrate() {
 
 		global $wpdb;

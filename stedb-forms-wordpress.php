@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * STEdb WordPress Forms is free software: you can redistribute it and/or modify
@@ -65,15 +64,20 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-stedb-forms-wordpress.php'
 
 
 /**
-	 * Start Function how to Add plugin urls
-	 */
+ * Start Function how to Add plugin urls
+ */
 function stedb_plugin_url() {
 	return plugin_dir_url( __FILE__ );
 }
 
 
 if ( ! function_exists( 'write_log' ) ) {
-
+	/**
+	 * [write_log description]
+	 * HTML template to write log
+	 *
+	 * @param log $log get log.
+	 */
 	function write_log( $log ) {
 		if ( true === WP_DEBUG ) {
 			if ( is_array( $log ) || is_object( $log ) ) {

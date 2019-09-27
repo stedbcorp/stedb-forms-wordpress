@@ -1,14 +1,13 @@
 <?php
-
-/**
- * The admin-specific functionality of the plugin.
- *
- * @link       https://stedb.com
- * @since      1.0.0
- *
- * @package    Stedb_Forms_Wordpress
- * @subpackage Stedb_Forms_Wordpress/admin
- */
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    Stedb_Forms_Wordpress
+	 * @subpackage Stedb_Forms_Wordpress/admin
+	 */
 
 /**
  * The admin-specific functionality of the plugin.
@@ -354,6 +353,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * HTML template to update form field api
 
 		 * @return $data
+		 * @param form_id $form_id getting form_id.
+		 * @param data    $data getting data.
 		 */
 		public function ste_update_form_field_api_data( $form_id, $data ) {
 			global $wpdb;
@@ -484,8 +485,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'result'  => $results,
 						)
 					);
-						die;
 				}
+
 				else {
 					echo ( 'Sorry error to show data' );
 				}
@@ -950,6 +951,7 @@ function ste_send_regular_email() {
 		 * HTML template to remove element val
 
 		 * @return $array
+		 * @param array $array return array.
 		 */
 		function stedb_remove_element_with_value( $array ) {
 			foreach ( $array as $sub_key => $sub_array ) {

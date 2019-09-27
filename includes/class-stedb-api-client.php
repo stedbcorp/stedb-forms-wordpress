@@ -1,19 +1,47 @@
 <?php
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    class-stedb-api-client.php
+	 * @subpackage class-stedb-api-client/includes
+	 */
+
 if ( ! function_exists( 'wp_get_current_user' ) ) {
 	include ABSPATH . 'wp-includes/pluggable.php';
 }
+	/**
+	 * [class-stedb-api-client description]
+	 * html template for main class
+	 */
 class STEDB_Api_Client {
 
 	private $base_url = '';
 	private $user_id  = '';
 	private $secret   = '';
-
+	/**
+	 * [__construct description]
+	 * HTML template contructor
+	 *
+	 * @param user_id $user_id get user_id.
+	 * @param secret  $secret get secret.
+	 *  @param url     $url get url.
+	 */
 	public function __construct( $user_id, $secret, $url ) {
 		$this->user_id  = $user_id;
 		$this->secret   = $secret;
 		$this->base_url = $url;
 	}
-
+	/**
+	 * [stedb_create_custom_field description]
+	 * HTML template for creating custom field
+	 *
+	 * @param path   $path get user_id.
+	 * @param method $method get secret.
+	 *  @param data   $data get url.
+	 */
 	public function ste_send_request( $path, $method = 'GET', $data = array() ) {
 		$url    = $this->base_url . $path;
 		$method = strtoupper( $method );

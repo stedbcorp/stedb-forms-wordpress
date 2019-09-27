@@ -1,3 +1,15 @@
+<?php
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    ste-form-builder.php
+	 * @subpackage ste-form-builder/admin/template
+	 */
+
+?>
 <div class="ste-form-builder ste-col-100 ste-block ste-m-auto ste-my-1">
 	<div class="updated_base gform_editor_status" id="after_update_dialog" style="display: none;">
 		<strong><?php esc_html_e( 'Form updated successfully.', 'ste-social-form-builder' ); ?></strong>

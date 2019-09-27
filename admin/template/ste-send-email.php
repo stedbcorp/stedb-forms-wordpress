@@ -1,3 +1,15 @@
+<?php
+	/**
+	 * The admin-specific functionality of the plugin.
+	 *
+	 * @link       https://stedb.com
+	 * @since      1.0.0
+	 *
+	 * @package    Ste-send-email.php
+	 * @subpackage Ste-send-email/admin/template
+	 */
+
+?>
 <div class="ste-send-email-container ste-border-2 ste-my-2">
 
 	<div class="ste-send-email-mini-container ste-p-2-5 ste-p-m-1">
@@ -15,7 +27,7 @@
 						</div>
 					</div>
 					<div class="ste-se-body email_list">
-						<?php //for($i=1;$i<=11;$i++){ ?>
+						<?php // for($i=1;$i<=11;$i++ ){. ?>
 							<?php if ( 0 == $i % 2 ) { ?>
 								<?php $tr_class = 'ste-se-tr-odd'; ?>
 							<?php } else { ?>
