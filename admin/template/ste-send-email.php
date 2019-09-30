@@ -11,7 +11,6 @@
 
 ?>
 <div class="ste-send-email-container ste-border-2 ste-my-2">
-
 	<div class="ste-send-email-mini-container ste-p-2-5 ste-p-m-1">
 		<div class="ste-send-email-tbl-container ste-minheight-2">
 			<div class="ste-send-email-tbl-reponsive">
@@ -27,20 +26,7 @@
 						</div>
 					</div>
 					<div class="ste-se-body email_list">
-						<?php // for($i=1;$i<=11;$i++ ){. ?>
-							<?php if ( 0 == $i % 2 ) { ?>
-								<?php $tr_class = 'ste-se-tr-odd'; ?>
-							<?php } else { ?>
-								<?php $tr_class = 'ste-se-tr-even'; ?>
-							<?php } ?>
-							<!-- <div class="ste-se-tr <?php echo $tr_class; ?>">
-								<div class="ste-se-td ste-se-td-20">Schedul a Call 1</div>
-								<div class="ste-se-td ste-se-td-20">Draft</div>
-								<div class="ste-se-td ste-se-td-20">11/01/2019</div>
-								<div class="ste-se-td ste-se-td-20">Autoresponder</div>
-								<div class="ste-se-td ste-se-td-20">11/06/2019</div>
-							</div> -->
-						<?php // } ?>
+						<?php $tr_class = ( 0 == $i % 2 ) ? 'ste-se-tr-odd' : 'ste-se-tr-even'; ?>
 					</div>
 				</div>
 			</div>
@@ -168,7 +154,7 @@
 							<p class="subject"></p>
 							</td>
 						</tr>
-									  
+
 					</tbody>
 				</table>
 			</td>

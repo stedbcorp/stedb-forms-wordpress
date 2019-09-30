@@ -1,26 +1,47 @@
 <?php
-	/**
-	 * The admin-specific functionality of the plugin.
-	 *
-	 * @link       https://stedb.com
-	 * @since      1.0.0
-	 *
-	 * @package    class-stedb-api-client.php
-	 * @subpackage class-stedb-api-client/includes
-	 */
-
+/**
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://stedb.com
+ * @since      1.0.0
+ *
+ * @package    class-stedb-api-client.php
+ * @subpackage class-stedb-api-client/includes
+ */
 if ( ! function_exists( 'wp_get_current_user' ) ) {
 	include ABSPATH . 'wp-includes/pluggable.php';
 }
-	/**
-	 * [class-stedb-api-client description]
-	 * html template for main class
-	 */
+/**
+ * [class-stedb-api-client description]
+ * html template for main class
+ */
 class STEDB_Api_Client {
 
-	private $base_url = '';
-	private $user_id  = '';
-	private $secret   = '';
+	/**
+	 * The ID of WordPress logged in user.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      string    $user_id    The ID of WordPress logged in user.
+	 */
+	public $user_id = '';
+
+	/**
+	 * The Secret Code of STEDB Account.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      string    $secret    The Secret Code of STEDB Account.
+	 */
+	public $secret = '';
+	/**
+	 * The STEDB API url endpoint.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      string    $base_url    The STEDB API url endpoint.
+	 */
+	public $base_url = '';
 	/**
 	 * [__construct description]
 	 * HTML template contructor
@@ -99,8 +120,7 @@ class STEDB_Api_Client {
 			'curl_err' => $error_message,
 		);
 
-			write_log( print_r( $args, true ) );
-			return $retval;
+		write_log( wp_json_encode( $args ) );
+		return $retval;
 	}
 }
-

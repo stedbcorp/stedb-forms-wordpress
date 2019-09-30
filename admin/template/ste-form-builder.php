@@ -21,7 +21,7 @@
 						<label class="ste-form-label ste-font-2-2 ste-flexb-16"><?php esc_html_e( 'Form Name', 'ste-social-form-builder' ); ?></label>
 						<!--name="ste-form-name" --->
 						<input type="text" name="form_name" id="form_name" class="ste-form-name ste-flexb-70 ste-border-2 ste-height-r-2-3 ste-p-rm-0-5" placeholder=" Enter the name of your form">
-					</div> 
+					</div>
 
 					<div class="ste-form-reciver-field ste-flex ste-align-center ste-my-0-5">
 						<label class="ste-form-label ste-font-2-2 ste-flexb-16"><?php esc_html_e( 'Receiver', 'ste-social-form-builder' ); ?></label>
@@ -34,7 +34,7 @@
 					<span class="ste-form-stiky-tag ste-font-2-2 ste-fontweight-6 ste-pos-absolute"><?php esc_html_e( 'Drag & Drop here', 'ste-social-form-builder' ); ?></span>
 						<!-- <div id="ste-sortable" class="box1 sortable"> -->
 							<!-- <ul id="sortable"> -->
-						<div id="sortable" class="box1 sortable"> 
+						<div id="sortable" class="box1 sortable">
 							<ul id="ste-sortable">
 								<li style="visibility: hidden;" class="ui-state-default appendableDiv"></li>
 							</ul>
@@ -50,7 +50,7 @@
 						<button type="button" name="ste-form-btn-show-shortcode" class="ste-form-btn-show-shortcode ste-form-btn-show-shortcode-disable ste-btn-success ste-border-2 ste-font-2-2 ste-py-rm-0-4 ste-px-1 ste-border-dark ste-flexb-60 create_form"><?php esc_html_e( 'Done, show me the shortcode', 'ste-social-form-builder' ); ?></button>
 
 						<button type="button" class="preview_form ste-form-btn-show-shortcode ste-btn-primary ste-border-2 ste-font-2-2 ste-py-rm-0-4 ste-px-1 ste-border-dark ste-flexb-30"><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
-						<img id="loader" src="<?php echo esc_url( plugins_url( 'images/giphy.gif', dirname( __FILE__ ) ) ); ?>" /> 
+						<img id="loader" src="<?php echo esc_url( plugins_url( 'images/giphy.gif', dirname( __FILE__ ) ) ); ?>" />
 					</div>
 					<div class="ste-inpt-box ste-flex ste-justify-space">
 						<input type="text" id="shortcode" name="ste-form-shortcode-display" class="shortcode ste-form-shortcode-display ste-height-r-2 ste-flexb-60 ste-border-2" disabled="disabled">

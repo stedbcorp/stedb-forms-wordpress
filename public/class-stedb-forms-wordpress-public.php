@@ -44,7 +44,6 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 */
 		public function ste_enqueue_style() {
 			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
-			// wp_enqueue_style('ste_public_bootstrap_css',plugins_url( '/css/bootstrap.min.css', __FILE__  ) , '', '0.1' );.
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
 		/**
@@ -70,7 +69,6 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 * @param atts $atts attribute.
 		 */
 		public function ste_get_shortcode( $atts ) {
-			// wp_enqueue_style('ste_public_css');.
 
 			global $wpdb;
 			$form_id          = $atts['id'];
@@ -90,38 +88,43 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			$check_position_social_gmail   = strpos( $html_code, 'social-gmail' );
 			$check_positionsocial_linkedin = strpos( $html_code, 'social-linkedin' );
 			if ( $check_position_social_yahoo ) {
-				// $html_code = str_replace("s_yahoo",get_option('stedb_yahoo'),$html_code);
 				$html_code = str_replace( 's_yahoo', $social_stedb_yahoo, $html_code );
 				$html_code = str_replace( 'social-yahoo', 'href', $html_code );
 			}
 			if ( $check_position_social_gmail ) {
-				// $html_code = str_replace("s_gmail",get_option('stedb_gmail'),$html_code);
 				$html_code = str_replace( 's_gmail', $social_stedb_gmail, $html_code );
 				$html_code = str_replace( 'social-gmail', 'href', $html_code );
 			}
 			if ( $check_positionsocial_linkedin ) {
-				// $html_code = str_replace("s_linkedin",get_option('stedb_linkedin'),$html_code);
 				$html_code = str_replace( 's_linkedin', $social_stedb_linkedin, $html_code );
 				$html_code = str_replace( 'social-linkedin', 'href', $html_code );
 			}
+			$request_args = wp_unslash( $_REQUEST );
+			if ( isset( $request_args['_wpnonce'] ) ) {
+				$nonce = sanitize_text_field( $request_args );
+			}
 
-			if ( isset( $get_form_detail ) && $get_form_detail ) {
-				if ( isset( $_REQUEST['email'] ) ) {
-					if ( null !== ( sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) && sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) {
+			if ( ! wp_verify_nonce( $nonce ) && ! isset( $get_form_detail ) && ! $get_form_detail ) {
+
+				die( 'unable to process your request pleae try again' );
+
+			} else {
+
+				if ( isset( $request_args['email'] ) ) {
+					$email = sanitize_email( $request_args['email'] );
+					if ( null !== ( sanitize_email( $email ) ) && $email ) {
 						$form_data = array(
-							'email'         => sanitize_email( wp_unslash( $_REQUEST['email'] ) ),
+							'email'         => $email,
 							'list_id'       => $list_id,
 							'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
 						);
 					}
 					session_destroy();
-					$user_id      = get_option( 'stedb_user_id' );
-					$secret       = get_option( 'stedb_secret' );
-					$base_url     = get_option( 'stedb_base_url' );
+					$user_id      = sanitize_option( get_option( 'stedb_user_id' ) );
+					$secret       = sanitize_option( get_option( 'stedb_secret' ) );
+					$base_url     = sanitize_option( get_option( 'stedb_base_url' ) );
 					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
-					// echo $output. '</br>';
-					// print_r($_REQUEST['email']);.
 
 					echo '<div class="thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
 					die;
@@ -136,6 +139,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 						 */
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
+					wp_nonce_field() .
 					$html_code .
 
 					/*

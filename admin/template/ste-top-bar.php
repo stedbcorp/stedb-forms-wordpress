@@ -1,17 +1,17 @@
 <?php
-	/**
-	 * The admin-specific functionality of the plugin.
-	 *
-	 * @link       https://stedb.com
-	 * @since      1.0.0
-	 *
-	 * @package    ste-top-bar
-	 * @subpackage ste-top-bar/admin/template
-	 */
+/**
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://stedb.com
+ * @since      1.0.0
+ *
+ * @package    ste-top-bar
+ * @subpackage ste-top-bar/admin/template
+ */
 
-	$args = wp_unslash( $_GET );
-	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ) ) ) {
-		$current_page = $args['page'];
+$args         = wp_unslash( $_GET );
+$current_page = $args['page'];
+
 ?>
 <div class="ste-container">
 	<div class="ste-header-section">
@@ -28,17 +28,16 @@
 						<img src="<?php echo esc_url( plugins_url( 'images/ste_mainlogo.png', dirname( __FILE__ ) ) ); ?>" class="ste-help-img"><span class="ste-help-title ste-ml-1"><?php esc_html_e( 'Need help?', 'ste-social-form-builder' ); ?></span>
 					</div>
 					<div class="ste-header-tel ste-my-p3">
-						<span>Tel:</span> <a class="ste_underline_none" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
+						<span><?php esc_html_e( 'Tel:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
 					</div>
 					<div class="ste-header-email ste-my-p3">
-						<span>Email:</span> <a class="ste_underline_none" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
+						<span><?php esc_html_e( 'Email:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
 					</div>
 					<div class="ste-header-account-id ste-my-p3">
-						<span>Account ID:</span> <a class="ste_underline_none" href="javascript:void(0);"><?php get_option( esc_html_e( 'stedb_secret' ) ); ?></a>
+						<span><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="javascript:void(0);"><?php get_option( esc_html_e( 'stedb_secret' ) ); ?></a>
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 		<div class="ste-row">
@@ -62,6 +61,4 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
-</div>

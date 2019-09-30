@@ -1,36 +1,33 @@
 <?php
-	/**
-	 * The admin-specific functionality of the plugin.
-	 *
-	 * @link       https://stedb.com
-	 * @since      1.0.0
-	 *
-	 * @package    class-stedb-account.php
-	 * @subpackage class-stedb-account/includes
-	 */
+/**
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://stedb.com
+ * @since      1.0.0
+ *
+ * @package    class-stedb-account.php
+ * @subpackage class-stedb-account/includes
+ */
 
-	/**
-	 * [STEDB_STEDB_Account description]
-	 * html template for main class
-	 */
+/**
+ * [STEDB_STEDB_Account description]
+ * html template for main class
+ */
 class STEDB_Account {
 
-	public $user_id;
-	public $secret;
-	public $base_url;
-		/**
-		 * [stedb_registration description]
-		 * HTML template for registration
-		 */
+	/**
+	 * [stedb_registration description]
+	 * HTML template for registration
+	 */
 	public function stedb_registration() {
 		if ( empty( get_option( 'stedb_user_id' ) ) && empty( get_option( 'stedb_secret' ) ) && empty( get_option( 'stedb_base_url' ) ) ) {
 			$this->stedb_create_registration();
 		}
 	}
-		/**
-		 * [stedb_create_registration description]
-		 * HTML template to create registration
-		 */
+	/**
+	 * [stedb_create_registration description]
+	 * Reponsible for sending registration request to STEDB API.
+	 */
 	public function stedb_create_registration() {
 		global $wpdb;
 		$user     = wp_get_current_user();
@@ -40,8 +37,7 @@ class STEDB_Account {
 			'domain' => get_option( 'siteurl' ),
 		);
 		$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output   = $client->ste_sendRequest( '/account/create', 'POST', $data );
-		// if($output->http_code == 200  && !isset( $output->data->error ) ){.
+		$output   = $client->ste_send_request( '/account/create', 'POST', $data );
 		if ( ! isset( $output->data->error ) ) {
 			$user_id  = $output->data->user_id;
 			$secret   = $output->data->secret;
@@ -55,9 +51,10 @@ class STEDB_Account {
 		}
 
 	}
+
 	/**
 	 * [stedb_remove_element_with_value description]
-	 * HTML template to remove element with value
+	 * Responsible to remove element with value
 	 *
 	 * @param array $array get array value.
 	 * @param key   $key get key value.
@@ -82,7 +79,7 @@ class STEDB_Account {
 	 *
 	 * @param user_id   $user_id get user_id.
 	 * @param secret    $secret get secret.
-	 *  @param base_url  $base_url get base_url.
+	 * @param base_url  $base_url get base_url.
 	 * @param list_data $list_data get list_data.
 	 */
 	public function stedb_create_custom_field( $user_id, $secret, $base_url, $list_data ) {
@@ -103,15 +100,16 @@ class STEDB_Account {
 				'default_value' => $default_vale,
 			);
 			$custom_field = new STEDB_Api_Client( $user_id, $secret, $base_url );
-			$output       = $custom_field->ste_sendRequest( 'fields/', 'POST', $data );
+			$output       = $custom_field->ste_send_request( 'fields/', 'POST', $data );
 			$id           = $output->data->id;
 			$this->stedb_get_custom_field_information( $user_id, $secret, $base_url, $id );
-			// $this->stedb_delete_custom_field($user_id, $secret, $base_url, $id);.
+			// $this->stedb_delete_custom_field( $user_id, $secret, $base_url, $id );.
 			$id_arr[] = $id;
 		}
 		$output_id = implode( ',', $id_arr );
 		return $output_id;
 	}
+
 	/**
 	 * [stedb_update_custom_field description]
 	 * HTML template for update custom field
@@ -145,7 +143,7 @@ class STEDB_Account {
 				'default_value' => $default_vale,
 			);
 			$custom_field = new STEDB_Api_Client( $user_id, $secret, $base_url );
-			$output       = $custom_field->ste_sendRequest( 'fields/', 'POST', $data );
+			$output       = $custom_field->ste_send_request( 'fields/', 'POST', $data );
 			$id           = $output->data->id;
 
 			$this->stedb_get_custom_field_information( $user_id, $secret, $base_url, $id );
@@ -154,6 +152,7 @@ class STEDB_Account {
 		$output_id = implode( ',', $id_arr );
 		return $output_id;
 	}
+
 	/**
 	 * [stedb_get_custom_field_information description]
 	 * HTML template for custom field info
@@ -167,8 +166,9 @@ class STEDB_Account {
 		global $wpdb;
 		$data             = array();
 		$get_custom_field = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output           = $get_custom_field->ste_sendRequest( 'fields/"' . $id . '"', 'GET', $data );
+		$output           = $get_custom_field->ste_send_request( 'fields/"' . $id . '"', 'GET', $data );
 	}
+
 	/**
 	 * [stedb_delete_custom_field description]
 	 * HTML template for delete custom field
@@ -182,8 +182,9 @@ class STEDB_Account {
 		global $wpdb;
 		$data             = array();
 		$delete_form_list = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output           = $delete_form_list->ste_sendRequest( 'fields/"' . $id . '"', 'DELETE', $data );
+		$output           = $delete_form_list->ste_send_request( 'fields/"' . $id . '"', 'DELETE', $data );
 	}
+
 	/**
 	 * [stedb_create_form_list description]
 	 * HTML template for create form list
@@ -194,6 +195,7 @@ class STEDB_Account {
 	 * @param list_data $list_data get list_data.
 	 */
 	public function stedb_create_form_list( $user_id, $secret, $base_url, $list_data ) {
+
 		global $wpdb;
 		// $data = array('list_name' => (string)$list_data['form_name']);
 		$data             = array(
@@ -201,7 +203,7 @@ class STEDB_Account {
 			'receiver'  => $list_data['receiver'],
 		);
 		$create_form_list = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output           = $create_form_list->ste_sendRequest( 'lists/', 'POST', $data );
+		$output           = $create_form_list->ste_send_request( 'lists/', 'POST', $data );
 		$id               = $output->data->id;
 		return $id;
 	}
@@ -217,9 +219,10 @@ class STEDB_Account {
 	public function stedb_get_social_providers_urls( $user_id, $secret, $base_url, $listid ) {
 		global $wpdb;
 		$get_social_providers_urls = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output                    = $get_social_providers_urls->ste_sendRequest( 'accnt/sm_providers/"' . $listid . '"', 'GET' );
+		$output                    = $get_social_providers_urls->ste_send_request( 'accnt/sm_providers/"' . $listid . '"', 'GET' );
 		return $output;
 	}
+
 	/**
 	 * [stedb_create_campaign description]
 	 * HTML template for campaign description
@@ -231,12 +234,14 @@ class STEDB_Account {
 	 */
 	public function stedb_create_campaign( $user_id, $secret, $base_url, $data ) {
 		global $wpdb;
-		$create_campaign = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output          = $create_campaign->ste_sendRequest( 'campaign/', 'POST', $data );
-		$id              = $output->data->id;
-		return $id;
 
+		$create_campaign = new STEDB_Api_Client( $user_id, $secret, $base_url );
+		$output          = $create_campaign->ste_send_request( 'campaign/', 'POST', $data );
+		$id              = $output->data->id;
+
+		return $id;
 	}
+
 	/**
 	 * [stedb_update_campaign description]
 	 * HTML template for update campaign description
@@ -250,10 +255,11 @@ class STEDB_Account {
 	public function stedb_update_campaign( $user_id, $secret, $base_url, $data, $id ) {
 		global $wpdb;
 		$update_campaign = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output          = $update_campaign->ste_sendRequest( 'campaigns/"' . $id . '"', 'PUT' );
+		$output          = $update_campaign->ste_send_request( 'campaigns/"' . $id . '"', 'PUT' );
 		$id              = $output->data->id;
 		return $id;
 	}
+
 	/**
 	 * [stedb_save_subscriber description]
 	 * HTML template for save subscriber
@@ -266,11 +272,12 @@ class STEDB_Account {
 	public function stedb_save_subscriber( $user_id, $secret, $base_url, $data ) {
 		global $wpdb;
 		$save_subscriber = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output          = $save_subscriber->ste_sendRequest( 'emails/', 'POST', $data );
+		$output          = $save_subscriber->ste_send_request( 'emails/', 'POST', $data );
 		$id              = $output->data->id;
 		return $id;
 
 	}
+
 	/**
 	 * [stedb_get_list_information description]
 	 * HTML template to get list info
@@ -284,7 +291,6 @@ class STEDB_Account {
 		global $wpdb;
 		$data                 = array();
 		$get_list_information = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output               = $get_list_information->ste_sendRequest( 'lists/"' . $id . '"', 'GET', $data );
+		$output               = $get_list_information->ste_send_request( 'lists/"' . $id . '"', 'GET', $data );
 	}
 }
-

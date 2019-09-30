@@ -1,13 +1,13 @@
 <?php
-	/**
-	 * The admin-specific functionality of the plugin.
-	 *
-	 * @link       https://stedb.com
-	 * @since      1.0.0
-	 *
-	 * @package    Stedb_Forms_Wordpress
-	 * @subpackage Stedb_Forms_Wordpress/admin
-	 */
+/**
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://stedb.com
+ * @since      1.0.0
+ *
+ * @package    Stedb_Forms_Wordpress
+ * @subpackage Stedb_Forms_Wordpress/admin
+ */
 
 /**
  * The admin-specific functionality of the plugin.
@@ -25,7 +25,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 	 * html template for main class
 	 */
 	class STEDB_Forms_WordPress_Admin {
-
 
 		/**
 		 * The ID of this plugin.
@@ -76,7 +75,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			/* Public Ajax*/
 			add_action( 'wp_ajax_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
 			add_action( 'wp_ajax_nopriv_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
-
 		}
 
 		/**
@@ -85,22 +83,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_styles() {
-
-			/**
-			 * This function is provided for demonstration purposes only.
-			 *
-			 * An instance of this class should be passed to the run() function
-			 * defined in Stedb_Forms_Wordpress_Loader as all of the hooks are defined
-			 * in that particular class.
-			 *
-			 * The Stedb_Forms_Wordpress_Loader will then create the relationship
-			 * between the defined hooks and the functions defined in this
-			 * class.
-			 */
-
-			// wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/stedb-forms-wordpress-admin.css', array(), $this->version, 'all' ).
-			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
-
+			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );\
 			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
 		}
 
@@ -111,31 +94,19 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 */
 		public function enqueue_scripts() {
 
-			/**
-			 * This function is provided for demonstration purposes only.
-			 *
-			 * An instance of this class should be passed to the run() function
-			 * defined in Stedb_Forms_Wordpress_Loader as all of the hooks are defined
-			 * in that particular class.
-			 *
-			 * The Stedb_Forms_Wordpress_Loader will then create the relationship
-			 * between the defined hooks and the functions defined in this
-			 * class.
-			 */
 			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), '', '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
-				'plugin_url' => plugins_url(),
+				'plugin_url' => stedb_plugin_url(),
 				'nonce'      => wp_create_nonce( 'ajax-nonce' ),
-
 			);
 			wp_localize_script( 'ste-backend', 'ste', $stedata );
 			wp_localize_script( 'ste-email-backend', 'ste_email', $stedata );
-			// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/stedb-forms-wordpress-admin.js', array( 'jquery' ), $this->version, false ).
 		}
+
 		/**
 		 * [ste_admin_menu description]
 		 * html template menu bar
@@ -143,7 +114,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function ste_admin_menu() {
 
 			/*adding main admin menu*/
-			add_menu_page( 'STE Form', 'STEdb Forms', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
+			add_menu_page( 'STEDB Form', 'STEdb Forms', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
 
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
@@ -161,25 +132,21 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 			wp_enqueue_script( 'jquery-ui-draggable' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
-
 			wp_enqueue_style( 'ste_css' );
 			wp_enqueue_script( 'ste-backend' );
-			// wp_enqueue_script('jquery-ui-core').
-
-			// wp_enqueue_script('jquery-ui-core').
 
 			/*adding top bar*/
 			$this->ste_top_bar();
 			$this->ste_form_builder();
 			$this->ste_footer();
 		}
+
 		/**
 		 * [ste_send_email_page description]
 		 * html template for send email
 		 */
 		public function ste_send_email_page() {
 			wp_enqueue_style( 'ste_css' );
-			// wp_enqueue_script('ste-backend').
 			wp_enqueue_script( 'ste-email-backend' );
 			wp_enqueue_script( 'ste-ckeditor' );
 
@@ -187,6 +154,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$this->ste_send_email();
 			$this->ste_footer();
 		}
+
 		/**
 		 * [ste_report_page description]
 		 * html template for report
@@ -198,15 +166,16 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$this->ste_report();
 			$this->ste_footer();
 		}
+
 		/**
 		 * [ste_top_bar description]
 		 * html template for top header
 		 */
 		public function ste_top_bar() {
-
 			$ste_top_bar = sanitize_file_name( 'ste-top-bar' );
 			require_once 'template/' . $ste_top_bar . '.php';
 		}
+
 		/**
 		 * [ste_form_builder description]
 		 * Html template sanitize for the form builder page.
@@ -215,6 +184,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$ste_form_builder = sanitize_file_name( 'ste-form-builder' );
 			require_once 'template/' . $ste_form_builder . '.php';
 		}
+
 		/**
 		 * [ste_send_email description]
 		 * Html template sanitize for send email.
@@ -223,6 +193,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$ste_send_email = sanitize_file_name( 'ste-send-email' );
 			require_once 'template/' . $ste_send_email . '.php';
 		}
+
 		/**
 		 * [ste_report description]
 		 * Html template for sanitize send email.
@@ -231,6 +202,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$ste_report = sanitize_file_name( 'ste-report' );
 			require_once 'template/' . $ste_report . '.php';
 		}
+
 		/**
 		 * [ste_footer description]
 		 * HTML template for the footer
@@ -239,17 +211,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$ste_footer = sanitize_file_name( 'ste-footer' );
 			require_once 'template/' . $ste_footer . '.php';
 		}
+
 		/**
 		 * [ste_plugin_notification description]
 		 * HTML template for the plugin notification
 		 */
 		public function ste_plugin_notification() {
-			/*
-			Print_r($_GET);
-			if ( isset( $_GET['setdb_error'] ) ) {
-				echo '<div class="error"><p>'.$_GET['error_message'].'</div>';
-			}
-			*/
+			// push notifications code...
 		}
 
 		/**********************************************************
@@ -270,55 +238,49 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$args = wp_unslash( $_POST );
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'], 'ajax-nonce' ) ) ) {
 				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) ) {
-					// if ( isset( $_POST[$default] ) ) {.
 
 					$data = array(
 						'user_id'        => $user->ID ? $user->ID : '',
 						'form_name'      => sanitize_text_field( $args['form_name'] ),
 						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
+						'html_code'      => wp_kses_post( $args['html_code'] ),
+						'full_html_code' => wp_kses_post( $args['full_html_code'] ),
 						'field_detail'   => wp_json_encode( sanitize_text_area( $args['field_detail_array'] ) ),
 						'creation_date'  => date( 'Y-m-d' ),
 					);
 				}
 			}
-			$to                      = sanitize_text_field( $args['receiver'] );
-			$user_id                 = get_option( 'stedb_user_id' );
-			$secret                  = get_option( 'stedb_secret' );
-			$base_url                = get_option( 'stedb_base_url' );
-			$stedb_obj               = new STEDB_Account();
-			$create_form_list_output = $stedb_obj->stedb_create_form_list( $user_id, $secret, $base_url, $data );
-			// if(!get_option('stedb_gmail') && !get_option('stedb_yahoo') && !get_option('stedb_linkedin')) {.
+			$to                           = sanitize_text_field( $args['receiver'] );
+			$user_id                      = get_option( 'stedb_user_id' );
+			$secret                       = get_option( 'stedb_secret' );
+			$base_url                     = get_option( 'stedb_base_url' );
+			$stedb_obj                    = new STEDB_Account();
+			$create_form_list_output      = $stedb_obj->stedb_create_form_list( $user_id, $secret, $base_url, $data );
 			$social_links                 = [];
 			$get_sm_providers_urls_output = $stedb_obj->stedb_get_social_providers_urls( $user_id, $secret, $base_url, $create_form_list_output );
 			if ( ! empty( $get_sm_providers_urls_output ) ) {
 				foreach ( $get_sm_providers_urls_output->data as $get_sm_providers_urls ) {
 					if ( 'Google' === $get_sm_providers_urls->sm_name ) {
 						$social_links['stedb_gmail'] = $get_sm_providers_urls->sm_url;
-						// add_option( 'stedb_gmail', $get_sm_providers_urls->sm_url);.
 					}
 					if ( 'Yahoo' === $get_sm_providers_urls->sm_name ) {
 						$social_links['stedb_yahoo'] = $get_sm_providers_urls->sm_url;
-						// add_option( 'stedb_yahoo', $get_sm_providers_urls->sm_url);.
 					}
 					if ( 'LinkedIn' === $get_sm_providers_urls->sm_name ) {
 						$social_links['stedb_linkedin'] = $get_sm_providers_urls->sm_url;
-						// add_option( 'stedb_linkedin', $get_sm_providers_urls->sm_url);.
 					}
 				}
 			}
-			$social_link = wp_wp_json_encode( $social_links );
-			// }
+
+			$social_link = wp_json_encode( $social_links );
 			if ( ! empty( $create_form_list_output ) && ! empty( $social_link ) ) {
 				$create_list_data = array(
 					'form_name'        => sanitize_text_field( $args['form_name'] ),
 					'form_id'          => $create_form_list_output,
 					'form_social_link' => $social_link,
 				);
-				// print_r($create_form_list_output);
-				// die();.
-				$output = $stedb_obj->stedb_create_custom_field( $user_id, $secret, $base_url, $data );
+				$output           = $stedb_obj->stedb_create_custom_field( $user_id, $secret, $base_url, $data );
+				print_r($output);
 				if ( ! empty( $output ) ) {
 					$data['stedb_form_id'] = $output;
 				}
@@ -329,10 +291,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				$wpdb->insert( $table, $data );
 				$lastid = $wpdb->insert_id;
 			}
-			$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM $table WHERE user_id = $user->ID ORDER BY form_id DESC' ) );
+			$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %s WHERE user_id = %d ORDER BY form_id DESC', $table, $user->ID ) );
 			$shortcode_main_id = $create_list_detail[0]->form_id;
 			$shortcode         = "[STE_db_form id='" . $lastid . "' list-id='" . $create_form_list_output . "']";
-			// $shortcode = "[STE_db_form id='".$lastid."']";
 			$wpdb->update( $table, array( 'shortcode' => $shortcode ), array( 'form_id' => $lastid ) );
 			$message  = 'You have created a form.</br>';
 			$message .= stripslashes( $get_user_detail[0]->html_code );
@@ -369,26 +330,28 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$output                = $stedb_obj->stedb_update_custom_field( $user_id, $secret, $base_url, $data, $get_form_list_id, $get_form_field_id );
 			return $output;
 		}
+
 		/**
 		 * [ste_update_form_builder_data description]
 		 * HTML template for update
 		 */
 		public function ste_update_form_builder_data() {
 			global $wpdb;
-			$args = wp_unslash( $_POST );
+
+			$args  = wp_unslash( $_POST );
 			$table = 'stedb_form_builder_data';
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['filter'] ) && isset( $_POST['form_id'] ) ) {
 					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
+						'user_id'        => $user->ID ? intval( $user->ID ) : '',
 						'form_name'      => sanitize_text_field( $args['form_name'] ),
 						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
+						'html_code'      => wp_kses_post( $args['html_code'] ),
+						'full_html_code' => wp_kses_post( $args['full_html_code'] ),
 						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
 						'creation_date'  => date( 'Y-m-d' ),
 					);
-					// die( print_r( $_POST, true ) );.
+
 					$filter = sanitize_text_field( $args['filter'] );
 					if ( 'move_to_trash' === $filter ) {
 						$data = array(
@@ -402,8 +365,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$data = array(
 							'form_name'      => sanitize_text_field( $args['form_name'] ),
 							'receiver'       => sanitize_email( $args['receiver'] ),
-							'html_code'      => wp_kse( $args['html_code'] ),
-							'full_html_code' => wp_kse( $args['full_html_code'] ),
+							'html_code'      => wp_kses_post( $args['html_code'] ),
+							'full_html_code' => wp_kses_post( $args['full_html_code'] ),
 							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
 						);
 					}
@@ -426,8 +389,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					}
 					echo wp_json_encode( array( 'success' => true ) );
 					die;
-				}
-				else {
+				} else {
 					echo ( 'Sorry error to show data' );
 				}
 			}
@@ -441,9 +403,10 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			global $wpdb;
 			$user = wp_get_current_user();
 			$args = wp_unslash( $_POST );
+
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['filter'] ) && isset( $_POST['form_id'] ) ) {
-					$data = array(
+					$data   = array(
 						'user_id'        => $user->ID ? $user->ID : '',
 						'form_name'      => sanitize_text_field( $args['form_name'] ),
 						'receiver'       => sanitize_email( $args['receiver'] ),
@@ -454,25 +417,23 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					);
 					$filter = sanitize_text_field( $args['filter'] );
 					if ( 'move_to_trash' === $filter ) {
-								$data = array(
-									'is_deleted' => 1,
-								);
+							$data = array(
+								'is_deleted' => 1,
+							);
 					} elseif ( 'restore' === $filter ) {
-								$data = array(
-									'is_deleted' => 0,
-								);
+							$data = array(
+								'is_deleted' => 0,
+							);
 					} else {
-								$data = array(
-									'form_name'      => sanitize_text_field( $args['form_name'] ),
-									'receiver'       => sanitize_email( $args['receiver'] ),
-									'html_code'      => wp_kse( $args['html_code'] ),
-									'full_html_code' => wp_kse( $args['full_html_code'] ),
-									'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-								);
+						$data = array(
+							'form_name'      => sanitize_text_field( $args['form_name'] ),
+							'receiver'       => sanitize_email( $args['receiver'] ),
+							'html_code'      => wp_kse( $args['html_code'] ),
+							'full_html_code' => wp_kse( $args['full_html_code'] ),
+							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+						);
 					}
-					$form_id = sanitize_text_field( $args['form_id'] );
-					$form_id = sanitize_text_field( $args['form_id'] );
-					print_r( $_POST );
+					$form_id   = sanitize_text_field( $args['form_id'] );
 					$user_id   = get_option( 'stedb_user_id' );
 					$secret    = get_option( 'stedb_secret' );
 					$base_url  = get_option( 'stedb_base_url' );
@@ -485,179 +446,267 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'result'  => $results,
 						)
 					);
-				}
-
-				else {
+				} else {
 					echo ( 'Sorry error to show data' );
 				}
 			}
 		}
 	}
 }
-		/**
-		 * [ste_get_form_data description]
-		 * HTML template for getting form data
-		 */
+
+/**
+ * [ste_get_form_data description]
+ * HTML template for getting form data
+ */
 function ste_get_form_data() {
-			global $wpdb;
-			$user    = wp_get_current_user();
-			$args = wp_unslash( $_POST );
+	global $wpdb;
+	$user = wp_get_current_user();
+	$args = wp_unslash( $_POST );
 	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['filter'] ) ) {
-					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
-						'form_name'      => sanitize_text_field( $args['form_name'] ),
-						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
-						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						'creation_date'  => date( 'Y-m-d' ),
-					);
-					$filter = sanitize_text_field( $args['filter'] );
-					if ( 'move_to_trash' === $filter ) {
-						$data = array(
-							'is_deleted' => 1,
-						);
-					} elseif ( 'restore' === $filter ) {
-						$data = array(
-							'is_deleted' => 0,
-						);
-					} else {
-						$data = array(
-							'form_name'      => sanitize_text_field( $args['form_name'] ),
-							'receiver'       => sanitize_email( $args['receiver'] ),
-							'html_code'      => wp_kse( $args['html_code'] ),
-							'full_html_code' => wp_kse( $args['full_html_code'] ),
-							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						);
-					}
+			$data   = array(
+				'user_id'        => $user->ID ? $user->ID : '',
+				'form_name'      => sanitize_text_field( $args['form_name'] ),
+				'receiver'       => sanitize_email( $args['receiver'] ),
+				'html_code'      => wp_kse( $args['html_code'] ),
+				'full_html_code' => wp_kse( $args['full_html_code'] ),
+				'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				'creation_date'  => date( 'Y-m-d' ),
+			);
+			$filter = sanitize_text_field( $args['filter'] );
+			if ( 'move_to_trash' === $filter ) {
+				$data = [ 'is_deleted' => 1 ];
+			} elseif ( 'restore' === $filter ) {
+				$data = array(
+					'is_deleted' => 0,
+				);
+			} else {
+				$data = array(
+					'form_name'      => sanitize_text_field( $args['form_name'] ),
+					'receiver'       => sanitize_email( $args['receiver'] ),
+					'html_code'      => wp_kse( $args['html_code'] ),
+					'full_html_code' => wp_kse( $args['full_html_code'] ),
+					'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				);
+			}
 					$results = $wpdb->get_results(
 						$wpdb->prepare(
-							'SELECT stedb_form_builder_data.*,stedb_form_list.id,stedb_form_list.form_id,stedb_send_email_entries.* FROM stedb_form_builder_data 
-					LEFT JOIN stedb_send_email_entries ON stedb_form_builder_data.form_id = stedb_send_email_entries.main_form_id 
-					LEFT JOIN stedb_form_list ON stedb_form_builder_data.form_id = stedb_form_list.id 
+							'SELECT stedb_form_builder_data.*,stedb_form_list.id,stedb_form_list.form_id,stedb_send_email_entries.* FROM stedb_form_builder_data
+					LEFT JOIN stedb_send_email_entries ON stedb_form_builder_data.form_id = stedb_send_email_entries.main_form_id
+					LEFT JOIN stedb_form_list ON stedb_form_builder_data.form_id = stedb_form_list.id
 					WHERE stedb_form_builder_data.user_id = %d',
 							$user->ID
 						)
 					);
+			echo wp_json_encode(
+				array(
+					'success' => true,
+					'result'  => $results,
+				)
+			);
+			die;
+		}
+	}
+}
+
+/**
+ * [ste_delete_form_builder_data description]
+ * HTML template for delete form data
+ */
+function ste_delete_form_builder_data() {
+	global $wpdb;
+	$user  = wp_get_current_user();
+	$args  = wp_unslash( $_POST );
+	$table = 'stedb_form_builder_data';
+	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) ) {
+			$data   = array(
+				'user_id'        => $user->ID ? $user->ID : '',
+				'form_name'      => sanitize_text_field( $args['form_name'] ),
+				'receiver'       => sanitize_email( $args['receiver'] ),
+				'html_code'      => wp_kse( $args['html_code'] ),
+				'full_html_code' => wp_kse( $args['full_html_code'] ),
+				'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				'creation_date'  => date( 'Y-m-d' ),
+			);
+			$filter = sanitize_text_field( $args['filter'] );
+
+			if ( 'move_to_trash' === $filter ) {
+				$data = array(
+					'is_deleted' => 1,
+				);
+			} elseif ( 'restore' === $filter ) {
+				$data = array(
+					'is_deleted' => 0,
+				);
+			} else {
+				$data = array(
+					'form_name'      => sanitize_text_field( $args['form_name'] ),
+					'receiver'       => sanitize_email( $args['receiver'] ),
+					'html_code'      => wp_kse( $args['html_code'] ),
+					'full_html_code' => wp_kse( $args['full_html_code'] ),
+					'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				);
+			}
+					$form_id = sanitize_text_field( $args['form_id'] );
+			if ( is_array( $form_id ) ) {
+				foreach ( $form_id as $id ) {
+					$wpdb->delete( $table, array( 'form_id' => $id ) );
+				}
+			} else {
+				$wpdb->delete( $table, array( 'form_id' => $form_id ) );
+			}
+
+			echo wp_json_encode( array( 'success' => true ) );
+			die;
+		}
+	}
+}
+
+/**
+ * [ste_set_email_draft description]
+ * HTML template for email draft
+ */
+function ste_set_email_draft() {
+	global $wpdb;
+	$table = 'stedb_send_email_entries';
+	$user  = wp_get_current_user();
+	$args  = wp_unslash( $_POST );
+	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['email_message'] ) && isset( $_POST['from_name'] ) && isset( $_POST['email_subject'] ) && isset( $_POST['email_status'] ) && isset( $_POST['email_type'] ) && isset( $_POST['list_id'] ) ) {
+			$data   = array(
+				'user_id'        => $user->ID ? $user->ID : '',
+				'form_name'      => sanitize_text_field( $args['form_name'] ),
+				'receiver'       => sanitize_email( $args['receiver'] ),
+				'html_code'      => wp_kse( $args['html_code'] ),
+				'full_html_code' => wp_kse( $args['full_html_code'] ),
+				'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				'creation_date'  => date( 'Y-m-d' ),
+			);
+			$filter = sanitize_text_field( $args['filter'] );
+			if ( 'move_to_trash' === $filter ) {
+				$data = array(
+					'is_deleted' => 1,
+				);
+			} elseif ( 'restore' === $filter ) {
+				$data = array(
+					'is_deleted' => 0,
+				);
+			} else {
+				$data = array(
+					'form_name'      => sanitize_text_field( $args['form_name'] ),
+					'receiver'       => sanitize_email( $args['receiver'] ),
+					'html_code'      => wp_kse( $args['html_code'] ),
+					'full_html_code' => wp_kse( $args['full_html_code'] ),
+					'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+				);
+			}
+			$email_message = str_replace( '\\', '', sanitize_text_field( $args['email_message'] ) );
+			$data          = array(
+				'from_name'    => sanitize_text_field( $args['from_name'] ),
+				'main_form_id' => sanitize_text_field( $args['form_id'] ),
+				'subject'      => sanitize_text_field( $args['email_subject'] ),
+				'content'      => $email_message,
+				// 'content' => $_POST['email_message'],
+				'status'       => sanitize_text_field( $args['email_status'] ),
+				'type'         => sanitize_text_field( $args['email_type'] ),
+			);
+
+			$user_id     = get_option( 'stedb_user_id' );
+			$secret      = get_option( 'stedb_secret' );
+			$base_url    = get_option( 'stedb_base_url' );
+			$stedb_obj   = new STEDB_Account();
+			$list_id     = sanitize_text_field( $args['list_id'] );
+			$get_list_id = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
+			if ( 1 == $get_list_id[0]->list_id && $get_list_id[0]->status ) {
+				$id                = $get_list_id[0]->stedb_campaign_id;
+				$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
+				$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
+				echo wp_json_encode(
+					array(
+						'success' => true,
+						'status'  => 'updated',
+					)
+				);
+				die;
+			} else {
+				$data['list_id']           = sanitize_text_field( $args['list_id'] );
+				$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
+				$data['run_date']          = date( 'Y-m-d' );
+				$data['stedb_campaign_id'] = $stedb_campaign_id;
+				$wpdb->insert( $table, $data );
+				$lastid = $wpdb->insert_id;
+				if ( $lastid > 0 ) {
 					echo wp_json_encode(
 						array(
 							'success' => true,
-							'result'  => $results,
+							'status'  => 'created',
+							'result'  => $lastid,
 						)
 					);
 					die;
+				}
+			}
 		}
 	}
+}
 
-}
-		/**
-		 * [ste_delete_form_builder_data description]
-		 * HTML template for delete form data
-		 */
-function ste_delete_form_builder_data() {
-			global $wpdb;
-			$user  = wp_get_current_user();
-			$args = wp_unslash( $_POST );
-			$table = 'stedb_form_builder_data';
-	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
-		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) ) {
-					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
-						'form_name'      => sanitize_text_field( $args['form_name'] ),
-						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
-						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						'creation_date'  => date( 'Y-m-d' ),
-					);
-					$filter = sanitize_text_field( $args['filter'] );
-					if ( 'move_to_trash' === $filter ) {
-						$data = array(
-							'is_deleted' => 1,
-						);
-					} elseif ( 'restore' === $filter ) {
-						$data = array(
-							'is_deleted' => 0,
-						);
-					} else {
-						$data = array(
-							'form_name'      => sanitize_text_field( $args['form_name'] ),
-							'receiver'       => sanitize_email( $args['receiver'] ),
-							'html_code'      => wp_kse( $args['html_code'] ),
-							'full_html_code' => wp_kse( $args['full_html_code'] ),
-							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						);
-					}
-					$form_id = sanitize_text_field( $args['form_id'] );
-					if ( is_array( $form_id ) ) {
-						foreach ( $form_id as $id ) {
-							$wpdb->delete( $table, array( 'form_id' => $id ) );
-						}
-					} else {
-						$wpdb->delete( $table, array( 'form_id' => $form_id ) );
-					}
-					echo wp_json_encode( array( 'success' => true ) );
-					die;
-		}
-	}
-}
-		/**
-		 * [ste_set_email_draft description]
-		 * HTML template for email draft
-		 */
-function ste_set_email_draft() {
-			global $wpdb;
-			$table         = 'stedb_send_email_entries';
-			$user          = wp_get_current_user();
-			$args = wp_unslash( $_POST );
+/**
+ * [stedb_create_campaign description]
+ * HTML template for create campaign
+ */
+function stedb_create_campaign() {
+	global $wpdb;
+	$table = 'stedb_send_email_entries';
+	$user  = wp_get_current_user();
+	$args  = wp_unslash( $_POST );
 	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['email_message'] ) && isset( $_POST['from_name'] ) && isset( $_POST['email_subject'] ) && isset( $_POST['email_status'] ) && isset( $_POST['email_type'] ) && isset( $_POST['list_id'] ) ) {
+				$data   = array(
+					'user_id'        => $user->ID ? $user->ID : '',
+					'form_name'      => sanitize_text_field( $args['form_name'] ),
+					'receiver'       => sanitize_email( $args['receiver'] ),
+					'html_code'      => wp_kse( $args['html_code'] ),
+					'full_html_code' => wp_kse( $args['full_html_code'] ),
+					'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+					'creation_date'  => date( 'Y-m-d' ),
+				);
+				$filter = sanitize_text_field( $args['filter'] );
+				if ( 'move_to_trash' === $filter ) {
 					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
+						'is_deleted' => 1,
+					);
+				} elseif ( 'restore' === $filter ) {
+					$data = array(
+						'is_deleted' => 0,
+					);
+				} else {
+					$data = array(
 						'form_name'      => sanitize_text_field( $args['form_name'] ),
 						'receiver'       => sanitize_email( $args['receiver'] ),
 						'html_code'      => wp_kse( $args['html_code'] ),
 						'full_html_code' => wp_kse( $args['full_html_code'] ),
 						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						'creation_date'  => date( 'Y-m-d' ),
 					);
-					$filter = sanitize_text_field( $args['filter'] );
-					if ( 'move_to_trash' === $filter ) {
-						$data = array(
-							'is_deleted' => 1,
-						);
-					} elseif ( 'restore' === $filter ) {
-						$data = array(
-							'is_deleted' => 0,
-						);
-					} else {
-						$data = array(
-							'form_name'      => sanitize_text_field( $args['form_name'] ),
-							'receiver'       => sanitize_email( $args['receiver'] ),
-							'html_code'      => wp_kse( $args['html_code'] ),
-							'full_html_code' => wp_kse( $args['full_html_code'] ),
-							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						);
-					}
-					$email_message = str_replace( '\\', '', sanitize_text_field( $args['email_message'] ) );
-					$data          = array(
-						'from_name'    => sanitize_text_field( $args['from_name'] ),
-						'main_form_id' => sanitize_text_field( $args['form_id'] ),
-						'subject'      => sanitize_text_field( $args['email_subject'] ),
-						'content'      => $email_message,
-						// 'content' => $_POST['email_message'],
-						'status'       => sanitize_text_field( $args['email_status'] ),
-						'type'         => sanitize_text_field( $args['email_type'] ),
-					);
-
-					$user_id     = get_option( 'stedb_user_id' );
-					$secret      = get_option( 'stedb_secret' );
-					$base_url    = get_option( 'stedb_base_url' );
-					$stedb_obj   = new STEDB_Account();
-					$list_id     = sanitize_text_field( $args['list_id'] );
-					$get_list_id = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
-					if ( 1 == $get_list_id[0]->list_id && $get_list_id[0]->status ) {
+				}
+				$email_message = str_replace( '\\', '', sanitize_text_field( $args['email_message'] ) );
+				$data          = array(
+					// 'content' => $_POST['email_content'],
+					'content'      => $email_message,
+					'main_form_id' => sanitize_text_field( $args['form_id'] ),
+					'from_name'    => sanitize_text_field( $args['from_name'] ),
+					'subject'      => sanitize_text_field( $args['email_subject'] ),
+					'status'       => sanitize_text_field( $args['email_status'] ),
+					'type'         => sanitize_text_field( $args['email_type'] ),
+				);
+				$list_id       = sanitize_text_field( $args['list_id'] );
+				$user_id       = get_option( 'stedb_user_id' );
+				$secret        = get_option( 'stedb_secret' );
+				$base_url      = get_option( 'stedb_base_url' );
+				$stedb_obj     = new STEDB_Account();
+				$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
+				if ( ! empty( $get_list_id ) ) {
+					if ( 1 == $get_list_id[0]->status ) {
 						$id                = $get_list_id[0]->stedb_campaign_id;
 						$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 						$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -669,217 +718,132 @@ function ste_set_email_draft() {
 						);
 						die;
 					} else {
-						$data['list_id']           = sanitize_text_field( $args['list_id'] );
-						$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
-						$data['run_date']          = date( 'Y-m-d' );
-						$data['stedb_campaign_id'] = $stedb_campaign_id;
-						$wpdb->insert( $table, $data );
-						$lastid = $wpdb->insert_id;
-						if ( $lastid > 0 ) {
-							echo wp_json_encode(
-								array(
-									'success' => true,
-									'status'  => 'created',
-									'result'  => $lastid,
-								)
-							);
-							die;
-						}
+						echo wp_json_encode(
+							array(
+								'success' => true,
+								'status'  => 'not_updated',
+							)
+						);
+						die;
 					}
+				} else {
+					$data['list_id']           = sanitize_text_field( $args['list_id'] );
+					$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
+					$data['run_date']          = date( 'Y-m-d' );
+					$data['stedb_campaign_id'] = $stedb_campaign_id;
+					$wpdb->insert( $table, $data );
+					$lastid = $wpdb->insert_id;
+					if ( $lastid > 0 ) {
+						echo wp_json_encode(
+							array(
+								'success' => true,
+								'result'  => $lastid,
+								'status'  => 'created',
+							)
+						);
+						die;
+					}
+				}
 		}
 	}
 }
-		/**
-		 * [stedb_create_campaign description]
-		 * HTML template for create campaign
-		 */
-function stedb_create_campaign() {
-			global $wpdb;
-			$table         = 'stedb_send_email_entries';
-			$user          = wp_get_current_user();
-			$args = wp_unslash( $_POST );
-	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
-		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['email_message'] ) && isset( $_POST['from_name'] ) && isset( $_POST['email_subject'] ) && isset( $_POST['email_status'] ) && isset( $_POST['email_type'] ) && isset( $_POST['list_id'] ) ) {
-					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
-						'form_name'      => sanitize_text_field( $args['form_name'] ),
-						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
-						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						'creation_date'  => date( 'Y-m-d' ),
-					);
-					$filter = sanitize_text_field( $args['filter'] );
-					if ( 'move_to_trash' === $filter ) {
-								$data = array(
-									'is_deleted' => 1,
-								);
-					} elseif ( 'restore' === $filter ) {
-								$data = array(
-									'is_deleted' => 0,
-								);
-					} else {
-								$data = array(
-									'form_name'      => sanitize_text_field( $args['form_name'] ),
-									'receiver'       => sanitize_email( $args['receiver'] ),
-									'html_code'      => wp_kse( $args['html_code'] ),
-									'full_html_code' => wp_kse( $args['full_html_code'] ),
-									'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-								);
-					}
-						$email_message = str_replace( '\\', '', sanitize_text_field( $args['email_message'] ) );
-						$data          = array(
-							// 'content' => $_POST['email_content'],
-							'content'      => $email_message,
-							'main_form_id' => sanitize_text_field( $args['form_id'] ),
-							'from_name'    => sanitize_text_field( $args['from_name'] ),
-							'subject'      => sanitize_text_field( $args['email_subject'] ),
-							'status'       => sanitize_text_field( $args['email_status'] ),
-							'type'         => sanitize_text_field( $args['email_type'] ),
-						);
-								$list_id       = sanitize_text_field( $args['list_id'] );
-								$user_id       = get_option( 'stedb_user_id' );
-								$secret        = get_option( 'stedb_secret' );
-								$base_url      = get_option( 'stedb_base_url' );
-								$stedb_obj     = new STEDB_Account();
-								$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
-						if ( ! empty( $get_list_id ) ) {
-							if ( 1 == $get_list_id[0]->status ) {
-											$id                = $get_list_id[0]->stedb_campaign_id;
-											$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
-											$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
-											echo wp_json_encode(
-												array(
-													'success' => true,
-													'status'  => 'updated',
-												)
-											);
-											die;
-							} else {
-											echo wp_json_encode(
-												array(
-													'success' => true,
-													'status'  => 'not_updated',
-												)
-											);
-											die;
-							}
-						} else {
-										$data['list_id']           = sanitize_text_field( $args['list_id'] );
-										$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
-										$data['run_date']          = date( 'Y-m-d' );
-										$data['stedb_campaign_id'] = $stedb_campaign_id;
-										$wpdb->insert( $table, $data );
-										$lastid = $wpdb->insert_id;
-							if ( $lastid > 0 ) {
-											echo wp_json_encode(
-												array(
-													'success' => true,
-													'result'  => $lastid,
-													'status'  => 'created',
-												)
-											);
-											die;
-							}
-						}
-		}
-	}
-}
-		/**
-		 * [ste_send_regular_email description]
-		 * HTML template for sending regular email
-		 */
-function ste_send_regular_email() {
-			global $wpdb;
-			$table         = 'stedb_send_email_entries';
-			$user          = wp_get_current_user();
-			$args = wp_unslash( $_POST );
-	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
-		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['email_message'] ) && isset( $_POST['from_name'] ) && isset( $_POST['email_subject'] ) && isset( $_POST['email_status'] ) && isset( $_POST['email_type'] ) && isset( $_POST['list_id'] ) ) {
-					$data = array(
-						'user_id'        => $user->ID ? $user->ID : '',
-						'form_name'      => sanitize_text_field( $args['form_name'] ),
-						'receiver'       => sanitize_email( $args['receiver'] ),
-						'html_code'      => wp_kse( $args['html_code'] ),
-						'full_html_code' => wp_kse( $args['full_html_code'] ),
-						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-						'creation_date'  => date( 'Y-m-d' ),
-					);
-					$filter = sanitize_text_field( $args['filter'] );
-					if ( 'move_to_trash' === $filter ) {
-								$data = array(
-									'is_deleted' => 1,
-								);
-					} elseif ( 'restore' === $filter ) {
-								$data = array(
-									'is_deleted' => 0,
-								);
-					} else {
-								$data = array(
-									'form_name'      => sanitize_text_field( $args['form_name'] ),
-									'receiver'       => sanitize_email( $args['receiver'] ),
-									'html_code'      => wp_kse( $args['html_code'] ),
-									'full_html_code' => wp_kse( $args['full_html_code'] ),
-									'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-								);
-					}
-						$email_message = str_replace( '\\', '', $args['email_message'] );
-						$data          = array(
-							'from_name'    => sanitize_text_field( $args['from_name'] ),
-							'main_form_id' => sanitize_text_field( $args['form_id'] ),
-							'subject'      => sanitize_text_field( $args['email_subject'] ),
-							// 'content' => $_POST['email_message'],
-							'content'      => $email_message,
-							'type'         => sanitize_text_field( $args['email_type'] ),
-							'status'       => sanitize_text_field( $args['email_status'] ),
-						);
-						$list_id       = sanitize_text_field( $args['list_id'] );
-						$user_id       = get_option( 'stedb_user_id' );
-						$secret        = get_option( 'stedb_secret' );
-						$base_url      = get_option( 'stedb_base_url' );
-						$stedb_obj     = new STEDB_Account();
-						$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT list_id FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 
-						if ( ! empty( $get_list_id ) ) {
-							if ( 1 == $get_list_id[0]->status ) {
-								$id                = $get_list_id[0]->stedb_campaign_id;
-								$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
-								$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
-								echo wp_json_encode(
-									array(
-										'success' => true,
-										'status'  => 'updated',
-									)
-								);
-								die;
-							} else {
-								echo wp_json_encode(
-									array(
-										'success' => true,
-										'status'  => 'not_updated',
-									)
-								);
-								die;
-							}
-						} else {
-							$data['list_id']           = sanitize_text_field( $args['list_id'] );
-							$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
-							$data['run_date']          = date( 'Y-m-d' );
-							$data['stedb_campaign_id'] = $stedb_campaign_id;
-							$wpdb->insert( $table, $data );
-							$lastid = $wpdb->insert_id;
-							if ( $lastid > 0 ) {
-								echo wp_json_encode(
-									array(
-										'success' => true,
-										'result'  => $lastid,
-										'status'  => 'created',
-									)
-								);
-								die;
-							}
-						}
+/**
+ * [ste_send_regular_email description]
+ * HTML template for sending regular email
+ */
+function ste_send_regular_email() {
+	global $wpdb;
+	$table = 'stedb_send_email_entries';
+	$user  = wp_get_current_user();
+	$args  = wp_unslash( $_POST );
+	if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+		if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['email_message'] ) && isset( $_POST['from_name'] ) && isset( $_POST['email_subject'] ) && isset( $_POST['email_status'] ) && isset( $_POST['email_type'] ) && isset( $_POST['list_id'] ) ) {
+				$data   = array(
+					'user_id'        => $user->ID ? $user->ID : '',
+					'form_name'      => sanitize_text_field( $args['form_name'] ),
+					'receiver'       => sanitize_email( $args['receiver'] ),
+					'html_code'      => wp_kse( $args['html_code'] ),
+					'full_html_code' => wp_kse( $args['full_html_code'] ),
+					'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+					'creation_date'  => date( 'Y-m-d' ),
+				);
+				$filter = sanitize_text_field( $args['filter'] );
+				if ( 'move_to_trash' === $filter ) {
+					$data = array(
+						'is_deleted' => 1,
+					);
+				} elseif ( 'restore' === $filter ) {
+					$data = array(
+						'is_deleted' => 0,
+					);
+				} else {
+					$data = array(
+						'form_name'      => sanitize_text_field( $args['form_name'] ),
+						'receiver'       => sanitize_email( $args['receiver'] ),
+						'html_code'      => wp_kse( $args['html_code'] ),
+						'full_html_code' => wp_kse( $args['full_html_code'] ),
+						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+					);
+				}
+				$email_message = str_replace( '\\', '', $args['email_message'] );
+				$data          = array(
+					'from_name'    => sanitize_text_field( $args['from_name'] ),
+					'main_form_id' => sanitize_text_field( $args['form_id'] ),
+					'subject'      => sanitize_text_field( $args['email_subject'] ),
+					// 'content' => $_POST['email_message'],
+					'content'      => $email_message,
+					'type'         => sanitize_text_field( $args['email_type'] ),
+					'status'       => sanitize_text_field( $args['email_status'] ),
+				);
+				$list_id       = sanitize_text_field( $args['list_id'] );
+				$user_id       = get_option( 'stedb_user_id' );
+				$secret        = get_option( 'stedb_secret' );
+				$base_url      = get_option( 'stedb_base_url' );
+				$stedb_obj     = new STEDB_Account();
+				$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT list_id FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
+
+				if ( ! empty( $get_list_id ) ) {
+					if ( 1 == $get_list_id[0]->status ) {
+						$id                = $get_list_id[0]->stedb_campaign_id;
+						$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
+						$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
+						echo wp_json_encode(
+							array(
+								'success' => true,
+								'status'  => 'updated',
+							)
+						);
+						die;
+					} else {
+						echo wp_json_encode(
+							array(
+								'success' => true,
+								'status'  => 'not_updated',
+							)
+						);
+						die;
+					}
+				} else {
+					$data['list_id']           = sanitize_text_field( $args['list_id'] );
+					$stedb_campaign_id         = $stedb_obj->stedb_create_campaign( $user_id, $secret, $base_url, $data );
+					$data['run_date']          = date( 'Y-m-d' );
+					$data['stedb_campaign_id'] = $stedb_campaign_id;
+					$wpdb->insert( $table, $data );
+					$lastid = $wpdb->insert_id;
+					if ( $lastid > 0 ) {
+						echo wp_json_encode(
+							array(
+								'success' => true,
+								'result'  => $lastid,
+								'status'  => 'created',
+							)
+						);
+						die;
+					}
+				}
 		}
+
 		/**
 		 * [ste_get_email_data description]
 		 * HTML template to get email data
@@ -889,63 +853,66 @@ function ste_send_regular_email() {
 			$args = wp_unslash( $_POST );
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['list_id'] ) ) {
-							$data = array(
-								'user_id'        => $user->ID ? $user->ID : '',
-								'form_name'      => sanitize_text_field( $args['form_name'] ),
-								'receiver'       => sanitize_email( $args['receiver'] ),
-								'html_code'      => wp_kse( $args['html_code'] ),
-								'full_html_code' => wp_kse( $args['full_html_code'] ),
-								'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-								'creation_date'  => date( 'Y-m-d' ),
-							);
-							$filter = sanitize_text_field( $args['filter'] );
-							if ( 'move_to_trash' === $filter ) {
-										$data = array(
-											'is_deleted' => 1,
-										);
-							} elseif ( 'restore' === $filter ) {
-										$data = array(
-											'is_deleted' => 0,
-										);
-							} else {
-										$data = array(
-											'form_name'      => sanitize_text_field( $args['form_name'] ),
-											'receiver'       => sanitize_email( $args['receiver'] ),
-											'html_code'      => wp_kse( $args['html_code'] ),
-											'full_html_code' => wp_kse( $args['full_html_code'] ),
-											'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-										);
-							}
-									$filter = sanitize_text_field( $args['filter'] );
-							if ( 'move_to_trash' === $filter ) {
-												$data = array(
-													'is_deleted' => 1,
-												);
-							} elseif ( 'restore' === $filter ) {
-												$data = array(
-													'is_deleted' => 0,
-												);
-							} else {
-												$data = array(
-													'form_name'      => sanitize_text_field( $args['form_name'] ),
-													'receiver'       => sanitize_email( $args['receiver'] ),
-													'html_code'      => wp_kse( $args['html_code'] ),
-													'full_html_code' => wp_kse( $args['full_html_code'] ),
-													'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-												);
-							}
-									$list_id        = sanitize_text_field( $args['list_id'] );
-									$get_email_data = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
-									echo wp_json_encode(
-										array(
-											'success' => true,
-											'result'  => $get_email_data,
-										)
-									);
-									die;
+					$data   = array(
+						'user_id'        => $user->ID ? $user->ID : '',
+						'form_name'      => sanitize_text_field( $args['form_name'] ),
+						'receiver'       => sanitize_email( $args['receiver'] ),
+						'html_code'      => wp_kse( $args['html_code'] ),
+						'full_html_code' => wp_kse( $args['full_html_code'] ),
+						'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+						'creation_date'  => date( 'Y-m-d' ),
+					);
+					$filter = sanitize_text_field( $args['filter'] );
+					if ( 'move_to_trash' === $filter ) {
+						$data = array(
+							'is_deleted' => 1,
+						);
+					} elseif ( 'restore' === $filter ) {
+						$data = array(
+							'is_deleted' => 0,
+						);
+					} else {
+						$data = array(
+							'form_name'      => sanitize_text_field( $args['form_name'] ),
+							'receiver'       => sanitize_email( $args['receiver'] ),
+							'html_code'      => wp_kse( $args['html_code'] ),
+							'full_html_code' => wp_kse( $args['full_html_code'] ),
+							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+						);
+					}
+
+					$filter = sanitize_text_field( $args['filter'] );
+					if ( 'move_to_trash' === $filter ) {
+						$data = array(
+							'is_deleted' => 1,
+						);
+					} elseif ( 'restore' === $filter ) {
+						$data = array(
+							'is_deleted' => 0,
+						);
+					} else {
+						$data = array(
+							'form_name'      => sanitize_text_field( $args['form_name'] ),
+							'receiver'       => sanitize_email( $args['receiver'] ),
+							'html_code'      => wp_kse( $args['html_code'] ),
+							'full_html_code' => wp_kse( $args['full_html_code'] ),
+							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+						);
+					}
+
+					$list_id        = sanitize_text_field( $args['list_id'] );
+					$get_email_data = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
+					echo wp_json_encode(
+						array(
+							'success' => true,
+							'result'  => $get_email_data,
+						)
+					);
+					die;
 				}
 			}
 		}
+
 		/**
 		 * [stedb_remove_element_with_value description]
 		 * HTML template to remove element val
@@ -967,6 +934,7 @@ function ste_send_regular_email() {
 			}
 			return $array;
 		}
+
 		/**
 		 * [ste_get_email_data description]
 		 * HTML template to get email data
@@ -976,73 +944,71 @@ function ste_send_regular_email() {
 			$args = wp_unslash( $_POST );
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) && isset( $_POST['form_id'] ) && isset( $_POST['filter'] ) && isset( $_POST['form_data'] ) ) {
+						$data   = array(
+							'user_id'        => $user->ID ? $user->ID : '',
+							'form_name'      => sanitize_text_field( $args['form_name'] ),
+							'receiver'       => sanitize_email( $args['receiver'] ),
+							'html_code'      => wp_kse( $args['html_code'] ),
+							'full_html_code' => wp_kse( $args['full_html_code'] ),
+							'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
+							'creation_date'  => date( 'Y-m-d' ),
+						);
+						$filter = sanitize_text_field( $args['filter'] );
+						if ( 'move_to_trash' === $filter ) {
 							$data = array(
-								'user_id'        => $user->ID ? $user->ID : '',
+								'is_deleted' => 1,
+							);
+						} elseif ( 'restore' === $filter ) {
+							$data = array(
+								'is_deleted' => 0,
+							);
+						} else {
+							$data = array(
 								'form_name'      => sanitize_text_field( $args['form_name'] ),
 								'receiver'       => sanitize_email( $args['receiver'] ),
 								'html_code'      => wp_kse( $args['html_code'] ),
 								'full_html_code' => wp_kse( $args['full_html_code'] ),
 								'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-								'creation_date'  => date( 'Y-m-d' ),
 							);
-							$filter = sanitize_text_field( $args['filter'] );
-							if ( 'move_to_trash' === $filter ) {
-										$data = array(
-											'is_deleted' => 1,
-										);
-							} elseif ( 'restore' === $filter ) {
-										$data = array(
-											'is_deleted' => 0,
-										);
-							} else {
-										$data = array(
-											'form_name'      => sanitize_text_field( $args['form_name'] ),
-											'receiver'       => sanitize_email( $args['receiver'] ),
-											'html_code'      => wp_kse( $args['html_code'] ),
-											'full_html_code' => wp_kse( $args['full_html_code'] ),
-											'field_detail'   => wp_json_encode( sanitize_text_field( $args['field_detail_array'] ) ),
-										);
-							}
-							$form_data        = wp_json_encode( sanitize_text_field( $args['form_data'] ) );
-							$form_data        = json_decode( $form_data, true );
-							$insert_data      = array();
-							$form_id          = sanitize_text_field( $args['form_id'] );
-							$get_max_entry_id = $wpdb->get_row( $wpdb->prepare( 'SELECT MAX(entry_id) as max_entry_id FROM stedb_form_entries WHERE form_id = %d', $form_id ) );
-							$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
-							$api_field_ids    = $get_form_detail[0]->stedb_form_id;
-							$api_field_id     = explode( ',', $api_field_ids );
-							if ( $get_max_entry_id ) {
-								$entry_id = $get_max_entry_id->max_entry_id + 1;
-							} else {
-								$entry_id = 1;
-							}
+						}
+						$form_data        = wp_json_encode( sanitize_text_field( $args['form_data'] ) );
+						$form_data        = json_decode( $form_data, true );
+						$insert_data      = array();
+						$form_id          = sanitize_text_field( $args['form_id'] );
+						$get_max_entry_id = $wpdb->get_row( $wpdb->prepare( 'SELECT MAX(entry_id) as max_entry_id FROM stedb_form_entries WHERE form_id = %d', $form_id ) );
+						$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
+						$api_field_ids    = $get_form_detail[0]->stedb_form_id;
+						$api_field_id     = explode( ',', $api_field_ids );
+						if ( $get_max_entry_id ) {
+							$entry_id = $get_max_entry_id->max_entry_id + 1;
+						} else {
+							$entry_id = 1;
+						}
 
-							foreach ( $form_data as $key => $value ) {
-								foreach ( $value as $val ) {
-									$insert_data       = array(
-										'form_id'     => $form_id,
-										'entry_id'    => $entry_id,
-										'field_key'   => $val['name'],
-										'field_value' => $val['value'],
-									);
-									$form_data_array[] = $val['value'];
-									$result            = $wpdb->insert( 'stedb_form_entries', $insert_data );
-								}
+						foreach ( $form_data as $key => $value ) {
+							foreach ( $value as $val ) {
+								$insert_data       = array(
+									'form_id'     => $form_id,
+									'entry_id'    => $entry_id,
+									'field_key'   => $val['name'],
+									'field_value' => $val['value'],
+								);
+								$form_data_array[] = $val['value'];
+								$result            = $wpdb->insert( 'stedb_form_entries', $insert_data );
 							}
+						}
 
-							$form_data_arr = $this->stedb_remove_element_with_value( $form_data_array );
-							$new_arr       = array_combine( $api_field_id, $form_data_arr );
+						$form_data_arr = $this->stedb_remove_element_with_value( $form_data_array );
+						$new_arr       = array_combine( $api_field_id, $form_data_arr );
 
-							// $_SESSION['form_data_array'] = $form_data_array;
-							$_SESSION['form_data_array'] = $new_arr;
-							if ( $result > 0 ) {
-								echo wp_json_encode( array( 'success' => true ) );
-									die;
-							}
+						// $_SESSION['form_data_array'] = $form_data_array;
+						$_SESSION['form_data_array'] = $new_arr;
+						if ( $result > 0 ) {
+							echo wp_json_encode( array( 'success' => true ) );
+							die;
+						}
 				}
 			}
 		}
 	}
-
 }
-
