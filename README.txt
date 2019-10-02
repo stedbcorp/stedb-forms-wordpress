@@ -1,5 +1,5 @@
 === STEdb Forms ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: stedbcorp, awayr
 Donate link: https://stedb.com
 Tags: comments, spam
 Requires at least: 5.0.0

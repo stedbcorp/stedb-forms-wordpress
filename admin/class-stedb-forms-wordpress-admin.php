@@ -256,7 +256,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$base_url                     = get_option( 'stedb_base_url' );
 			$stedb_obj                    = new STEDB_Account();
 			$create_form_list_output      = $stedb_obj->stedb_create_form_list( $user_id, $secret, $base_url, $data );
-			print_r($create_form_list_output);die;
 			$social_links                 = [];
 			$get_sm_providers_urls_output = $stedb_obj->stedb_get_social_providers_urls( $user_id, $secret, $base_url, $create_form_list_output );
 			if ( ! empty( $get_sm_providers_urls_output ) ) {
