@@ -94,7 +94,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 */
 		public function enqueue_scripts() {
 
-			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), '', '0.1', true );
+			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ),  array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
 			$stedata = array(
@@ -236,8 +236,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			// 'field_detail'   => '',
 			// );.
 			$args = wp_unslash( $_POST );
-			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'], 'ajax-nonce' ) ) ) {
-				if ( isset( $_POST['form_name'] ) && isset( $_POST['html_code'] ) && isset( $_POST['receiver'] ) && isset( $_POST['full_html_code'] ) && isset( $_POST['field_detail_array'] ) ) {
+			
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ), 'ajax-nonce' ) ) {
+				if ( isset( $args['form_name'] ) && isset( $args['html_code'] ) && isset( $args['receiver'] ) && isset( $args['full_html_code'] ) && isset( $args['field_detail_array'] ) ) {
 
 					$data = array(
 						'user_id'        => $user->ID ? $user->ID : '',
@@ -245,7 +246,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						'receiver'       => sanitize_email( $args['receiver'] ),
 						'html_code'      => wp_kses_post( $args['html_code'] ),
 						'full_html_code' => wp_kses_post( $args['full_html_code'] ),
-						'field_detail'   => wp_json_encode( sanitize_text_area( $args['field_detail_array'] ) ),
+						'field_detail'   => wp_json_encode( sanitize_textarea_field( $args['field_detail_array'] ) ),
 						'creation_date'  => date( 'Y-m-d' ),
 					);
 				}
@@ -256,7 +257,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$base_url                     = get_option( 'stedb_base_url' );
 			$stedb_obj                    = new STEDB_Account();
 			$create_form_list_output      = $stedb_obj->stedb_create_form_list( $user_id, $secret, $base_url, $data );
-			print_r($create_form_list_output);die;
 			$social_links                 = [];
 			$get_sm_providers_urls_output = $stedb_obj->stedb_get_social_providers_urls( $user_id, $secret, $base_url, $create_form_list_output );
 			if ( ! empty( $get_sm_providers_urls_output ) ) {
