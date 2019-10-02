@@ -6,7 +6,7 @@ var web_url  = ste.site_url;
 
 
 (function( $ ) {
-	'use strict';
+    'use strict';
 	/* draggable jquery*/
 	$(".text_box").draggable({
 		helper: function () {
