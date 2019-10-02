@@ -97,7 +97,7 @@ class STEDB_Api_Client {
 			'body'        => $data,
 			'cookies'     => array(),
 		);
-
+		echo $url. print_r($pload,true);
 		$response = wp_remote_request( $url, $pload );
 
 		if ( is_wp_error( $response ) ) {

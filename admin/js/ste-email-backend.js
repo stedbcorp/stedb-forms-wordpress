@@ -32,7 +32,7 @@ $(document).ready(function(){
 		// url:'../wp-admin/admin-ajax.php',
 		url:ajax_url,
 		type:'post',
-		data:{action: 'ste_get_form_data'},
+		data:{action: 'ste_get_form_data', nonce:ste.nonce },
 		dataType:'JSON',
 		success:function(response)
 		{                
