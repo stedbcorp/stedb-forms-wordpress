@@ -68,7 +68,7 @@ class STEDB_Api_Client {
 		$method = strtoupper( $method );
 		$stamp  = date( 'c', time() );
 		$header = array(
-			'X-Auth-user_id'   => $this->user_id,
+			'X-Auth-UserId'   => $this->user_id,
 			'X-Auth-Time'      => $stamp,
 			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp ),
 		);
@@ -97,7 +97,7 @@ class STEDB_Api_Client {
 			'body'        => $data,
 			'cookies'     => array(),
 		);
-		echo $url. print_r($pload,true);
+		// echo $url. print_r($pload,true);
 		$response = wp_remote_request( $url, $pload );
 
 		if ( is_wp_error( $response ) ) {
@@ -114,13 +114,16 @@ class STEDB_Api_Client {
 		$retval       = new stdClass();
 		$retval->data = json_decode( $body );
 		$args         = array(
+			'url'		=> $url,	
+			'pload'		=> $pload,
 			'header'   => $header,
+			'raw_response' => $response,
 			'data'     => $data,
 			'output'   => $retval,
 			'curl_err' => $error_message,
 		);
 
-		write_log( wp_json_encode( $args ) );
+		write_log( $args );
 		return $retval;
 	}
 }

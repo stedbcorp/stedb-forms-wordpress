@@ -692,7 +692,7 @@ function getCheckboxFieldHTML() {
                     // url:site_url+'/wp-admin/admin-ajax.php',
                     url:ajax_url,
                     type:'post',
-                    data:{action: 'ste_update_form_builder_data', form_id : form_id, filter : filter},
+                    data:{action: 'ste_update_form_builder_data', form_id : form_id, nonce:ste.nonce, filter : filter},
                     dataType:'json',
                     success:function(response)
                     {
@@ -718,7 +718,7 @@ function getCheckboxFieldHTML() {
                     // url:site_url+'/wp-admin/admin-ajax.php',
                     url:ajax_url,
                     type:'post',
-                    data:{action: 'ste_delete_form_builder_data', form_id : form_id},
+                    data:{action: 'ste_delete_form_builder_data', nonce:ste.nonce, form_id : form_id},
                     dataType:'json',
                     success:function(response)
                     {
@@ -743,7 +743,7 @@ function getCheckboxFieldHTML() {
                         // url:site_url+'/wp-admin/admin-ajax.php',
                         url:ajax_url,
                         type:'post',
-                        data:{action: 'ste_update_form_builder_data', form_id : val, filter : action},
+                        data:{action: 'ste_update_form_builder_data', nonce:ste.nonce, form_id : val, filter : action},
                         dataType:'json',
                         success:function(response)
                         {
@@ -772,7 +772,7 @@ function getCheckboxFieldHTML() {
                         // url:site_url+'/wp-admin/admin-ajax.php',
                         url:ajax_url,
                         type:'post',
-                        data:{action: 'ste_delete_form_builder_data', form_id : val},
+                        data:{action: 'ste_delete_form_builder_data', nonce:ste.nonce, form_id : val},
                         dataType:'json',
                         success:function(response)
                         {
@@ -831,7 +831,7 @@ function getCheckboxFieldHTML() {
 				// url:site_url+'/wp-admin/admin-ajax.php',
 				url:ajax_url,
 				type:'post',
-				data:{action: 'ste_get_edit_form_data', form_id : formID},
+		        data:{action: 'ste_get_edit_form_data',nonce:ste.nonce, form_id : formID},
 				dataType:'JSON',
 				success:function(response)
 				{
