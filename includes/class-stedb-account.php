@@ -103,7 +103,6 @@ class STEDB_Account {
 			$output       = $custom_field->ste_send_request( 'fields/', 'POST', $data );
 			$id           = $output->data->id;
 			$this->stedb_get_custom_field_information( $user_id, $secret, $base_url, $id );
-			// $this->stedb_delete_custom_field( $user_id, $secret, $base_url, $id );.
 			$id_arr[] = $id;
 		}
 		$output_id = implode( ',', $id_arr );

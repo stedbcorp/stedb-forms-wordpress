@@ -130,23 +130,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					die;
 				}
 			}
-			$html = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
+			$html  = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
 					'<div class="form-group">' .
-
-						/*
-						'<h3 class="">'. ucfirst($get_form_detail[0]->form_name)
-						.'</h3>'.
-						 */
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
 					wp_nonce_field() .
 					$html_code .
-
-					/*
-					'<div class="form-group">'.
-					'<input type="button" name="submit" class="btn btn-primary form_save" data-form_id="<?=$get_form_detail[0]->form_id;?>" value="Submit">'.
-					'</div>'.
-					*/
 				'</form>';
 			$html .= '
 				<script type="text/javascript">

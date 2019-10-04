@@ -114,7 +114,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function ste_admin_menu() {
 
 			/*adding main admin menu*/
-			add_menu_page( 'STEDB Form', 'STEdb Forms', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
+			add_menu_page( 'STEDB Form', 'STEDB Form', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
 
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
@@ -278,7 +278,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$stedb_obj->stedb_get_list_information( $user_id, $secret, $base_url, $create_list_detail[0]->form_id );
 						$wpdb->insert( $table, $data );
 						$lastid            = $wpdb->insert_id;
-						$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE user_id = %d ORDER BY form_id DESC', $user->ID ) );
+						$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d ORDER BY form_id DESC', $user->ID ) );
 						$shortcode_main_id = $create_list_detail[0]->form_id;
 						$shortcode         = "[STE_db_form id='" . $lastid . "' list-id='" . $create_form_list_output . "']";
 						$wpdb->update( $table, array( 'shortcode' => $shortcode ), array( 'form_id' => $lastid ) );
@@ -293,7 +293,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 								'shortcode' => $shortcode,
 								'form_id'   => $lastid,
 							)
-						);
+						);die;
 					}
 				}
 			}
