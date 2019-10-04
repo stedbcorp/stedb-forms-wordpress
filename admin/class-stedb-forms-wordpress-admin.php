@@ -487,7 +487,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$stedb_obj   = new STEDB_Account();
 					$list_id     = sanitize_text_field( $args['list_id'] );
 					$get_list_id = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
-					if ( 1 == $get_list_id[0]->list_id && $get_list_id[0]->status ) {
+					if ( 1 === $get_list_id[0]->list_id && $get_list_id[0]->status ) {
 						$id                = $get_list_id[0]->stedb_campaign_id;
 						$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 						$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
