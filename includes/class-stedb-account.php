@@ -197,7 +197,6 @@ class STEDB_Account {
 	public function stedb_create_form_list( $user_id, $secret, $base_url, $list_data ) {
 
 		global $wpdb;
-		// $data = array('list_name' => (string)$list_data['form_name']);
 		$data             = array(
 			'list_name' => $list_data['form_name'],
 			'receiver'  => $list_data['receiver'],

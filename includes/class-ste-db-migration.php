@@ -101,10 +101,10 @@ class STE_DB_Migration {
                                 MODIFY `campaign_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;',
 			);
 
-		foreach ( $migration as $version => $queries ) {
-			foreach ( $queries as $query ) {
-				$wpdb->query( $query );
+			foreach ( $migration as $version => $queries ) {
+				foreach ( $queries as $query ) {
+					$wpdb->query( $query );
+				}
 			}
-		}
 	}
 }

@@ -26,7 +26,6 @@
 						</div>
 					</div>
 					<div class="ste-se-body email_list">
-						<?php //$tr_class = ( 0 == $i % 2 ) ? 'ste-se-tr-odd' : 'ste-se-tr-even'; ?>
 					</div>
 				</div>
 			</div>

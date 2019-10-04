@@ -8,6 +8,7 @@
  * @package    class-stedb-api-client.php
  * @subpackage class-stedb-api-client/includes
  */
+
 if ( ! function_exists( 'wp_get_current_user' ) ) {
 	include ABSPATH . 'wp-includes/pluggable.php';
 }
@@ -97,7 +98,6 @@ class STEDB_Api_Client {
 			'body'        => $data,
 			'cookies'     => array(),
 		);
-		// echo $url. print_r($pload,true);
 		$response = wp_remote_request( $url, $pload );
 
 		if ( is_wp_error( $response ) ) {
@@ -114,13 +114,13 @@ class STEDB_Api_Client {
 		$retval       = new stdClass();
 		$retval->data = json_decode( $body );
 		$args         = array(
-			'url'		=> $url,	
-			'pload'		=> $pload,
-			'header'   => $header,
+			'url'          => $url,
+			'pload'        => $pload,
+			'header'       => $header,
 			'raw_response' => $response,
-			'data'     => $data,
-			'output'   => $retval,
-			'curl_err' => $error_message,
+			'data'         => $data,
+			'output'       => $retval,
+			'curl_err'     => $error_message,
 		);
 
 		write_log( $args );

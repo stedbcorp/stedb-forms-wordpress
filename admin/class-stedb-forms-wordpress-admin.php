@@ -230,7 +230,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$args  = wp_unslash( $_POST );
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ), 'ajax-nonce' ) ) {
 				if ( isset( $args['form_name'] ) && isset( $args['receiver'] ) && isset( $args['html_code'] ) && isset( $args['full_html_code'] ) && isset( $args['field_detail_array'] ) ) {
-					$data = array(
+					$data                         = array(
 						'user_id'        => $user->ID ? $user->ID : '',
 						'form_name'      => sanitize_text_field( $args['form_name'] ),
 						'receiver'       => sanitize_email( $args['receiver'] ),
@@ -269,7 +269,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'form_social_link' => $social_link,
 						);
 						$output           = $stedb_obj->stedb_create_custom_field( $user_id, $secret, $base_url, $data );
-						// print_r( $output );
 						if ( ! empty( $output ) ) {
 							$data['stedb_form_id'] = $output;
 						}
@@ -335,12 +334,12 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$data = array(
 						'form_id' => sanitize_text_field( $args['form_id'] ),
 					);
-					$filter = $args['filter'];
-					if ( 'move_to_trash' == $filter ) {
+					$filter = isset( $args['filter'] ) ? $args['filter'] : '';
+					if ( 'move_to_trash' === $filter ) {
 							$data = array(
 								'is_deleted' => 1,
 							);
-					} elseif ( 'restore' == $filter ) {
+					} elseif ( 'restore' === $filter ) {
 							$data = array(
 								'is_deleted' => 0,
 							);
@@ -353,18 +352,20 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'field_detail'   => wp_json_encode( $args['field_detail_array'] ),
 						);
 					}
-					$form_id = sanitize_text_field( $args['form_id'] );
+					$form_id = $args['form_id'];
 
 					if ( is_array( $form_id ) ) {
 						foreach ( $form_id as $id ) {
-							$da = $this->ste_update_form_field_api_data( $id, $data );
+							$id = sanitize_text_field( $id );
+							$da = $this->ste_update_form_field_api_data( $form_id, $data );
 							if ( ! empty( $da ) ) {
 								$data['stedb_form_id'] = $da;
 								$wpdb->update( $table, $data, array( 'form_id' => $id ) );
 							}
 						}
 					} else {
-						$da = $this->ste_update_form_field_api_data( $id, $data );
+						$form_id = sanitize_text_field( $args['form_id'] );
+						$da = $this->ste_update_form_field_api_data( $form_id, $data );
 						if ( ! empty( $da ) ) {
 							$data['stedb_form_id'] = $da;
 							$wpdb->update( $table, $data, array( 'form_id' => $form_id ) );
@@ -601,7 +602,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'from_name'    => sanitize_text_field( $args['from_name'] ),
 							'main_form_id' => sanitize_text_field( $args['form_id'] ),
 							'subject'      => sanitize_text_field( $args['email_subject'] ),
-							// 'content' => $_POST['email_message'],
 							'content'      => $email_message,
 							'type'         => sanitize_text_field( $args['email_type'] ),
 							'status'       => sanitize_text_field( $args['email_status'] ),
