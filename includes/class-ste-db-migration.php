@@ -103,6 +103,9 @@ class STE_DB_Migration {
 
 			foreach ( $migration as $version => $queries ) {
 				foreach ( $queries as $query ) {
+					/**
+					 * We are not using wpdb->prepare as we have nothing to escape its just a basic table migration.
+					 */
 					$wpdb->query( $query );
 				}
 			}

@@ -69,7 +69,7 @@ class STEDB_Api_Client {
 		$method = strtoupper( $method );
 		$stamp  = date( 'c', time() );
 		$header = array(
-			'X-Auth-UserId'   => $this->user_id,
+			'X-Auth-UserId'    => $this->user_id,
 			'X-Auth-Time'      => $stamp,
 			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp ),
 		);
@@ -87,7 +87,7 @@ class STEDB_Api_Client {
 					$url .= '?' . http_build_query( $data );
 				}
 		}
-		$pload = array(
+		$pload    = array(
 			'method'      => $method,
 			'timeout'     => 60,
 			'redirection' => 5,

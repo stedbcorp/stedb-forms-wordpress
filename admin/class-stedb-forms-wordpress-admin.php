@@ -272,12 +272,12 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						if ( ! empty( $output ) ) {
 							$data['stedb_form_id'] = $output;
 						}
-							$wpdb->insert( 'stedb_form_list', $create_list_data );
-							$create_list_id     = $wpdb->insert_id;
-							$create_list_detail = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM `stedb_form_list` WHERE id = %d', $create_list_id ) );
-							$stedb_obj->stedb_get_list_information( $user_id, $secret, $base_url, $create_list_detail[0]->form_id );
-							$wpdb->insert( $table, $data );
-							$lastid = $wpdb->insert_id;
+						$wpdb->insert( 'stedb_form_list', $create_list_data );
+						$create_list_id     = $wpdb->insert_id;
+						$create_list_detail = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM `stedb_form_list` WHERE id = %d', $create_list_id ) );
+						$stedb_obj->stedb_get_list_information( $user_id, $secret, $base_url, $create_list_detail[0]->form_id );
+						$wpdb->insert( $table, $data );
+						$lastid            = $wpdb->insert_id;
 						$get_user_detail   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE user_id = %d ORDER BY form_id DESC', $user->ID ) );
 						$shortcode_main_id = $create_list_detail[0]->form_id;
 						$shortcode         = "[STE_db_form id='" . $lastid . "' list-id='" . $create_form_list_output . "']";
@@ -331,7 +331,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$table = 'stedb_form_builder_data';
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $args['form_id'] ) ) {
-					$data = array(
+					$data   = array(
 						'form_id' => sanitize_text_field( $args['form_id'] ),
 					);
 					$filter = isset( $args['filter'] ) ? $args['filter'] : '';
@@ -365,7 +365,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						}
 					} else {
 						$form_id = sanitize_text_field( $args['form_id'] );
-						$da = $this->ste_update_form_field_api_data( $form_id, $data );
+						$da      = $this->ste_update_form_field_api_data( $form_id, $data );
 						if ( ! empty( $da ) ) {
 							$data['stedb_form_id'] = $da;
 							$wpdb->update( $table, $data, array( 'form_id' => $form_id ) );
@@ -545,7 +545,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$stedb_obj     = new STEDB_Account();
 						$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 						if ( ! empty( $get_list_id ) ) {
-							if ( 1 == $get_list_id[0]->status ) {
+							if ( 1 === $get_list_id[0]->status ) {
 								$id                = $get_list_id[0]->stedb_campaign_id;
 								$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 								$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -614,7 +614,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT list_id FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 
 						if ( ! empty( $get_list_id ) ) {
-							if ( 1 == $get_list_id[0]->status ) {
+							if ( 1 === $get_list_id[0]->status ) {
 								$id                = $get_list_id[0]->stedb_campaign_id;
 								$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 								$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -703,13 +703,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				 */
 		public function stedb_remove_element_with_value( $array ) {
 			foreach ( $array as $sub_key => $sub_array ) {
-				if ( 'social_gmail' == $sub_array ) {
+				if ( 'social_gmail' === $sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
-				if ( 'social_yahoo' == $sub_array ) {
+				if ( 'social_yahoo' === $sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
-				if ( 'social_linkedin' == $sub_array ) {
+				if ( 'social_linkedin' === $sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
 			}
@@ -779,8 +779,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 									}
 								}
 
-								$form_data_arr = $this->stedb_remove_element_with_value( $form_data_array );
-								$new_arr       = array_combine( $api_field_id, $form_data_array );
+								$form_data_arr               = $this->stedb_remove_element_with_value( $form_data_array );
+								$new_arr                     = array_combine( $api_field_id, $form_data_array );
 								$_SESSION['form_data_array'] = $new_arr;
 								if ( $result > 0 ) {
 									echo wp_json_encode( array( 'success' => true ) );
