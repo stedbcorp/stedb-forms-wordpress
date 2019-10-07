@@ -1,5 +1,5 @@
 === STEdb Forms ===
-Contributors: stedbcorp, awayr
+Contributors: stedbcorp
 Donate link: https://stedb.com
 Tags: comments, spam
 Requires at least: 5.0.0
