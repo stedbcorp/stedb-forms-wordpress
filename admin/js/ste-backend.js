@@ -97,8 +97,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split('=');
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1] == undefined ? true : decodeURIComponent(sParameterName[1]);
         }
     }
 };
@@ -530,22 +530,22 @@ function getCheckboxFieldHTML() {
             var label = $(this).find('.form_input_label').val();             
             var name = $(this).find('.form_input_name').val(); 
 
-            if(data_type === 'text') {
+            if(data_type == 'text') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=""><input type="text" name="' + label.toLowerCase().replace(/ /g,"_") + '" class="ste-col-60 form-control text-field" /></div></div>';
                field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : label};               
                
             }
-            if(data_type === 'textarea') {
+            if(data_type == 'textarea') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=""><textarea rows="5" name="' + label.toLowerCase().replace(/ /g,"_") + '" class="ste-col-60 form-control textarea-field" /></textarea></div></div>';
                field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : label};
             }
-            if(data_type === 'date') {
+            if(data_type == 'date') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class=""><input type="date" name="' + label.toLowerCase().replace(/ /g,"_") + '" class="ste-col-60 form-control date-field" /></div></div>';
               field_detail = { 'field_name' : label, 'field_type' : data_type, 'default_value' : label.toLowerCase().replace(/ /g,"_")};
               field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : label};
             }
           
-            if (data_type === 'select') {
+            if (data_type == 'select') {
                 var opt_arr =[];
                 var option_html = '';
                 $(this).find('select option').each(function () {
@@ -558,7 +558,7 @@ function getCheckboxFieldHTML() {
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class=""><select class="ste-col-60 form-control form-dropdown-field" name="' + label.toLowerCase().replace(/ /g,"_") + '">' + option_html + '</select></div></div>';
                 field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : opt_arr};
             }
-            if (data_type === 'radio') {
+            if (data_type == 'radio') {
                 var option_html = '';
                  var radio_arr =[];
                 $(this).find('.mt-radio').each(function () {
@@ -571,7 +571,7 @@ function getCheckboxFieldHTML() {
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'"><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
                 field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : radio_arr};
             }
-            if (data_type === 'checkbox') {
+            if (data_type == 'checkbox') {
                 var option_html = '';
                 var checkbox_arr =[];
                 $(this).find('.mt-checkbox').each(function () {
@@ -584,17 +584,17 @@ function getCheckboxFieldHTML() {
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="'+ label.toLowerCase().replace(/ /g,"_") +'" data-group_type="'+ data_type +'" ><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
                 field_detail_array[i] = { 'field_name' : label.toLowerCase().replace(/ /g,"_"), 'field_type' : data_type, 'default_value' : checkbox_arr};
             }
-			if(data_type === 'social_yahoo') {
+			if(data_type == 'social_yahoo') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_yahoo" data-group_type="'+ data_type +'" ><div class="sign-up-button ste-col-60 ste-sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="'+site_url+ 'admin/images/yh.png"><img src="'+site_url+'admin/images/vertical_yh.png"><span>Send with yahoo!</span></a></div></div>';
                field_detail_array[i] = {'field_type' : data_type};               
                
             }
-			if(data_type === 'social_gmail') {
+			if(data_type == 'social_gmail') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_gmail" data-group_type="'+ data_type +'"><div class="sign-up-button ste-col-60  ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+site_url+ 'admin/images/gp.png"><img src="'+site_url+'admin/images/vertical_gp.png"><span>Send with Gmail</span></a></div></div>';
                field_detail_array[i] = {'field_type' : data_type};               
                
             }
-			if(data_type === 'social_linkedin') {
+			if(data_type == 'social_linkedin') {
               html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_linkedin" data-group_type="'+ data_type +'" ><div class="sign-up-button ste-col-60 ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+site_url+ 'admin/images/ln.png"><img src="'+site_url+'admin/images/vertical_ln.png"><span>Send with Linkedin</span></a></div></div>';
                field_detail_array[i] = {'field_type' : data_type};               
                
@@ -605,7 +605,7 @@ function getCheckboxFieldHTML() {
             full_html_code = $.trim($full_html.html());
 			
 		});
-        if (plain_html === 'html') {           
+        if (plain_html == 'html') {           
             var form_name = $('#form_name').val();           
             var receiver = $('#receiver').val();
             var form_id = getUrlParameter('id');

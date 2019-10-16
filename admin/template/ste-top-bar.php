@@ -34,7 +34,7 @@ $current_page = $args['page'];
 						<span><?php esc_html_e( 'Email:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
 					</div>
 					<div class="ste-header-account-id ste-my-p3">
-						<span><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="javascript:void(0);"><?php get_option( esc_html_e( 'IzPARa6U' ) ); ?></a>
+						<span><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="javascript:void(0);"><?php esc_html_e( get_option( 'stedb_secret' ) ); ?></a>
 					</div>
 				</div>
 			</div>

@@ -34,15 +34,15 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			/************ Short code */
 			add_shortcode( 'STE_db_form', array( $this, 'ste_get_shortcode' ) );
 			/*************** Public style & script*/
-			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_style' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_script' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 		/**
 		 * Register the JavaScript for the admin area.
 		 *
 		 * @since    1.0.0
 		 */
-		public function ste_enqueue_style() {
+		public function enqueue_styles() {
 			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function ste_enqueue_script() {
+		public function enqueue_scripts() {
 			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', true );
 			// Localize script.
 			$stedata = array(

@@ -79,7 +79,7 @@ if ( ! function_exists( 'write_log' ) ) {
 	 * @param log $log get log.
 	 */
 	function write_log( $log ) {
-		if ( true === WP_DEBUG ) {
+		if ( true == WP_DEBUG ) {
 			if ( is_array( $log ) || is_object( $log ) ) {
 				error_log( wp_json_encode( $log ) );
 			} else {

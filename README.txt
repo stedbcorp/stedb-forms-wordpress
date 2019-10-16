@@ -1,4 +1,4 @@
-=== STEdb Forms ===
+== STEdb Forms ==
 Contributors: stedbcorp
 Donate link: https://stedb.com
 Tags: comments, spam
