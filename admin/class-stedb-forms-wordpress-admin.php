@@ -83,7 +83,10 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_styles() {
-			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );\
+			
+			wp_register_style ('ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', '', '0.1');
+			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
+			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
 		}
 
@@ -96,7 +99,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
+			wp_register_script('ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
+			
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
@@ -133,8 +138,10 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_enqueue_script( 'jquery-ui-draggable' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_style( 'ste_css' );
+			wp_enqueue_style( 'ste_fonts_css' );
 			wp_enqueue_script( 'ste-backend' );
-
+			wp_enqueue_style( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_bootstrap' );
 			/*adding top bar*/
 			$this->ste_top_bar();
 			$this->ste_form_builder();
@@ -149,7 +156,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_enqueue_style( 'ste_css' );
 			wp_enqueue_script( 'ste-email-backend' );
 			wp_enqueue_script( 'ste-ckeditor' );
-
+			wp_enqueue_style( 'ste_fonts_css' );
+			wp_enqueue_style( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_bootstrap' );
 			$this->ste_top_bar();
 			$this->ste_send_email();
 			$this->ste_footer();
@@ -161,6 +170,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 */
 		public function ste_report_page() {
 			wp_enqueue_style( 'ste_css' );
+			wp_enqueue_style( 'ste_fonts_css' );
+			wp_enqueue_style( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_bootstrap' );
 
 			$this->ste_top_bar();
 			$this->ste_report();

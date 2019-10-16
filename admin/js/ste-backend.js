@@ -14,6 +14,13 @@ var web_url  = ste.site_url;
 			return getTextFieldHTML();
 		},
 		connectToSortable: "#ste-sortable"
+    });
+    $(".link").draggable({
+		helper: function () {
+			$('.btn-shortcode').show();
+			return getLinkFieldHTML();
+		},
+		connectToSortable: "#ste-sortable"
 	});
 	$(".text_area").draggable({
 		helper: function () {
@@ -103,6 +110,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+
 // edit form ajax
 
 /**
@@ -115,11 +123,25 @@ function getTextFieldHTML() {
 	var field = generateField();
     var	html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class="">Text Field</label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
+					+'<label class="ste-col-85">Text Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'
+
 				+'</div>'
 				+'<div class="li_row form_output" data-type="text" data-field="' + field + '">'
 					+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
+				+'</div>'
+			+'</div>';
+    return html;
+}
+function getLinkFieldHTML() {
+	var field = generateField();
+    var	html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
+				+'<div class="ste-flex ste-justify-space ste-align-center">'
+					+'<label class="ste-col-85">Link</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'
+				+'</div>'
+				+'<div class="li_row form_output" data-type="text" data-field="' + field + '">'
+					+'<input type="url" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
 				+'</div>'
 			+'</div>';
     return html;
@@ -130,9 +152,9 @@ function getTextAreaFieldHTML() {
     //var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Textarea Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="textarea" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
  	var	html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class="">Textarea Field</label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85">Textarea Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'
+                +'</div>'
 				+'<div class="li_row form_output" data-type="textarea" data-field="' + field + '">'
 					+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
 				+'</div>'
@@ -146,9 +168,9 @@ function getRadioFieldHTML() {
     var opt1 = generateField();
     var	html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class="">Radio Button Field</label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85">Radio Button Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'				
+                +'</div>'
 				+'<div class="li_row form_output" data-type="radio" data-field="' + field + '">'
 					+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
 				// +'</div>'
@@ -174,9 +196,9 @@ function getCheckboxFieldHTML() {
     var opt1 = generateField();
     var html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
     			+'<div class="ste-flex ste-justify-space ste-align-center">'
-    				+'<label class="">Check Box Field</label>'
-    				+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-    			+'</div>'
+    				+'<label class="ste-col-85">Check Box Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'    			
+                +'</div>'
     			+'<div class="li_row form_output" data-type="checkbox" data-field="' + field + '">'
     				+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
     			// +'</div>'
@@ -203,9 +225,9 @@ function getCheckboxFieldHTML() {
     // var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Dropdown Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div><div class="row li_row form_output" data-type="select" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div><div class="col-md-12"><div class="form-group"><select name="select_' + field + '" class="form-control"><option data-opt="' + opt1 + '" value="Value">Option</option></select></div></div></div><div class="row li_row"><div class="col-md-12"><div class="field_extra_info_' + field + '"><div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + opt1 + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="s_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="s_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_select" data-field="' + field + '"></i></div></div></div></div></div></div></div>';
     var html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
     			+'<div class="ste-flex ste-justify-space ste-align-center">'
-    				+'<label class="">Select Box Field</label>'
-    				+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-    			+'</div>'
+    				+'<label class="ste-col-85">Dropdown Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'    			
+                +'</div>'
     			+'<div class="li_row form_output" data-type="select" data-field="' + field + '">'
     				+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
     			// +'</div>'
@@ -238,9 +260,9 @@ function getCheckboxFieldHTML() {
     // var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Date Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="date" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
     var	html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class="">Date Field</label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85">Date Field</label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'				
+                +'</div>'
 				+'<div class="li_row form_output" data-type="date" data-field="' + field + '">'
 					+'<input type="text" name="label_' + field + '" class="ste-field form_input_label" placeholder="Label" data-field="'+field+'">'
 				+'</div>'
@@ -253,9 +275,9 @@ function getCheckboxFieldHTML() {
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_yahoo" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="'+ site_url+ 'admin/images/yh.png"><img src="'+site_url+'admin/images/vertical_yh.png"><span>Send with yahoo!</span></a></div></div></div></div></div>';
      var html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50 ste-height-auto">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class=""></label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85"></label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'				
+                +'</div>'
 				+'<div class="li_row form_output ste-my-0-5" data-type="social_yahoo" data-field="' + field + '">'
 					+'<div class="sign-up-button ste-sign-up-button yh">'
 						+'<a class="form_save" social-yahoo="s_yahoo">'
@@ -274,9 +296,9 @@ function getCheckboxFieldHTML() {
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_gmail" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+site_url+'admin/images/gp.png"><img src="'+site_url+'admin/images/vertical_gp.png"><span>Send with Gmail</span></a></div></div></div></div></div>';
     var html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50 ste-height-auto">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class=""></label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85"></label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'				
+                +'</div>'
 				+'<div class="li_row form_output ste-my-0-5" data-type="social_gmail" data-field="' + field + '">'
 					+'<div class="sign-up-button ste-sign-up-button gp">'
 						+'<a class="form_save" social-gmail="s_gmail">'
@@ -295,9 +317,9 @@ function getCheckboxFieldHTML() {
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_linkedin" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+site_url+'admin/images/ln.png"><img src="'+site_url+'admin/images/vertical_ln.png"><span>Send with Linkedin</span></a></div></div></div></div></div>';
     var html ='<div class="li_'+field+' ste-builder-field ste-row ste-col-50 ste-height-auto">'
 				+'<div class="ste-flex ste-justify-space ste-align-center">'
-					+'<label class=""></label>'
-					+'<button class="ste-remove-field remove_bal_field" data-field="'+field+'">x</button>'
-				+'</div>'
+					+'<label class="ste-col-85"></label>'
+                    +'<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="'+field+'"></button>'				
+                +'</div>'
 				+'<div class="li_row form_output ste-my-0-5" data-type="social_linkedin" data-field="' + field + '">'
 					+'<div class="sign-up-button ste-sign-up-button ln">'
 						+'<a class="form_save" social-linkedin="s_linkedin">'
