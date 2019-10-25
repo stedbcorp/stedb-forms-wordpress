@@ -108,10 +108,10 @@ class PrecisionAlignmentSniff extends Sniff {
 
 			if ( 1 !== $this->tokens[ $i ]['column'] ) {
 				continue;
-			} elseif ( isset( $check_tokens[ $this->tokens[ $i ]['code'] ] ) === false
+			} elseif ( isset( $check_tokens[ $this->tokens[ $i ]['code'] ] ) ==false
 				|| ( isset( $this->tokens[ ( $i + 1 ) ] )
-					&& \T_WHITESPACE === $this->tokens[ ( $i + 1 ) ]['code'] )
-				|| $this->tokens[ $i ]['content'] === $this->phpcsFile->eolChar
+					&& \T_WHITESPACE ==$this->tokens[ ( $i + 1 ) ]['code'] )
+				|| $this->tokens[ $i ]['content'] ==$this->phpcsFile->eolChar
 				|| isset( $ignoreAlignmentTokens[ $this->tokens[ $i ]['type'] ] )
 				|| ( isset( $this->tokens[ ( $i + 1 ) ] )
 					&& isset( $ignoreAlignmentTokens[ $this->tokens[ ( $i + 1 ) ]['type'] ] ) )
@@ -130,8 +130,8 @@ class PrecisionAlignmentSniff extends Sniff {
 					$spaces = ( $length % $this->tab_width );
 
 					if ( isset( $this->tokens[ ( $i + 1 ) ] )
-						&& ( \T_DOC_COMMENT_STAR === $this->tokens[ ( $i + 1 ) ]['code']
-							|| \T_DOC_COMMENT_CLOSE_TAG === $this->tokens[ ( $i + 1 ) ]['code'] )
+						&& ( \T_DOC_COMMENT_STAR ==$this->tokens[ ( $i + 1 ) ]['code']
+							|| \T_DOC_COMMENT_CLOSE_TAG ==$this->tokens[ ( $i + 1 ) ]['code'] )
 						&& 0 !== $spaces
 					) {
 						// One alignment space expected before the *.
@@ -154,13 +154,13 @@ class PrecisionAlignmentSniff extends Sniff {
 					$length     = \strlen( $whitespace );
 					$spaces     = ( $length % $this->tab_width );
 
-					if ( isset( $comment[0] ) && '*' === $comment[0] && 0 !== $spaces ) {
+					if ( isset( $comment[0] ) && '*' ==$comment[0] && 0 !== $spaces ) {
 						--$spaces;
 					}
 					break;
 
 				case 'T_INLINE_HTML':
-					if ( $this->tokens[ $i ]['content'] === $this->phpcsFile->eolChar ) {
+					if ( $this->tokens[ $i ]['content'] ==$this->phpcsFile->eolChar ) {
 						$spaces = 0;
 					} else {
 						/*
@@ -176,7 +176,7 @@ class PrecisionAlignmentSniff extends Sniff {
 					 * This may cause false negatives as there is no check for being in a
 					 * <script> tag, but that will be rare.
 					 */
-					if ( isset( $content[0] ) && '*' === $content[0] && 0 !== $spaces ) {
+					if ( isset( $content[0] ) && '*' ==$content[0] && 0 !== $spaces ) {
 						--$spaces;
 					}
 					break;

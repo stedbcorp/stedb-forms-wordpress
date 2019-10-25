@@ -10,84 +10,67 @@
 	 */
 
 ?>
-
-
-		<!-- <div class="ste-autosponder-creator ste-mt-2 ste-py-2 ste-px-1-5 ste-pos-relative"> -->
-			<img id="loader1" src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/giphy.gif' ); ?>" />
-			<!-- <span class="ste-form-stiky-tag ste-font-2-2 ste-fontweight-6 ste-pos-absolute"><?php esc_html_e( 'Create your autoresponder', 'ste-social-form-builder' ); ?></span> -->
-			<div class="ste-row ste-flex ste-m-all">
-				<div class="ste-ac-left ste-flexb-35 ste-border-4 ste-p-2-5 ste-border-secondary ste-clr-wh ste-mr-1 ste-flexb-m-100">
-						<div class="ste-font-2-2 ste-fontweight-6 ste-mb-1 ste-h-auto ste-mb-1">	
-						<span class="ste-font-2-2 ste-fontweight-6 ste-my-5 ste-h-auto ste-mb-1">	<?php esc_html_e( 'Create your autoresponder', 'ste-social-form-builder' ); ?></span>
-						</div>
-						<div class="ste-sc-form-name-container ste-flex ste-align-center ste-mb-0-4">
-							<label class="ste-flexb-16 ste-form-color ste-flexb-m-100"><?php esc_html_e( 'Form Name', 'ste-social-form-builder' ); ?></label>
-						</div>
-							<!--------name="ste-sc-form-name"-------->
-							<div class="ste-sc-form-name-container ste-flex ste-align-center ste-mb-0-4">	
-								<input type="text" id="from_name" name="from_name" class="ste-sc-form-name ste-border-1 ste-height-r-2 ste-p-rm-0-5 ste-flexb-100 ste-flexb-m-100" >
-							</div>
-						<div class="ste-sc-subject-container ste-flex ste-align-center ste-mb-0-4">
-							<label class="ste-flexb-16 ste-form-color ste-flexb-m-100"><?php esc_html_e( 'Subject', 'ste-social-form-builder' ); ?></label>
-						</div>
-							<!--------name="ste-sc-subject"-------->
-							<div class="ste-sc-subject-container ste-flex ste-align-center ste-mb-0-4">	
-								<input type="text"  id="subject" name="subject" class="ste-sc-subject ste-border-1 ste-height-r-2 ste-p-rm-0-5 ste-flexb-100 ste-flexb-m-100" >
-							</div>
-						<div class="ste-sc-ckeditor-container ste-flex ste-align-center">
-							<label class="ste-flexb-15 ste-m-dnone ste-flexb-m-100"></label>
-							<!--------name="ste-sc-ckeditor" id="ste-sc-ckeditor"-------->
-							<textarea name="txtFT_Content" id="txtFT_Content" class="ste-sc-ckeditor ckeditor ste-border-2 ste-height-r-2 ste-p-rm-0-5 ste-flexb-80 ste-flexb-m-100"></textarea>
-						</div>
-				</div>
-					<!-- right container start -->
-					<div class="ste-ac-right ste-flexb-60 ste-p-1 ste-clr-wh ste-border-4 ste-border-secondary ste-flexb-m-100">
-						<div class="ste-send-email-container ">
-							<div class="ste-send-email-mini-container">
-								<div class="ste-minheight-2">
-									<div class="ste-send-email-tbl-reponsive">
-										<div class="ste-send-email-tbl ste-col-100" id="form_data_table">
-											<div class="ste-se-thead">
-												<div class="ste-se-tr ste-p-rm-0-2">
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Form Name', 'ste-social-form-builder' ); ?></div>
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Status', 'ste-social-form-builder' ); ?></div>
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Form Creation Date', 'ste-social-form-builder' ); ?></div>
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Type', 'ste-social-form-builder' ); ?></div>
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Date Run', 'ste-social-form-builder' ); ?></div>
-													<div class="ste-se-td ste-se-td-16-66"><?php esc_html_e( 'Short Code', 'ste-social-form-builder' ); ?></div>
-												</div>
-											</div>
-											<div class="ste-se-body email_list">
-											</div>
-										</div>
-									</div>
-								</div> 
-					</div>
-				<!-- right container end -->	
-		</div>
-	</div>
-						<!-- buttons -->
-				<div class="cont ste-mt-1  ste-col-100">
-					<div class="row">
-								<div class="w-100 "></div>
-								<div class="col "></div>
-						<div class="col">
-							<div class="ste-se-multi-btn-container ">
-									<button type="button" class="btn btn-light ste-btn-cancel ste-mr-1 icon icon icon-close clear_form ste-p-2-5" name="ste-btn-cancel"><?php esc_html_e( ' Cancel', 'ste-social-form-builder' ); ?></button>
-									<button type="button" class="btn btn-success icon icon-auto-response ste-mr-1 ste-btn-autoresponder ste-p-2-5" name="ste-btn-autoresponder"><?php esc_html_e( ' Run Autoresponder', 'ste-social-form-builder' ); ?></button>
-									<button type="button" class="btn btn-primary ste-btn-send-email icon icon-send send_regular_email ste-p-2-5" name="ste-btn-send-email"><?php esc_html_e( ' Send Email', 'ste-social-form-builder' ); ?></button>
-										<!-- <button class="ste-btn-cancel icon icon icon-close clear_form" name="ste-btn-cancel" type="button"><?php esc_html_e( ' Cancel', 'ste-social-form-builder' ); ?></button>
-										<button id="getdata" class="ste-btn-autoresponder icon icon-auto-response ste-mr-1" name="ste-btn-autoresponder" type="button"><?php esc_html_e( ' Run Autoresponder', 'ste-social-form-builder' ); ?></button>
-										<button class="ste-btn-send-email icon icon-send send_regular_email" name="ste-btn-send-email" type="button"><?php esc_html_e( ' Send Email', 'ste-social-form-builder' ); ?></button> -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- buttons end -->
+<div class="row send-email-main-box">
+		<!-- left container -->
+		<div class="col-5 ste-auto-responder p-4">
+			<div class="ste-auto-responder-title">	
+				<span><?php esc_html_e( 'Create your autoresponder', 'ste-social-form-builder' ); ?></span>
 			</div>
+			<div class="ste-form-field-label ste-sc-form-name-container">
+				<label><?php esc_html_e( 'Form Name:', 'ste-social-form-builder' ); ?></label>
+			</div>
+			<div class="ste-form-field-input ste-sc-form-name-container">	
+				<input type="text" id="from_name" name="from_name" class="ste-sc-form-name" >
+			</div>
+			<div class="ste-form-field-label ste-sc-subject-container">
+				<label><?php esc_html_e( 'Subject:', 'ste-social-form-builder' ); ?></label>
+			</div>
+			<div class="ste-form-field-input ste-sc-subject-container">	
+				<input type="text"  id="subject" name="subject" class="ste-sc-subject" >
+			</div>
+			<div class="ste-sc-ckeditor-container">
+				<label class="ste-m-dnone"></label>
+					<!--------name="ste-sc-ckeditor" id="ste-sc-ckeditor"-------->
+				<textarea name="txtFT_Content" id="txtFT_Content" class="ste-sc-ckeditor ckeditor "></textarea>
+			</div>
+			<div class="ste-se-multi-btn-container  py-4">
+				<button type="button" class="btn btn-primary ste-btn-send-email mr-2 px-4 send_regular_email " name="ste-btn-send-email"><span class="icon icon-send"></span><?php esc_html_e( ' Send Email', 'ste-social-form-builder' ); ?></button>
+				<button type="button" class="btn btn-success mr-2 px-4 ste-btn-autoresponder " name="ste-btn-autoresponder" id="getdata"><span class="icon icon-auto-response"></span><?php esc_html_e( ' Run Autoresponder', 'ste-social-form-builder' ); ?></button>
+				<button type="button" class="btn btn-light ste-btn-cancel px-4 clear_form " name="ste-btn-cancel"><span class="icon icon-close"></span><?php esc_html_e( ' Cancel', 'ste-social-form-builder' ); ?></button>		
+			</div>
+		</div>
+		<!-- right container -->
+		<div class="col-7 ste-send-email-container p-4">    
+		<div class="ste-send-email-mini-container">
+		<div class="ste-send-email-tbl-reponsive">
+			<div class="ste-send-email-tbl" id="form_data_table">
+					<div class="ste-se-thead ">
+						<div class="ste-se-tr ">
+							<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Form Name', 'ste-social-form-builder' ); ?></div>
+							<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Status', 'ste-social-form-builder' ); ?></div>
+							<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Form Creation Date', 'ste-social-form-builder' ); ?></div>
+							<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Type', 'ste-social-form-builder' ); ?></div>
+							<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Date Run', 'ste-social-form-builder' ); ?></div>
+							<div class="ste-se-td  ste-se-td-20"><?php esc_html_e( 'Short Code', 'ste-social-form-builder' ); ?></div>
+						</div>
+					</div>
+					<div class="ste-se-body email_list">
+					</div>
+			</div>
+		</div>
+		</div> 
+		</div>
+		<!-- <div class="col p-4">
+			<div class="ste-se-multi-btn-container ">
+				<button type="button" class="btn btn-primary ste-btn-send-email mr-2 send_regular_email " name="ste-btn-send-email"><span class="icon icon-send"></span><?php esc_html_e( ' Send Email', 'ste-social-form-builder' ); ?></button>
+				<button type="button" class="btn btn-success mr-2 ste-btn-autoresponder " name="ste-btn-autoresponder" id="getdata"><span class="icon icon-auto-response"></span><?php esc_html_e( ' Run Autoresponder', 'ste-social-form-builder' ); ?></button>
+				<button type="button" class="btn btn-light ste-btn-cancel  clear_form " name="ste-btn-cancel"><span class="icon icon-close"></span><?php esc_html_e( ' Cancel', 'ste-social-form-builder' ); ?></button>		
+			</div>
+		</div> -->
 </div>
+
 <!-- Modal -->
-	<div class="modal fade  ste-modal" id="email_preview" role="dialog">
+<div class="modal fade  ste-modal" id="email_preview" role="dialog">
 		<div class="modal-dialog ste-modal-dialog">
 
 	<!-- Modal content-->

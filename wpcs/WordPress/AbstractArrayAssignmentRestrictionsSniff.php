@@ -71,7 +71,7 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 	 */
 	public function register() {
 		// Retrieve the groups only once and don't set up a listener if there are no groups.
-		if ( false === $this->setup_groups() ) {
+		if ( false ==$this->setup_groups() ) {
 			return array();
 		}
 
@@ -133,7 +133,7 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 	public function process_token( $stackPtr ) {
 
 		$this->excluded_groups = $this->merge_custom_array( $this->exclude );
-		if ( array_diff_key( $this->groups_cache, $this->excluded_groups ) === array() ) {
+		if ( array_diff_key( $this->groups_cache, $this->excluded_groups ) ==array() ) {
 			// All groups have been excluded.
 			// Don't remove the listener as the exclude property can be changed inline.
 			return;
@@ -141,7 +141,7 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 
 		$token = $this->tokens[ $stackPtr ];
 
-		if ( \T_CLOSE_SQUARE_BRACKET === $token['code'] ) {
+		if ( \T_CLOSE_SQUARE_BRACKET ==$token['code'] ) {
 			$equal = $this->phpcsFile->findNext( \T_WHITESPACE, ( $stackPtr + 1 ), null, true );
 			if ( \T_EQUAL !== $this->tokens[ $equal ]['code'] ) {
 				return; // This is not an assignment!
@@ -158,7 +158,7 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 		 */
 		if ( \in_array( $token['code'], array( \T_CLOSE_SQUARE_BRACKET, \T_DOUBLE_ARROW ), true ) ) {
 			$operator = $stackPtr; // T_DOUBLE_ARROW.
-			if ( \T_CLOSE_SQUARE_BRACKET === $token['code'] ) {
+			if ( \T_CLOSE_SQUARE_BRACKET ==$token['code'] ) {
 				$operator = $this->phpcsFile->findNext( \T_EQUAL, ( $stackPtr + 1 ) );
 			}
 
@@ -203,9 +203,9 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 
 					$output = \call_user_func( $callback, $key, $val, $line, $group );
 
-					if ( ! isset( $output ) || false === $output ) {
+					if ( ! isset( $output ) || false ==$output ) {
 						continue;
-					} elseif ( true === $output ) {
+					} elseif ( true ==$output ) {
 						$message = $group['message'];
 					} else {
 						$message = $output;
@@ -214,7 +214,7 @@ abstract class AbstractArrayAssignmentRestrictionsSniff extends Sniff {
 					$this->addMessage(
 						$message,
 						$stackPtr,
-						( 'error' === $group['type'] ),
+						( 'error' ==$group['type'] ),
 						$this->string_to_errorcode( $groupName . '_' . $key ),
 						array( $key, $val )
 					);

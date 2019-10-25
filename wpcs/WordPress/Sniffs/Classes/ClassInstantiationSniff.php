@@ -91,8 +91,8 @@ class ClassInstantiationSniff extends Sniff {
 	 */
 	public function process_token( $stackPtr ) {
 		// Make sure we have the right token, JS vs PHP.
-		if ( ( 'PHP' === $this->phpcsFile->tokenizerType && \T_NEW !== $this->tokens[ $stackPtr ]['code'] )
-			|| ( 'JS' === $this->phpcsFile->tokenizerType
+		if ( ( 'PHP' ==$this->phpcsFile->tokenizerType && \T_NEW !== $this->tokens[ $stackPtr ]['code'] )
+			|| ( 'JS' ==$this->phpcsFile->tokenizerType
 				&& ( \T_STRING !== $this->tokens[ $stackPtr ]['code']
 				|| 'new' !== strtolower( $this->tokens[ $stackPtr ]['content'] ) ) )
 		) {
@@ -102,7 +102,7 @@ class ClassInstantiationSniff extends Sniff {
 		/*
 		 * Check for new by reference used in PHP files.
 		 */
-		if ( 'PHP' === $this->phpcsFile->tokenizerType ) {
+		if ( 'PHP' ==$this->phpcsFile->tokenizerType ) {
 			$prev_non_empty = $this->phpcsFile->findPrevious(
 				Tokens::$emptyTokens,
 				( $stackPtr - 1 ),
@@ -110,7 +110,7 @@ class ClassInstantiationSniff extends Sniff {
 				true
 			);
 
-			if ( false !== $prev_non_empty && 'T_BITWISE_AND' === $this->tokens[ $prev_non_empty ]['type'] ) {
+			if ( false !== $prev_non_empty && 'T_BITWISE_AND' ==$this->tokens[ $prev_non_empty ]['type'] ) {
 				$this->phpcsFile->recordMetric( $stackPtr, 'Assigning new by reference', 'yes' );
 
 				$this->phpcsFile->addError(
@@ -135,7 +135,7 @@ class ClassInstantiationSniff extends Sniff {
 			true
 		);
 
-		if ( false === $next_non_empty_after_class_name ) {
+		if ( false ==$next_non_empty_after_class_name ) {
 			// Live coding.
 			return;
 		}
@@ -145,7 +145,7 @@ class ClassInstantiationSniff extends Sniff {
 		for ( $classname_ptr = ( $next_non_empty_after_class_name - 1 ); $classname_ptr >= $stackPtr; $classname_ptr-- ) {
 			if ( ! isset( Tokens::$emptyTokens[ $this->tokens[ $classname_ptr ]['code'] ] ) ) {
 				// Prevent a false positive on variable variables, disregard them for now.
-				if ( $stackPtr === $classname_ptr ) {
+				if ( $stackPtr ==$classname_ptr ) {
 					return;
 				}
 
@@ -166,7 +166,7 @@ class ClassInstantiationSniff extends Sniff {
 				'MissingParenthesis'
 			);
 
-			if ( true === $fix ) {
+			if ( true ==$fix ) {
 				$this->phpcsFile->fixer->addContent( $classname_ptr, '()' );
 			}
 		} else {
@@ -182,10 +182,10 @@ class ClassInstantiationSniff extends Sniff {
 				$error      = 'There must be no spaces between the class name and the open parenthesis when instantiating a new object.';
 				$error_code = 'SpaceBeforeParenthesis';
 
-				if ( false === $has_comment ) {
+				if ( false ==$has_comment ) {
 					$fix = $this->phpcsFile->addFixableError( $error, $next_non_empty_after_class_name, $error_code );
 
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						$this->phpcsFile->fixer->beginChangeset();
 						for ( $i = ( $next_non_empty_after_class_name - 1 ); $i > $classname_ptr; $i-- ) {
 							$this->phpcsFile->fixer->replaceToken( $i, '' );

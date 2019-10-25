@@ -83,8 +83,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_styles() {
-			
-			wp_register_style ('ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', '', '0.1');
+			// wp_register_style ('ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', '', '0.1');
+			wp_enqueue_style ('ste_google_fonts', '//fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap', '', '0.1');
+			wp_register_style( 'ste_bootstrap', plugins_url( '/bootstrap/css/bootstrap.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
@@ -99,9 +100,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
-			wp_register_script('ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
+			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
+			wp_register_script( 'ste_popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js');
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
-			
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
@@ -119,7 +120,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function ste_admin_menu() {
 
 			/*adding main admin menu*/
-			add_menu_page( 'STEDB Form', 'STEDB Form', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
+			add_menu_page( 'STEdb Form', 'STEdb Form', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
 
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
@@ -142,6 +143,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_enqueue_script( 'ste-backend' );
 			wp_enqueue_style( 'ste_bootstrap' );
 			wp_enqueue_script( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_popper' );
 			/*adding top bar*/
 			$this->ste_top_bar();
 			$this->ste_form_builder();
@@ -261,13 +263,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$get_sm_providers_urls_output = $stedb_obj->stedb_get_social_providers_urls( $user_id, $secret, $base_url, $create_form_list_output );
 					if ( is_array( $get_sm_providers_urls_output || is_object( $get_sm_providers_urls_output ) ) ) {
 						foreach ( $get_sm_providers_urls_output->data as $get_sm_providers_urls ) {
-							if ( 'Google' === $get_sm_providers_urls->sm_name ) {
+							if ( 'Google' ==$get_sm_providers_urls->sm_name ) {
 								$social_links['stedb_gmail'] = $get_sm_providers_urls->sm_url;
 							}
-							if ( 'Yahoo' === $get_sm_providers_urls->sm_name ) {
+							if ( 'Yahoo' ==$get_sm_providers_urls->sm_name ) {
 								$social_links['stedb_yahoo'] = $get_sm_providers_urls->sm_url;
 							}
-							if ( 'LinkedIn' === $get_sm_providers_urls->sm_name ) {
+							if ( 'LinkedIn' ==$get_sm_providers_urls->sm_name ) {
 								$social_links['stedb_linkedin'] = $get_sm_providers_urls->sm_url;
 							}
 						}
@@ -347,11 +349,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						'form_id' => sanitize_text_field( $args['form_id'] ),
 					);
 					$filter = isset( $args['filter'] ) ? $args['filter'] : '';
-					if ( 'move_to_trash' === $filter ) {
+					if ( 'move_to_trash' ==$filter ) {
 							$data = array(
 								'is_deleted' => 1,
 							);
-					} elseif ( 'restore' === $filter ) {
+					} elseif ( 'restore' ==$filter ) {
 							$data = array(
 								'is_deleted' => 0,
 							);
@@ -499,7 +501,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$stedb_obj   = new STEDB_Account();
 					$list_id     = sanitize_text_field( $args['list_id'] );
 					$get_list_id = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
-					if ( 1 === $get_list_id[0]->list_id && $get_list_id[0]->status ) {
+					if ( 1 ==$get_list_id[0]->list_id && $get_list_id[0]->status ) {
 						$id                = $get_list_id[0]->stedb_campaign_id;
 						$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 						$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -557,7 +559,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$stedb_obj     = new STEDB_Account();
 						$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 						if ( ! empty( $get_list_id ) ) {
-							if ( 1 === $get_list_id[0]->status ) {
+							if ( 1 ==$get_list_id[0]->status ) {
 								$id                = $get_list_id[0]->stedb_campaign_id;
 								$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 								$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -626,7 +628,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$get_list_id   = $wpdb->get_results( $wpdb->prepare( 'SELECT list_id FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 
 						if ( ! empty( $get_list_id ) ) {
-							if ( 1 === $get_list_id[0]->status ) {
+							if ( 1 == $get_list_id[0]->status ) {
 								$id                = $get_list_id[0]->stedb_campaign_id;
 								$stedb_campaign_id = $stedb_obj->stedb_update_campaign( $user_id, $secret, $base_url, $data, $id );
 								$wpdb->update( $table, $data, array( 'list_id' => $list_id ) );
@@ -676,11 +678,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$args = wp_unslash( $_POST );
 			if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 							$filter = sanitize_text_field( $args['filter'] );
-				if ( 'move_to_trash' === $filter ) {
+				if ( 'move_to_trash' ==$filter ) {
 									$data = array(
 										'is_deleted' => 1,
 									);
-				} elseif ( 'restore' === $filter ) {
+				} elseif ( 'restore' ==$filter ) {
 									$data = array(
 										'is_deleted' => 0,
 									);
@@ -715,13 +717,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				 */
 		public function stedb_remove_element_with_value( $array ) {
 			foreach ( $array as $sub_key => $sub_array ) {
-				if ( 'social_gmail' === $sub_array ) {
+				if ( 'social_gmail' ==$sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
-				if ( 'social_yahoo' === $sub_array ) {
+				if ( 'social_yahoo' ==$sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
-				if ( 'social_linkedin' === $sub_array ) {
+				if ( 'social_linkedin' ==$sub_array ) {
 						unset( $array[ $sub_key ] );
 				}
 			}
@@ -747,11 +749,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 									'creation_date'  => date( 'Y-m-d' ),
 								);
 								$filter = sanitize_text_field( $args['filter'] );
-								if ( 'move_to_trash' === $filter ) {
+								if ( 'move_to_trash' ==$filter ) {
 									$data = array(
 										'is_deleted' => 1,
 									);
-								} elseif ( 'restore' === $filter ) {
+								} elseif ( 'restore' ==$filter ) {
 									$data = array(
 										'is_deleted' => 0,
 									);

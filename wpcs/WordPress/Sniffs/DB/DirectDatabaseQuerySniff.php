@@ -119,7 +119,7 @@ class DirectDatabaseQuerySniff extends Sniff {
 		}
 
 		$is_object_call = $this->phpcsFile->findNext( \T_OBJECT_OPERATOR, ( $stackPtr + 1 ), null, false, null, true );
-		if ( false === $is_object_call ) {
+		if ( false ==$is_object_call ) {
 			return; // This is not a call to the wpdb object.
 		}
 
@@ -140,7 +140,7 @@ class DirectDatabaseQuerySniff extends Sniff {
 				break;
 			}
 
-			if ( \T_COMMENT === $this->tokens[ $i ]['code'] ) {
+			if ( \T_COMMENT ==$this->tokens[ $i ]['code'] ) {
 				$endOfLineComment .= $this->tokens[ $i ]['content'];
 			}
 		}
@@ -153,7 +153,7 @@ class DirectDatabaseQuerySniff extends Sniff {
 		// Check for Database Schema Changes.
 		for ( $_pos = ( $stackPtr + 1 ); $_pos < $endOfStatement; $_pos++ ) {
 			$_pos = $this->phpcsFile->findNext( Tokens::$textStringTokens, $_pos, $endOfStatement, false, null, true );
-			if ( false === $_pos ) {
+			if ( false ==$_pos ) {
 				break;
 			}
 
@@ -180,7 +180,7 @@ class DirectDatabaseQuerySniff extends Sniff {
 		if ( ! $whitelisted_cache && ! empty( $this->tokens[ $stackPtr ]['conditions'] ) ) {
 			$scope_function = $this->phpcsFile->getCondition( $stackPtr, \T_FUNCTION );
 
-			if ( false === $scope_function ) {
+			if ( false ==$scope_function ) {
 				$scope_function = $this->phpcsFile->getCondition( $stackPtr, \T_CLOSURE );
 			}
 
@@ -189,7 +189,7 @@ class DirectDatabaseQuerySniff extends Sniff {
 				$scopeEnd   = $this->tokens[ $scope_function ]['scope_closer'];
 
 				for ( $i = ( $scopeStart + 1 ); $i < $scopeEnd; $i++ ) {
-					if ( \T_STRING === $this->tokens[ $i ]['code'] ) {
+					if ( \T_STRING ==$this->tokens[ $i ]['code'] ) {
 
 						if ( isset( $this->cacheDeleteFunctions[ $this->tokens[ $i ]['content'] ] ) ) {
 

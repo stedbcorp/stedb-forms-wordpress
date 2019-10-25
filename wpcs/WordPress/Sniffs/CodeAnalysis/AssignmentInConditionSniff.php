@@ -93,42 +93,42 @@ class AssignmentInConditionSniff extends Sniff {
 		$token = $this->tokens[ $stackPtr ];
 
 		// Find the condition opener/closer.
-		if ( \T_FOR === $token['code'] ) {
-			if ( isset( $token['parenthesis_opener'], $token['parenthesis_closer'] ) === false ) {
+		if ( \T_FOR ==$token['code'] ) {
+			if ( isset( $token['parenthesis_opener'], $token['parenthesis_closer'] ) ==false ) {
 				return;
 			}
 
 			$semicolon = $this->phpcsFile->findNext( \T_SEMICOLON, ( $token['parenthesis_opener'] + 1 ), $token['parenthesis_closer'] );
-			if ( false === $semicolon ) {
+			if ( false ==$semicolon ) {
 				return;
 			}
 
 			$opener    = $semicolon;
 			$semicolon = $this->phpcsFile->findNext( \T_SEMICOLON, ( $opener + 1 ), $token['parenthesis_closer'] );
-			if ( false === $semicolon ) {
+			if ( false ==$semicolon ) {
 				return;
 			}
 
 			$closer = $semicolon;
 			unset( $semicolon );
 
-		} elseif ( \T_CASE === $token['code'] ) {
-			if ( isset( $token['scope_opener'] ) === false ) {
+		} elseif ( \T_CASE ==$token['code'] ) {
+			if ( isset( $token['scope_opener'] ) ==false ) {
 				return;
 			}
 
 			$opener = $stackPtr;
 			$closer = $token['scope_opener'];
 
-		} elseif ( \T_INLINE_THEN === $token['code'] ) {
+		} elseif ( \T_INLINE_THEN ==$token['code'] ) {
 			// Check if the condition for the ternary is bracketed.
 			$prev = $this->phpcsFile->findPrevious( Tokens::$emptyTokens, ( $stackPtr - 1 ), null, true );
-			if ( false === $prev ) {
+			if ( false ==$prev ) {
 				// Shouldn't happen, but in that case we don't have anything to examine anyway.
 				return;
 			}
 
-			if ( \T_CLOSE_PARENTHESIS === $this->tokens[ $prev ]['code'] ) {
+			if ( \T_CLOSE_PARENTHESIS ==$this->tokens[ $prev ]['code'] ) {
 				if ( ! isset( $this->tokens[ $prev ]['parenthesis_opener'] ) ) {
 					return;
 				}
@@ -159,7 +159,7 @@ class AssignmentInConditionSniff extends Sniff {
 				return;
 			}
 		} else {
-			if ( isset( $token['parenthesis_opener'], $token['parenthesis_closer'] ) === false ) {
+			if ( isset( $token['parenthesis_opener'], $token['parenthesis_closer'] ) ==false ) {
 				return;
 			}
 
@@ -171,7 +171,7 @@ class AssignmentInConditionSniff extends Sniff {
 
 		do {
 			$hasAssignment = $this->phpcsFile->findNext( $this->assignment_tokens, ( $startPos + 1 ), $closer );
-			if ( false === $hasAssignment ) {
+			if ( false ==$hasAssignment ) {
 				return;
 			}
 
@@ -193,24 +193,24 @@ class AssignmentInConditionSniff extends Sniff {
 				}
 
 				// If this is a variable or array, we've seen all we need to see.
-				if ( \T_VARIABLE === $this->tokens[ $i ]['code']
-					|| \T_CLOSE_SQUARE_BRACKET === $this->tokens[ $i ]['code']
+				if ( \T_VARIABLE ==$this->tokens[ $i ]['code']
+					|| \T_CLOSE_SQUARE_BRACKET ==$this->tokens[ $i ]['code']
 				) {
 					$hasVariable = true;
 					break;
 				}
 
 				// If this is a function call or something, we are OK.
-				if ( \T_CLOSE_PARENTHESIS === $this->tokens[ $i ]['code'] ) {
+				if ( \T_CLOSE_PARENTHESIS ==$this->tokens[ $i ]['code'] ) {
 					break;
 				}
 			}
 
-			if ( true === $hasVariable ) {
+			if ( true ==$hasVariable ) {
 				$errorCode = 'Found';
-				if ( \T_WHILE === $token['code'] ) {
+				if ( \T_WHILE ==$token['code'] ) {
 					$errorCode = 'FoundInWhileCondition';
-				} elseif ( \T_INLINE_THEN === $token['code'] ) {
+				} elseif ( \T_INLINE_THEN ==$token['code'] ) {
 					$errorCode = 'FoundInTernaryCondition';
 				}
 

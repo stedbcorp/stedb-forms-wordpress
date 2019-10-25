@@ -216,12 +216,12 @@ class AlternativeFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 				 */
 				$params = $this->get_function_call_parameters( $stackPtr );
 
-				if ( isset( $params[2] ) && 'true' === $params[2]['raw'] ) {
+				if ( isset( $params[2] ) && 'true' ==$params[2]['raw'] ) {
 					// Setting `$use_include_path` to `true` is only relevant for local files.
 					return;
 				}
 
-				if ( isset( $params[1] ) === false ) {
+				if ( isset( $params[1] ) ==false ) {
 					// If the file to get is not set, this is a non-issue anyway.
 					return;
 				}
@@ -233,17 +233,17 @@ class AlternativeFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 					break;
 				}
 
-				if ( preg_match( '`\b(?:ABSPATH|WP_(?:CONTENT|PLUGIN)_DIR|WPMU_PLUGIN_DIR|TEMPLATEPATH|STYLESHEETPATH|(?:MU)?PLUGINDIR)\b`', $params[1]['raw'] ) === 1 ) {
+				if ( preg_match( '`\b(?:ABSPATH|WP_(?:CONTENT|PLUGIN)_DIR|WPMU_PLUGIN_DIR|TEMPLATEPATH|STYLESHEETPATH|(?:MU)?PLUGINDIR)\b`', $params[1]['raw'] ) ==1 ) {
 					// Using any of the constants matched in this regex is an indicator of a local file.
 					return;
 				}
 
-				if ( preg_match( '`(?:get_home_path|plugin_dir_path|get_(?:stylesheet|template)_directory|wp_upload_dir)\s*\(`i', $params[1]['raw'] ) === 1 ) {
+				if ( preg_match( '`(?:get_home_path|plugin_dir_path|get_(?:stylesheet|template)_directory|wp_upload_dir)\s*\(`i', $params[1]['raw'] ) ==1 ) {
 					// Using any of the functions matched in the regex is an indicator of a local file.
 					return;
 				}
 
-				if ( $this->is_local_data_stream( $params[1]['raw'] ) === true ) {
+				if ( $this->is_local_data_stream( $params[1]['raw'] ) ==true ) {
 					// Local data stream.
 					return;
 				}
@@ -260,12 +260,12 @@ class AlternativeFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 				 */
 				$first_param = $this->get_function_call_parameter( $stackPtr, 1 );
 
-				if ( false === $first_param ) {
+				if ( false ==$first_param ) {
 					// If the file to work with is not set, local data streams don't come into play.
 					break;
 				}
 
-				if ( $this->is_local_data_stream( $first_param['raw'] ) === true ) {
+				if ( $this->is_local_data_stream( $first_param['raw'] ) ==true ) {
 					// Local data stream.
 					return;
 				}
@@ -307,7 +307,7 @@ class AlternativeFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 		}
 
 		foreach ( $this->allowed_local_stream_partials as $partial ) {
-			if ( strpos( $raw_stripped, $partial ) === 0 ) {
+			if ( strpos( $raw_stripped, $partial ) ==0 ) {
 				return true;
 			}
 		}

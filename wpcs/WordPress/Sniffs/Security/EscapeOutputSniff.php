@@ -196,7 +196,7 @@ class EscapeOutputSniff extends Sniff {
 		$open_paren = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true );
 
 		// If function, not T_ECHO nor T_PRINT.
-		if ( \T_STRING === $this->tokens[ $stackPtr ]['code'] ) {
+		if ( \T_STRING ==$this->tokens[ $stackPtr ]['code'] ) {
 			// Skip if it is a function but is not one of the printing functions.
 			if ( ! isset( $this->printingFunctions[ $this->tokens[ $stackPtr ]['content'] ] ) ) {
 				return;
@@ -270,11 +270,11 @@ class EscapeOutputSniff extends Sniff {
 			}
 
 			// Ignore namespace separators.
-			if ( \T_NS_SEPARATOR === $this->tokens[ $i ]['code'] ) {
+			if ( \T_NS_SEPARATOR ==$this->tokens[ $i ]['code'] ) {
 				continue;
 			}
 
-			if ( \T_OPEN_PARENTHESIS === $this->tokens[ $i ]['code'] ) {
+			if ( \T_OPEN_PARENTHESIS ==$this->tokens[ $i ]['code'] ) {
 
 				if ( ! isset( $this->tokens[ $i ]['parenthesis_closer'] ) ) {
 					// Live coding or parse error.
@@ -297,7 +297,7 @@ class EscapeOutputSniff extends Sniff {
 						$next_paren = $this->phpcsFile->findNext( \T_OPEN_PARENTHESIS, ( $i + 1 ), $this->tokens[ $i ]['parenthesis_closer'] );
 
 						// We only do it if the ternary isn't within a subset of parentheses.
-						if ( false === $next_paren || ( isset( $this->tokens[ $next_paren ]['parenthesis_closer'] ) && $ternary > $this->tokens[ $next_paren ]['parenthesis_closer'] ) ) {
+						if ( false ==$next_paren || ( isset( $this->tokens[ $next_paren ]['parenthesis_closer'] ) && $ternary > $this->tokens[ $next_paren ]['parenthesis_closer'] ) ) {
 							$i = $ternary;
 						}
 					}
@@ -307,13 +307,13 @@ class EscapeOutputSniff extends Sniff {
 			}
 
 			// Handle arrays for those functions that accept them.
-			if ( \T_ARRAY === $this->tokens[ $i ]['code'] ) {
+			if ( \T_ARRAY ==$this->tokens[ $i ]['code'] ) {
 				$i++; // Skip the opening parenthesis.
 				continue;
 			}
 
-			if ( \T_OPEN_SHORT_ARRAY === $this->tokens[ $i ]['code']
-				|| \T_CLOSE_SHORT_ARRAY === $this->tokens[ $i ]['code']
+			if ( \T_OPEN_SHORT_ARRAY ==$this->tokens[ $i ]['code']
+				|| \T_CLOSE_SHORT_ARRAY ==$this->tokens[ $i ]['code']
 			) {
 				continue;
 			}
@@ -328,7 +328,7 @@ class EscapeOutputSniff extends Sniff {
 			}
 
 			// Handle safe PHP native constants.
-			if ( \T_STRING === $this->tokens[ $i ]['code']
+			if ( \T_STRING ==$this->tokens[ $i ]['code']
 				&& isset( $this->safe_php_constants[ $this->tokens[ $i ]['content'] ] )
 				&& $this->is_use_of_global_constant( $i )
 			) {
@@ -336,25 +336,25 @@ class EscapeOutputSniff extends Sniff {
 			}
 
 			// Wake up on concatenation characters, another part to check.
-			if ( \T_STRING_CONCAT === $this->tokens[ $i ]['code'] ) {
+			if ( \T_STRING_CONCAT ==$this->tokens[ $i ]['code'] ) {
 				$watch = true;
 				continue;
 			}
 
 			// Wake up after a ternary else (:).
-			if ( false !== $ternary && \T_INLINE_ELSE === $this->tokens[ $i ]['code'] ) {
+			if ( false !== $ternary && \T_INLINE_ELSE ==$this->tokens[ $i ]['code'] ) {
 				$watch = true;
 				continue;
 			}
 
 			// Wake up for commas.
-			if ( \T_COMMA === $this->tokens[ $i ]['code'] ) {
+			if ( \T_COMMA ==$this->tokens[ $i ]['code'] ) {
 				$in_cast = false;
 				$watch   = true;
 				continue;
 			}
 
-			if ( false === $watch ) {
+			if ( false ==$watch ) {
 				continue;
 			}
 
@@ -373,7 +373,7 @@ class EscapeOutputSniff extends Sniff {
 			}
 
 			// Now check that next token is a function call.
-			if ( \T_STRING === $this->tokens[ $i ]['code'] ) {
+			if ( \T_STRING ==$this->tokens[ $i ]['code'] ) {
 
 				$ptr                    = $i;
 				$functionName           = $this->tokens[ $i ]['content'];
@@ -403,7 +403,7 @@ class EscapeOutputSniff extends Sniff {
 							);
 
 							if ( false !== $mapped_function
-								&& \T_CONSTANT_ENCAPSED_STRING === $this->tokens[ $mapped_function ]['code']
+								&& \T_CONSTANT_ENCAPSED_STRING ==$this->tokens[ $mapped_function ]['code']
 							) {
 								$functionName = $this->strip_quotes( $this->tokens[ $mapped_function ]['content'] );
 								$ptr          = $mapped_function;

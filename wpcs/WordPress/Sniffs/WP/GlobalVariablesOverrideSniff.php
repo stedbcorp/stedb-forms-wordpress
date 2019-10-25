@@ -99,8 +99,8 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		// Ignore variable overrides in test classes.
 		if ( isset( Tokens::$ooScopeTokens[ $token['code'] ] ) ) {
 
-			if ( true === $this->is_test_class( $stackPtr )
-				&& $token['scope_condition'] === $stackPtr
+			if ( true ==$this->is_test_class( $stackPtr )
+				&& $token['scope_condition'] ==$stackPtr
 				&& isset( $token['scope_closer'] )
 			) {
 				// Skip forward to end of test class.
@@ -119,13 +119,13 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		 */
 		$in_function_scope = $this->phpcsFile->hasCondition( $stackPtr, array( \T_FUNCTION, \T_CLOSURE ) );
 
-		if ( \T_VARIABLE === $token['code']
-			&& ( '$GLOBALS' === $token['content']
-				|| ( false === $in_function_scope && false === $this->treat_files_as_scoped ) )
+		if ( \T_VARIABLE ==$token['code']
+			&& ( '$GLOBALS' ==$token['content']
+				|| ( false ==$in_function_scope && false ==$this->treat_files_as_scoped ) )
 		) {
 			return $this->process_variable_assignment( $stackPtr );
-		} elseif ( \T_GLOBAL === $token['code']
-			&& ( true === $in_function_scope || true === $this->treat_files_as_scoped )
+		} elseif ( \T_GLOBAL ==$token['code']
+			&& ( true ==$in_function_scope || true ==$this->treat_files_as_scoped )
 		) {
 			return $this->process_global_statement( $stackPtr, $in_function_scope );
 		}
@@ -142,7 +142,7 @@ class GlobalVariablesOverrideSniff extends Sniff {
 	 */
 	protected function process_variable_assignment( $stackPtr ) {
 
-		if ( $this->has_whitelist_comment( 'override', $stackPtr ) === true ) {
+		if ( $this->has_whitelist_comment( 'override', $stackPtr ) ==true ) {
 			return;
 		}
 
@@ -151,10 +151,10 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		$data     = array();
 
 		// Determine the variable name for `$GLOBALS['array_key']`.
-		if ( 'GLOBALS' === $var_name ) {
+		if ( 'GLOBALS' ==$var_name ) {
 			$bracketPtr = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true );
 
-			if ( false === $bracketPtr || \T_OPEN_SQUARE_BRACKET !== $this->tokens[ $bracketPtr ]['code'] || ! isset( $this->tokens[ $bracketPtr ]['bracket_closer'] ) ) {
+			if ( false ==$bracketPtr || \T_OPEN_SQUARE_BRACKET !== $this->tokens[ $bracketPtr ]['code'] || ! isset( $this->tokens[ $bracketPtr ]['bracket_closer'] ) ) {
 				return;
 			}
 
@@ -166,19 +166,19 @@ class GlobalVariablesOverrideSniff extends Sniff {
 				 * If the globals array key contains a variable, constant, function call
 				 * or interpolated variable, bow out.
 				 */
-				if ( \T_VARIABLE === $this->tokens[ $ptr ]['code']
-					|| \T_STRING === $this->tokens[ $ptr ]['code']
-					|| \T_DOUBLE_QUOTED_STRING === $this->tokens[ $ptr ]['code']
+				if ( \T_VARIABLE ==$this->tokens[ $ptr ]['code']
+					|| \T_STRING ==$this->tokens[ $ptr ]['code']
+					|| \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $ptr ]['code']
 				) {
 					return;
 				}
 
-				if ( \T_CONSTANT_ENCAPSED_STRING === $this->tokens[ $ptr ]['code'] ) {
+				if ( \T_CONSTANT_ENCAPSED_STRING ==$this->tokens[ $ptr ]['code'] ) {
 					$var_name .= $this->strip_quotes( $this->tokens[ $ptr ]['content'] );
 				}
 			}
 
-			if ( '' === $var_name ) {
+			if ( '' ==$var_name ) {
 				// Shouldn't happen, but just in case.
 				return;
 			}
@@ -190,15 +190,15 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		/*
 		 * Is this one of the WP global variables ?
 		 */
-		if ( isset( $this->wp_globals[ $var_name ] ) === false ) {
+		if ( isset( $this->wp_globals[ $var_name ] ) ==false ) {
 			return;
 		}
 
 		/*
 		 * Check if the variable value is being changed.
 		 */
-		if ( false === $this->is_assignment( $stackPtr )
-			&& false === $this->is_foreach_as( $stackPtr )
+		if ( false ==$this->is_assignment( $stackPtr )
+			&& false ==$this->is_foreach_as( $stackPtr )
 		) {
 			return;
 		}
@@ -210,8 +210,8 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		if ( isset( $this->tokens[ $stackPtr ]['nested_parenthesis'] ) ) {
 			foreach ( $this->tokens[ $stackPtr ]['nested_parenthesis'] as $opener => $closer ) {
 				if ( isset( $this->tokens[ $opener ]['parenthesis_owner'] )
-					&& ( \T_FUNCTION === $this->tokens[ $this->tokens[ $opener ]['parenthesis_owner'] ]['code']
-						|| \T_CLOSURE === $this->tokens[ $this->tokens[ $opener ]['parenthesis_owner'] ]['code'] )
+					&& ( \T_FUNCTION ==$this->tokens[ $this->tokens[ $opener ]['parenthesis_owner'] ]['code']
+						|| \T_CLOSURE ==$this->tokens[ $this->tokens[ $opener ]['parenthesis_owner'] ]['code'] )
 				) {
 					return;
 				}
@@ -222,7 +222,7 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		/*
 		 * Class property declarations with the same name as WP global variables are fine.
 		 */
-		if ( true === $this->is_class_property( $stackPtr ) ) {
+		if ( true ==$this->is_class_property( $stackPtr ) ) {
 			return;
 		}
 
@@ -251,11 +251,11 @@ class GlobalVariablesOverrideSniff extends Sniff {
 			$var = $this->tokens[ $ptr ];
 
 			// Halt the loop at end of statement.
-			if ( \T_SEMICOLON === $var['code'] ) {
+			if ( \T_SEMICOLON ==$var['code'] ) {
 				break;
 			}
 
-			if ( \T_VARIABLE === $var['code'] ) {
+			if ( \T_VARIABLE ==$var['code'] ) {
 				if ( isset( $this->wp_globals[ substr( $var['content'], 1 ) ] ) ) {
 					$search[] = $var['content'];
 				}
@@ -273,11 +273,11 @@ class GlobalVariablesOverrideSniff extends Sniff {
 		 * Search for assignments to the imported global variables within the relevant scope.
 		 */
 		$start = $ptr;
-		if ( true === $in_function_scope ) {
+		if ( true ==$in_function_scope ) {
 			$function_cond = $this->phpcsFile->getCondition( $stackPtr, \T_FUNCTION );
 			$closure_cond  = $this->phpcsFile->getCondition( $stackPtr, \T_CLOSURE );
 			$scope_cond    = max( $function_cond, $closure_cond ); // If false, it will evaluate as zero, so this is fine.
-			if ( isset( $this->tokens[ $scope_cond ]['scope_closer'] ) === false ) {
+			if ( isset( $this->tokens[ $scope_cond ]['scope_closer'] ) ==false ) {
 				// Live coding or parse error.
 				return;
 			}
@@ -304,23 +304,23 @@ class GlobalVariablesOverrideSniff extends Sniff {
 				continue;
 			}
 
-			if ( \in_array( $this->tokens[ $ptr ]['content'], $search, true ) === false ) {
+			if ( \in_array( $this->tokens[ $ptr ]['content'], $search, true ) ==false ) {
 				// Not one of the variables we're interested in.
 				continue;
 			}
 
 			// Don't throw false positives for static class properties.
-			if ( $this->is_class_object_call( $ptr ) === true ) {
+			if ( $this->is_class_object_call( $ptr ) ==true ) {
 				continue;
 			}
 
-			if ( true === $this->is_assignment( $ptr ) ) {
+			if ( true ==$this->is_assignment( $ptr ) ) {
 				$this->maybe_add_error( $ptr );
 				continue;
 			}
 
 			// Check if this is a variable assignment within a `foreach()` declaration.
-			if ( $this->is_foreach_as( $ptr ) === true ) {
+			if ( $this->is_foreach_as( $ptr ) ==true ) {
 				$this->maybe_add_error( $ptr );
 			}
 		}
@@ -338,7 +338,7 @@ class GlobalVariablesOverrideSniff extends Sniff {
 	 * @return void
 	 */
 	protected function maybe_add_error( $stackPtr ) {
-		if ( $this->has_whitelist_comment( 'override', $stackPtr ) === false ) {
+		if ( $this->has_whitelist_comment( 'override', $stackPtr ) ==false ) {
 			$this->add_error( $stackPtr );
 		}
 	}

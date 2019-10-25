@@ -113,7 +113,7 @@ class DiscouragedConstantsSniff extends AbstractFunctionParameterSniff {
 		}
 
 		$next = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true );
-		if ( false !== $next && \T_OPEN_PARENTHESIS === $this->tokens[ $next ]['code'] ) {
+		if ( false !== $next && \T_OPEN_PARENTHESIS ==$this->tokens[ $next ]['code'] ) {
 			// Function call or declaration.
 			return;
 		}
@@ -124,14 +124,14 @@ class DiscouragedConstantsSniff extends AbstractFunctionParameterSniff {
 			return;
 		}
 
-		if ( $this->is_token_namespaced( $stackPtr ) === true ) {
+		if ( $this->is_token_namespaced( $stackPtr ) ==true ) {
 			// Namespaced constant of the same name.
 			return;
 		}
 
 		if ( false !== $prev
-			&& \T_CONST === $this->tokens[ $prev ]['code']
-			&& true === $this->is_class_constant( $prev )
+			&& \T_CONST ==$this->tokens[ $prev ]['code']
+			&& true ==$this->is_class_constant( $prev )
 		) {
 			// Class constant of the same name.
 			return;
@@ -147,12 +147,12 @@ class DiscouragedConstantsSniff extends AbstractFunctionParameterSniff {
 		}
 
 		$first_on_line = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $i + 1 ), null, true );
-		if ( false !== $first_on_line && \T_USE === $this->tokens[ $first_on_line ]['code'] ) {
+		if ( false !== $first_on_line && \T_USE ==$this->tokens[ $first_on_line ]['code'] ) {
 			$next_on_line = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $first_on_line + 1 ), null, true );
 			if ( false !== $next_on_line ) {
-				if ( ( \T_STRING === $this->tokens[ $next_on_line ]['code']
-						&& 'const' === $this->tokens[ $next_on_line ]['content'] )
-					|| \T_CONST === $this->tokens[ $next_on_line ]['code'] // Happens in some PHPCS versions.
+				if ( ( \T_STRING ==$this->tokens[ $next_on_line ]['code']
+						&& 'const' ==$this->tokens[ $next_on_line ]['content'] )
+					|| \T_CONST ==$this->tokens[ $next_on_line ]['code'] // Happens in some PHPCS versions.
 				) {
 					$has_ns_sep = $this->phpcsFile->findNext( \T_NS_SEPARATOR, ( $next_on_line + 1 ), $stackPtr );
 					if ( false !== $has_ns_sep ) {

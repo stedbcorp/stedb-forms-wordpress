@@ -309,7 +309,7 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 					break;
 			}
 
-			if ( $parameter_args['value'] === $matched_parameter ) {
+			if ( $parameter_args['value'] ==$matched_parameter ) {
 				continue;
 			}
 

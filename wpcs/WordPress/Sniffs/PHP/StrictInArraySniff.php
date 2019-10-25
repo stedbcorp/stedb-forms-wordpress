@@ -74,21 +74,21 @@ class StrictInArraySniff extends AbstractFunctionParameterSniff {
 	 */
 	public function process_parameters( $stackPtr, $group_name, $matched_content, $parameters ) {
 		// Check if the strict check is actually needed.
-		if ( false === $this->target_functions[ $matched_content ] ) {
-			if ( \count( $parameters ) === 1 ) {
+		if ( false ==$this->target_functions[ $matched_content ] ) {
+			if ( \count( $parameters ) ==1 ) {
 				return;
 			}
 		}
 
 		// We're only interested in the third parameter.
-		if ( false === isset( $parameters[3] ) || 'true' !== strtolower( $parameters[3]['raw'] ) ) {
+		if ( false ==isset( $parameters[3] ) || 'true' !== strtolower( $parameters[3]['raw'] ) ) {
 			$errorcode = 'MissingTrueStrict';
 
 			/*
 			 * Use a different error code when `false` is found to allow for excluding
 			 * the warning as this will be a conscious choice made by the dev.
 			 */
-			if ( isset( $parameters[3] ) && 'false' === strtolower( $parameters[3]['raw'] ) ) {
+			if ( isset( $parameters[3] ) && 'false' ==strtolower( $parameters[3]['raw'] ) ) {
 				$errorcode = 'FoundNonStrictFalse';
 			}
 

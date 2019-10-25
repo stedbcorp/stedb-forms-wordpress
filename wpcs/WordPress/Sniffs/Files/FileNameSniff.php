@@ -140,7 +140,7 @@ class FileNameSniff extends Sniff {
 
 		// Usage of `strip_quotes` is to ensure `stdin_path` passed by IDEs does not include quotes.
 		$file = $this->strip_quotes( $this->phpcsFile->getFileName() );
-		if ( 'STDIN' === $file ) {
+		if ( 'STDIN' ==$file ) {
 			return;
 		}
 
@@ -161,7 +161,7 @@ class FileNameSniff extends Sniff {
 						&& ! isset( $this->tokens[ $i ]['sniffCodes']['WordPress.Files'] )
 						&& ! isset( $this->tokens[ $i ]['sniffCodes']['WordPress.Files.FileName'] ) );
 
-					if ( false === $i ) {
+					if ( false ==$i ) {
 						// The entire (rest of the) file is disabled.
 						return;
 					}
@@ -175,7 +175,7 @@ class FileNameSniff extends Sniff {
 		/*
 		 * Generic check for lowercase hyphenated file names.
 		 */
-		if ( $fileName !== $expected && ( false === $this->is_theme || 1 !== preg_match( self::THEME_EXCEPTIONS_REGEX, $fileName ) ) ) {
+		if ( $fileName !== $expected && ( false ==$this->is_theme || 1 !== preg_match( self::THEME_EXCEPTIONS_REGEX, $fileName ) ) ) {
 			$this->phpcsFile->addError(
 				'Filenames should be all lowercase with hyphens as word separators. Expected %s, but found %s.',
 				0,
@@ -189,9 +189,9 @@ class FileNameSniff extends Sniff {
 		 * Check files containing a class for the "class-" prefix and that the rest of
 		 * the file name reflects the class name.
 		 */
-		if ( true === $this->strict_class_file_names ) {
+		if ( true ==$this->strict_class_file_names ) {
 			$has_class = $this->phpcsFile->findNext( \T_CLASS, $stackPtr );
-			if ( false !== $has_class && false === $this->is_test_class( $has_class ) ) {
+			if ( false !== $has_class && false ==$this->is_test_class( $has_class ) ) {
 				$class_name = $this->phpcsFile->getDeclarationName( $has_class );
 				$expected   = 'class-' . strtolower( str_replace( '_', '-', $class_name ) );
 
@@ -221,11 +221,11 @@ class FileNameSniff extends Sniff {
 					$fileName_end = substr( $fileName, -13 );
 					$has_class    = $this->phpcsFile->findNext( \T_CLASS, $stackPtr );
 
-					if ( ( 'Template' === trim( $this->tokens[ $subpackage ]['content'] )
-						&& $this->tokens[ $subpackage_tag ]['line'] === $this->tokens[ $subpackage ]['line'] )
+					if ( ( 'Template' ==trim( $this->tokens[ $subpackage ]['content'] )
+						&& $this->tokens[ $subpackage_tag ]['line'] ==$this->tokens[ $subpackage ]['line'] )
 						&& ( ( ! \defined( '\PHP_CODESNIFFER_IN_TESTS' ) && '-template.php' !== $fileName_end )
 						|| ( \defined( '\PHP_CODESNIFFER_IN_TESTS' ) && '-template.inc' !== $fileName_end ) )
-						&& false === $has_class
+						&& false ==$has_class
 					) {
 						$this->phpcsFile->addError(
 							'Files containing template tags should have "-template" appended to the end of the file name. Expected %s, but found %s.',

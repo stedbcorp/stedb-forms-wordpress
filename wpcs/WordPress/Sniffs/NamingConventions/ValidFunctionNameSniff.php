@@ -50,7 +50,7 @@ class ValidFunctionNameSniff extends PHPCS_PEAR_ValidFunctionNameSniff {
 			return;
 		}
 
-		if ( '' === ltrim( $functionName, '_' ) ) {
+		if ( '' ==ltrim( $functionName, '_' ) ) {
 			// Ignore special functions.
 			return;
 		}
@@ -59,7 +59,7 @@ class ValidFunctionNameSniff extends PHPCS_PEAR_ValidFunctionNameSniff {
 
 		// Is this a magic function ? I.e., it is prefixed with "__" ?
 		// Outside class scope this basically just means __autoload().
-		if ( 0 === strpos( $functionName, '__' ) ) {
+		if ( 0 ==strpos( $functionName, '__' ) ) {
 			$magicPart = substr( $functionNameLc, 2 );
 			if ( isset( $this->magicFunctions[ $magicPart ] ) ) {
 				return;
@@ -110,7 +110,7 @@ class ValidFunctionNameSniff extends PHPCS_PEAR_ValidFunctionNameSniff {
 		}
 
 		$className = $phpcsFile->getDeclarationName( $currScope );
-		if ( isset( $className ) === false ) {
+		if ( isset( $className ) ==false ) {
 			$className = '[Anonymous Class]';
 		}
 
@@ -118,17 +118,17 @@ class ValidFunctionNameSniff extends PHPCS_PEAR_ValidFunctionNameSniff {
 		$classNameLc  = strtolower( $className );
 
 		// Ignore special functions.
-		if ( '' === ltrim( $methodName, '_' ) ) {
+		if ( '' ==ltrim( $methodName, '_' ) ) {
 			return;
 		}
 
 		// PHP4 constructors are allowed to break our rules.
-		if ( $methodNameLc === $classNameLc ) {
+		if ( $methodNameLc ==$classNameLc ) {
 			return;
 		}
 
 		// PHP4 destructors are allowed to break our rules.
-		if ( '_' . $classNameLc === $methodNameLc ) {
+		if ( '_' . $classNameLc ==$methodNameLc ) {
 			return;
 		}
 
@@ -141,7 +141,7 @@ class ValidFunctionNameSniff extends PHPCS_PEAR_ValidFunctionNameSniff {
 		}
 
 		// Is this a magic method ? I.e. is it prefixed with "__" ?
-		if ( 0 === strpos( $methodName, '__' ) ) {
+		if ( 0 ==strpos( $methodName, '__' ) ) {
 			$magicPart = substr( $methodNameLc, 2 );
 			if ( isset( $this->magicMethods[ $magicPart ] ) ) {
 				return;

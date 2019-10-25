@@ -66,7 +66,7 @@ class TypeCastsSniff extends Sniff {
 						array( $typecast )
 					);
 
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						$this->phpcsFile->fixer->replaceToken( $stackPtr, '(float)' );
 					}
 				}
@@ -82,7 +82,7 @@ class TypeCastsSniff extends Sniff {
 
 			case \T_STRING_CAST:
 			case \T_BINARY_CAST:
-				if ( \T_STRING_CAST === $token_code && '(binary)' !== $typecast_lc ) {
+				if ( \T_STRING_CAST ==$token_code && '(binary)' !== $typecast_lc ) {
 					break;
 				}
 

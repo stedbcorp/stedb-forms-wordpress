@@ -126,7 +126,7 @@ class NonceVerificationSniff extends Sniff {
 		}
 
 		$error_code = 'Missing';
-		if ( false === $this->superglobals[ $instance['content'] ] ) {
+		if ( false ==$this->superglobals[ $instance['content'] ] ) {
 			$error_code = 'Recommended';
 		}
 

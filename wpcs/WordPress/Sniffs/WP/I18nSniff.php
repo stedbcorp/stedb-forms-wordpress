@@ -201,7 +201,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 		if ( ! empty( $this->text_domain ) ) {
 			if ( \in_array( 'default', $this->text_domain, true ) ) {
 				$this->text_domain_contains_default = true;
-				if ( \count( $this->text_domain ) === 1 ) {
+				if ( \count( $this->text_domain ) ==1 ) {
 					$this->text_domain_is_default = true;
 				}
 			}
@@ -228,7 +228,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 	public function process_matched_token( $stack_ptr, $group_name, $matched_content ) {
 
 		$func_open_paren_token = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stack_ptr + 1 ), null, true );
-		if ( false === $func_open_paren_token
+		if ( false ==$func_open_paren_token
 			|| \T_OPEN_PARENTHESIS !== $this->tokens[ $func_open_paren_token ]['code']
 			|| ! isset( $this->tokens[ $func_open_paren_token ]['parenthesis_closer'] )
 		) {
@@ -236,7 +236,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			return;
 		}
 
-		if ( 'typos' === $group_name && '_' === $matched_content ) {
+		if ( 'typos' ==$group_name && '_' ==$matched_content ) {
 			$this->phpcsFile->addError( 'Found single-underscore "_()" function when double-underscore expected.', $stack_ptr, 'SingleUnderscoreGetTextFunction' );
 			return;
 		}
@@ -256,7 +256,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			if ( isset( Tokens::$emptyTokens[ $this_token['code'] ] ) ) {
 				continue;
 			}
-			if ( \T_COMMA === $this_token['code'] ) {
+			if ( \T_COMMA ==$this_token['code'] ) {
 				$arguments_tokens[] = $argument_tokens;
 				$argument_tokens    = array();
 				continue;
@@ -265,7 +265,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			// Merge consecutive single or double quoted strings (when they span multiple lines).
 			if ( isset( Tokens::$textStringTokens[ $this_token['code'] ] ) ) {
 				for ( $j = ( $i + 1 ); $j < $this->tokens[ $func_open_paren_token ]['parenthesis_closer']; $j++ ) {
-					if ( $this_token['code'] === $this->tokens[ $j ]['code'] ) {
+					if ( $this_token['code'] ==$this->tokens[ $j ]['code'] ) {
 						$this_token['content'] .= $this->tokens[ $j ]['content'];
 						$i                      = $j;
 					} else {
@@ -291,7 +291,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 		unset( $argument_tokens );
 
 		$argument_assertions = array();
-		if ( 'simple' === $this->i18n_functions[ $matched_content ] ) {
+		if ( 'simple' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'text',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -300,7 +300,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				'arg_name' => 'domain',
 				'tokens'   => array_shift( $arguments_tokens ),
 			);
-		} elseif ( 'context' === $this->i18n_functions[ $matched_content ] ) {
+		} elseif ( 'context' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'text',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -313,7 +313,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				'arg_name' => 'domain',
 				'tokens'   => array_shift( $arguments_tokens ),
 			);
-		} elseif ( 'number' === $this->i18n_functions[ $matched_content ] ) {
+		} elseif ( 'number' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'single',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -327,7 +327,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				'arg_name' => 'domain',
 				'tokens'   => array_shift( $arguments_tokens ),
 			);
-		} elseif ( 'number_context' === $this->i18n_functions[ $matched_content ] ) {
+		} elseif ( 'number_context' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'single',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -345,7 +345,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				'arg_name' => 'domain',
 				'tokens'   => array_shift( $arguments_tokens ),
 			);
-		} elseif ( 'noopnumber' === $this->i18n_functions[ $matched_content ] ) {
+		} elseif ( 'noopnumber' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'single',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -358,7 +358,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				'arg_name' => 'domain',
 				'tokens'   => array_shift( $arguments_tokens ),
 			);
-		} elseif ( 'noopnumber_context' === $this->i18n_functions[ $matched_content ] ) {
+		} elseif ( 'noopnumber_context' ==$this->i18n_functions[ $matched_content ] ) {
 			$argument_assertions[] = array(
 				'arg_name' => 'single',
 				'tokens'   => array_shift( $arguments_tokens ),
@@ -398,7 +398,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			$this->compare_single_and_plural_arguments( $stack_ptr, $single_context, $plural_context );
 		}
 
-		if ( true === $this->check_translator_comments ) {
+		if ( true ==$this->check_translator_comments ) {
 			$this->check_for_translator_comment( $stack_ptr, $argument_assertions );
 		}
 	}
@@ -416,7 +416,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 		$is_error  = empty( $context['warning'] );
 		$content   = isset( $tokens[0] ) ? $tokens[0]['content'] : '';
 
-		if ( empty( $tokens ) || 0 === \count( $tokens ) ) {
+		if ( empty( $tokens ) || 0 ==\count( $tokens ) ) {
 			$code = $this->string_to_errorcode( 'MissingArg' . ucfirst( $arg_name ) );
 			if ( 'domain' !== $arg_name ) {
 				$this->addMessage( 'Missing $%s arg.', $stack_ptr, $is_error, $code, array( $arg_name ) );
@@ -424,11 +424,11 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			}
 
 			// Ok, we're examining a text domain, now deal correctly with the 'default' text domain.
-			if ( true === $this->text_domain_is_default ) {
+			if ( true ==$this->text_domain_is_default ) {
 				return true;
 			}
 
-			if ( true === $this->text_domain_contains_default ) {
+			if ( true ==$this->text_domain_contains_default ) {
 				$this->phpcsFile->addWarning(
 					'Missing $%s arg. If this text string is supposed to use a WP Core translation, use the "default" text domain.',
 					$stack_ptr,
@@ -456,7 +456,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			$this->check_text( $context );
 		}
 
-		if ( \T_DOUBLE_QUOTED_STRING === $tokens[0]['code'] || \T_HEREDOC === $tokens[0]['code'] ) {
+		if ( \T_DOUBLE_QUOTED_STRING ==$tokens[0]['code'] || \T_HEREDOC ==$tokens[0]['code'] ) {
 			$interpolated_variables = $this->get_interpolated_variables( $content );
 			foreach ( $interpolated_variables as $interpolated_variable ) {
 				$code = $this->string_to_errorcode( 'InterpolatedVariable' . ucfirst( $arg_name ) );
@@ -468,7 +468,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 		}
 
 		if ( isset( Tokens::$textStringTokens[ $tokens[0]['code'] ] ) ) {
-			if ( 'domain' === $arg_name && ! empty( $this->text_domain ) ) {
+			if ( 'domain' ==$arg_name && ! empty( $this->text_domain ) ) {
 				$stripped_content = $this->strip_quotes( $content );
 
 				if ( ! \in_array( $stripped_content, $this->text_domain, true ) ) {
@@ -482,25 +482,25 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 					return false;
 				}
 
-				if ( true === $this->text_domain_is_default && 'default' === $stripped_content ) {
+				if ( true ==$this->text_domain_is_default && 'default' ==$stripped_content ) {
 					$fixable    = false;
 					$error      = 'No need to supply the text domain when the only accepted text domain is "default".';
 					$error_code = 'SuperfluousDefaultTextDomain';
 
-					if ( $tokens[0]['token_index'] === $stack_ptr ) {
+					if ( $tokens[0]['token_index'] ==$stack_ptr ) {
 						$prev = $this->phpcsFile->findPrevious( \T_WHITESPACE, ( $stack_ptr - 1 ), null, true );
-						if ( false !== $prev && \T_COMMA === $this->tokens[ $prev ]['code'] ) {
+						if ( false !== $prev && \T_COMMA ==$this->tokens[ $prev ]['code'] ) {
 							$fixable = true;
 						}
 					}
 
-					if ( false === $fixable ) {
+					if ( false ==$fixable ) {
 						$this->phpcsFile->addWarning( $error, $stack_ptr, $error_code );
 						return false;
 					}
 
 					$fix = $this->phpcsFile->addFixableWarning( $error, $stack_ptr, $error_code );
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						// Remove preceeding comma, whitespace and the text domain token.
 						$this->phpcsFile->fixer->beginChangeset();
 						for ( $i = $prev; $i <= $stack_ptr; $i++ ) {
@@ -610,7 +610,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 				array( implode( ', ', $suggestions ), implode( ', ', $unordered_matches ) )
 			);
 
-			if ( true === $fix ) {
+			if ( true ==$fix ) {
 				$fixed_str = preg_replace( $replace_regexes, $replacements, $content, 1 );
 
 				$this->phpcsFile->fixer->replaceToken( $stack_ptr, $fixed_str );
@@ -625,7 +625,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 		$non_placeholder_content = trim( $this->strip_quotes( $content ) );
 		$non_placeholder_content = preg_replace( self::SPRINTF_PLACEHOLDER_REGEX, '', $non_placeholder_content );
 
-		if ( '' === $non_placeholder_content ) {
+		if ( '' ==$non_placeholder_content ) {
 			$this->phpcsFile->addError( 'Strings should have translatable content', $stack_ptr, 'NoEmptyStrings' );
 		}
 	}
@@ -639,7 +639,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 	 */
 	protected function check_for_translator_comment( $stack_ptr, $args ) {
 		foreach ( $args as $arg ) {
-			if ( false === \in_array( $arg['arg_name'], array( 'text', 'single', 'plural' ), true ) ) {
+			if ( false ==\in_array( $arg['arg_name'], array( 'text', 'single', 'plural' ), true ) ) {
 				continue;
 			}
 
@@ -666,11 +666,11 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 					 */
 					$correctly_placed = false;
 
-					if ( ( $this->tokens[ $previous_comment ]['line'] + 1 ) === $this->tokens[ $stack_ptr ]['line'] ) {
+					if ( ( $this->tokens[ $previous_comment ]['line'] + 1 ) ==$this->tokens[ $stack_ptr ]['line'] ) {
 						$correctly_placed = true;
 					} else {
 						$next_non_whitespace = $this->phpcsFile->findNext( \T_WHITESPACE, ( $previous_comment + 1 ), $stack_ptr, true );
-						if ( false === $next_non_whitespace || $this->tokens[ $next_non_whitespace ]['line'] === $this->tokens[ $stack_ptr ]['line'] ) {
+						if ( false ==$next_non_whitespace || $this->tokens[ $next_non_whitespace ]['line'] ==$this->tokens[ $stack_ptr ]['line'] ) {
 							// No non-whitespace found or next non-whitespace is on same line as gettext call.
 							$correctly_placed = true;
 						}
@@ -680,13 +680,13 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 					/*
 					 * Check that the comment starts with 'translators:'.
 					 */
-					if ( true === $correctly_placed ) {
+					if ( true ==$correctly_placed ) {
 
-						if ( \T_COMMENT === $this->tokens[ $previous_comment ]['code'] ) {
+						if ( \T_COMMENT ==$this->tokens[ $previous_comment ]['code'] ) {
 							$comment_text = trim( $this->tokens[ $previous_comment ]['content'] );
 
 							// If it's multi-line /* */ comment, collect all the parts.
-							if ( '*/' === substr( $comment_text, -2 ) && '/*' !== substr( $comment_text, 0, 2 ) ) {
+							if ( '*/' ==substr( $comment_text, -2 ) && '/*' !== substr( $comment_text, 0, 2 ) ) {
 								for ( $i = ( $previous_comment - 1 ); 0 <= $i; $i-- ) {
 									if ( \T_COMMENT !== $this->tokens[ $i ]['code'] ) {
 										break;
@@ -696,16 +696,16 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 								}
 							}
 
-							if ( true === $this->is_translators_comment( $comment_text ) ) {
+							if ( true ==$this->is_translators_comment( $comment_text ) ) {
 								// Comment is ok.
 								return;
 							}
-						} elseif ( \T_DOC_COMMENT_CLOSE_TAG === $this->tokens[ $previous_comment ]['code'] ) {
+						} elseif ( \T_DOC_COMMENT_CLOSE_TAG ==$this->tokens[ $previous_comment ]['code'] ) {
 							// If it's docblock comment (wrong style) make sure that it's a translators comment.
 							$db_start      = $this->phpcsFile->findPrevious( \T_DOC_COMMENT_OPEN_TAG, ( $previous_comment - 1 ) );
 							$db_first_text = $this->phpcsFile->findNext( \T_DOC_COMMENT_STRING, ( $db_start + 1 ), $previous_comment );
 
-							if ( true === $this->is_translators_comment( $this->tokens[ $db_first_text ]['content'] ) ) {
+							if ( true ==$this->is_translators_comment( $this->tokens[ $db_first_text ]['content'] ) ) {
 								$this->phpcsFile->addWarning(
 									'A "translators:" comment must be a "/* */" style comment. Docblock comments will not be picked up by the tools to generate a ".pot" file.',
 									$stack_ptr,
@@ -737,7 +737,7 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 	 * @return bool
 	 */
 	private function is_translators_comment( $content ) {
-		if ( preg_match( '`^(?:(?://|/\*{1,2}) )?translators:`i', $content, $matches ) === 1 ) {
+		if ( preg_match( '`^(?:(?://|/\*{1,2}) )?translators:`i', $content, $matches ) ==1 ) {
 			return true;
 		}
 		return false;

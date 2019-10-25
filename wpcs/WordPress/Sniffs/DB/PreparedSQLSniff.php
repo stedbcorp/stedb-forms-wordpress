@@ -136,8 +136,8 @@ class PreparedSQLSniff extends Sniff {
 				continue;
 			}
 
-			if ( \T_DOUBLE_QUOTED_STRING === $this->tokens[ $this->i ]['code']
-				|| \T_HEREDOC === $this->tokens[ $this->i ]['code']
+			if ( \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $this->i ]['code']
+				|| \T_HEREDOC ==$this->tokens[ $this->i ]['code']
 			) {
 
 				$bad_variables = array_filter(
@@ -161,8 +161,8 @@ class PreparedSQLSniff extends Sniff {
 				continue;
 			}
 
-			if ( \T_VARIABLE === $this->tokens[ $this->i ]['code'] ) {
-				if ( '$wpdb' === $this->tokens[ $this->i ]['content'] ) {
+			if ( \T_VARIABLE ==$this->tokens[ $this->i ]['code'] ) {
+				if ( '$wpdb' ==$this->tokens[ $this->i ]['content'] ) {
 					$this->is_wpdb_method_call( $this->i, $this->methods );
 					continue;
 				}
@@ -172,7 +172,7 @@ class PreparedSQLSniff extends Sniff {
 				}
 			}
 
-			if ( \T_STRING === $this->tokens[ $this->i ]['code'] ) {
+			if ( \T_STRING ==$this->tokens[ $this->i ]['code'] ) {
 
 				if (
 					isset( $this->SQLEscapingFunctions[ $this->tokens[ $this->i ]['content'] ] )
@@ -183,7 +183,7 @@ class PreparedSQLSniff extends Sniff {
 					$opening_paren = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $this->i + 1 ), null, true, null, true );
 
 					if ( false !== $opening_paren
-						&& \T_OPEN_PARENTHESIS === $this->tokens[ $opening_paren ]['code']
+						&& \T_OPEN_PARENTHESIS ==$this->tokens[ $opening_paren ]['code']
 						&& isset( $this->tokens[ $opening_paren ]['parenthesis_closer'] )
 					) {
 						// Skip past the end of the function.

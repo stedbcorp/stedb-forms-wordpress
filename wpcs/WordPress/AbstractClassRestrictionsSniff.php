@@ -64,7 +64,7 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 	 */
 	public function register() {
 		// Prepare the function group regular expressions only once.
-		if ( false === $this->setup_groups( 'classes' ) ) {
+		if ( false ==$this->setup_groups( 'classes' ) ) {
 			return array();
 		}
 
@@ -93,13 +93,13 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 		unset( $this->classname );
 
 		$this->excluded_groups = $this->merge_custom_array( $this->exclude );
-		if ( array_diff_key( $this->groups, $this->excluded_groups ) === array() ) {
+		if ( array_diff_key( $this->groups, $this->excluded_groups ) ==array() ) {
 			// All groups have been excluded.
 			// Don't remove the listener as the exclude property can be changed inline.
 			return;
 		}
 
-		if ( true === $this->is_targetted_token( $stackPtr ) ) {
+		if ( true ==$this->is_targetted_token( $stackPtr ) ) {
 			return $this->check_for_matches( $stackPtr );
 		}
 	}
@@ -119,7 +119,7 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 		$classname = '';
 
 		if ( \in_array( $token['code'], array( \T_NEW, \T_EXTENDS, \T_IMPLEMENTS ), true ) ) {
-			if ( \T_NEW === $token['code'] ) {
+			if ( \T_NEW ==$token['code'] ) {
 				$nameEnd = ( $this->phpcsFile->findNext( array( \T_OPEN_PARENTHESIS, \T_WHITESPACE, \T_SEMICOLON, \T_OBJECT_OPERATOR ), ( $stackPtr + 2 ) ) - 1 );
 			} else {
 				$nameEnd = ( $this->phpcsFile->findNext( array( \T_CLOSE_CURLY_BRACKET, \T_WHITESPACE ), ( $stackPtr + 2 ) ) - 1 );
@@ -133,7 +133,7 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 			}
 		}
 
-		if ( \T_DOUBLE_COLON === $token['code'] ) {
+		if ( \T_DOUBLE_COLON ==$token['code'] ) {
 			$nameEnd   = $this->phpcsFile->findPrevious( \T_STRING, ( $stackPtr - 1 ) );
 			$nameStart = ( $this->phpcsFile->findPrevious( array( \T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE ), ( $nameEnd - 1 ), null, true, null, true ) + 1 );
 			$length    = ( $nameEnd - ( $nameStart - 1 ) );
@@ -177,12 +177,12 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 				continue;
 			}
 
-			if ( preg_match( $group['regex'], $this->classname ) === 1 ) {
+			if ( preg_match( $group['regex'], $this->classname ) ==1 ) {
 				$skip_to[] = $this->process_matched_token( $stackPtr, $groupName, $this->classname );
 			}
 		}
 
-		if ( empty( $skip_to ) || min( $skip_to ) === 0 ) {
+		if ( empty( $skip_to ) || min( $skip_to ) ==0 ) {
 			return;
 		}
 
@@ -215,17 +215,17 @@ abstract class AbstractClassRestrictionsSniff extends AbstractFunctionRestrictio
 	 */
 	protected function get_namespaced_classname( $classname, $search_from ) {
 		// Don't do anything if this is already a fully qualified classname.
-		if ( empty( $classname ) || '\\' === $classname[0] ) {
+		if ( empty( $classname ) || '\\' ==$classname[0] ) {
 			return $classname;
 		}
 
 		// Remove the namespace keyword if used.
-		if ( 0 === strpos( $classname, 'namespace\\' ) ) {
+		if ( 0 ==strpos( $classname, 'namespace\\' ) ) {
 			$classname = substr( $classname, 10 );
 		}
 
 		$namespace_keyword = $this->phpcsFile->findPrevious( \T_NAMESPACE, $search_from );
-		if ( false === $namespace_keyword ) {
+		if ( false ==$namespace_keyword ) {
 			// No namespace keyword found at all, so global namespace.
 			$classname = '\\' . $classname;
 		} else {

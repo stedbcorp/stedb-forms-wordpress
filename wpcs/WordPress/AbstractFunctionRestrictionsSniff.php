@@ -117,7 +117,7 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 	 */
 	public function register() {
 		// Prepare the function group regular expressions only once.
-		if ( false === $this->setup_groups( 'functions' ) ) {
+		if ( false ==$this->setup_groups( 'functions' ) ) {
 			return array();
 		}
 
@@ -183,7 +183,7 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 	public function process_token( $stackPtr ) {
 
 		$this->excluded_groups = $this->merge_custom_array( $this->exclude );
-		if ( array_diff_key( $this->groups, $this->excluded_groups ) === array() ) {
+		if ( array_diff_key( $this->groups, $this->excluded_groups ) ==array() ) {
 			// All groups have been excluded.
 			// Don't remove the listener as the exclude property can be changed inline.
 			return;
@@ -196,7 +196,7 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 			return;
 		}
 
-		if ( true === $this->is_targetted_token( $stackPtr ) ) {
+		if ( true ==$this->is_targetted_token( $stackPtr ) ) {
 			return $this->check_for_matches( $stackPtr );
 		}
 	}
@@ -213,12 +213,12 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 	public function is_targetted_token( $stackPtr ) {
 
 		// Exclude function definitions, class methods, and namespaced calls.
-		if ( \T_STRING === $this->tokens[ $stackPtr ]['code'] ) {
-			if ( $this->is_class_object_call( $stackPtr ) === true ) {
+		if ( \T_STRING ==$this->tokens[ $stackPtr ]['code'] ) {
+			if ( $this->is_class_object_call( $stackPtr ) ==true ) {
 				return false;
 			}
 
-			if ( $this->is_token_namespaced( $stackPtr ) === true ) {
+			if ( $this->is_token_namespaced( $stackPtr ) ==true ) {
 				return false;
 			}
 
@@ -267,12 +267,12 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 				continue;
 			}
 
-			if ( preg_match( $group['regex'], $token_content ) === 1 ) {
+			if ( preg_match( $group['regex'], $token_content ) ==1 ) {
 				$skip_to[] = $this->process_matched_token( $stackPtr, $groupName, $token_content );
 			}
 		}
 
-		if ( empty( $skip_to ) || min( $skip_to ) === 0 ) {
+		if ( empty( $skip_to ) || min( $skip_to ) ==0 ) {
 			return;
 		}
 
@@ -296,7 +296,7 @@ abstract class AbstractFunctionRestrictionsSniff extends Sniff {
 		$this->addMessage(
 			$this->groups[ $group_name ]['message'],
 			$stackPtr,
-			( 'error' === $this->groups[ $group_name ]['type'] ),
+			( 'error' ==$this->groups[ $group_name ]['type'] ),
 			$this->string_to_errorcode( $group_name . '_' . $matched_content ),
 			array( $matched_content )
 		);

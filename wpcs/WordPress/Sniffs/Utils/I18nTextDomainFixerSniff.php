@@ -274,7 +274,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 	public function process_token( $stackPtr ) {
 		// Check if the old/new properties are correctly set. If not, bow out.
 		if ( ! is_string( $this->new_text_domain )
-			|| '' === $this->new_text_domain
+			|| '' ==$this->new_text_domain
 		) {
 			return ( $this->phpcsFile->numTokens + 1 );
 		}
@@ -283,7 +283,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			$this->old_text_domain = $this->merge_custom_array( $this->old_text_domain, array(), false );
 
 			if ( ! is_array( $this->old_text_domain )
-				|| array() === $this->old_text_domain
+				|| array() ==$this->old_text_domain
 			) {
 				return ( $this->phpcsFile->numTokens + 1 );
 			}
@@ -295,7 +295,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			$this->validated_textdomain = $this->new_text_domain;
 			$this->header_found         = false;
 
-			if ( 'default' === $this->new_text_domain ) {
+			if ( 'default' ==$this->new_text_domain ) {
 				$this->phpcsFile->addWarning(
 					'The "default" text domain is reserved for WordPress core use and should not be used by plugins or themes',
 					0,
@@ -320,13 +320,13 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			// If the text domain passed both validations, it should be considered valid.
 			$this->is_valid = true;
 
-		} elseif ( false === $this->is_valid ) {
+		} elseif ( false ==$this->is_valid ) {
 			return ( $this->phpcsFile->numTokens + 1 );
 		}
 
-		if ( isset( $this->tab_width ) === false ) {
-			if ( isset( $this->phpcsFile->config->tabWidth ) === false
-				|| 0 === $this->phpcsFile->config->tabWidth
+		if ( isset( $this->tab_width ) ==false ) {
+			if ( isset( $this->phpcsFile->config->tabWidth ) ==false
+				|| 0 ==$this->phpcsFile->config->tabWidth
 			) {
 				// We have no idea how wide tabs are, so assume 4 spaces for fixing.
 				$this->tab_width = 4;
@@ -335,8 +335,8 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			}
 		}
 
-		if ( \T_DOC_COMMENT_OPEN_TAG === $this->tokens[ $stackPtr ]['code']
-			|| \T_COMMENT === $this->tokens[ $stackPtr ]['code']
+		if ( \T_DOC_COMMENT_OPEN_TAG ==$this->tokens[ $stackPtr ]['code']
+			|| \T_COMMENT ==$this->tokens[ $stackPtr ]['code']
 		) {
 			// Examine for plugin/theme file header.
 			return $this->process_comments( $stackPtr );
@@ -363,18 +363,18 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 	public function process_parameters( $stackPtr, $group_name, $matched_content, $parameters ) {
 		$target_param = $this->target_functions[ $matched_content ];
 
-		if ( isset( $parameters[ $target_param ] ) === false && 1 !== $target_param ) {
+		if ( isset( $parameters[ $target_param ] ) ==false && 1 !== $target_param ) {
 			$error_msg  = 'Missing $domain arg';
 			$error_code = 'MissingArgDomain';
 
 			if ( isset( $parameters[ ( $target_param - 1 ) ] ) ) {
 				$fix = $this->phpcsFile->addFixableError( $error_msg, $stackPtr, $error_code );
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$start_previous = $parameters[ ( $target_param - 1 ) ]['start'];
 					$end_previous   = $parameters[ ( $target_param - 1 ) ]['end'];
-					if ( \T_WHITESPACE === $this->tokens[ $start_previous ]['code']
-						&& $this->tokens[ $start_previous ]['content'] === $this->phpcsFile->eolChar
+					if ( \T_WHITESPACE ==$this->tokens[ $start_previous ]['code']
+						&& $this->tokens[ $start_previous ]['content'] ==$this->phpcsFile->eolChar
 					) {
 						// Replicate the new line + indentation of the previous item.
 						$replacement = ',';
@@ -395,7 +395,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 						$replacement = ", '{$this->new_text_domain}'";
 					}
 
-					if ( \T_WHITESPACE === $this->tokens[ $end_previous ]['code'] ) {
+					if ( \T_WHITESPACE ==$this->tokens[ $end_previous ]['code'] ) {
 						$this->phpcsFile->fixer->addContentBefore( $end_previous, $replacement );
 					} else {
 						$this->phpcsFile->fixer->addContent( $end_previous, $replacement );
@@ -450,7 +450,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			array( $this->new_text_domain, $old_domain )
 		);
 
-		if ( true === $fix ) {
+		if ( true ==$fix ) {
 			$replacement = str_replace( $old_domain, $this->new_text_domain, $this->tokens[ $domain_token ]['content'] );
 			$this->phpcsFile->fixer->replaceToken( $domain_token, $replacement );
 		}
@@ -479,22 +479,22 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 
 		$opener = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true );
 		if ( \T_OPEN_PARENTHESIS !== $this->tokens[ $opener ]['code']
-			|| isset( $this->tokens[ $opener ]['parenthesis_closer'] ) === false
+			|| isset( $this->tokens[ $opener ]['parenthesis_closer'] ) ==false
 		) {
 			// Parse error or live coding.
 			return;
 		}
 
 		$fix = $this->phpcsFile->addFixableError( 'Missing $domain arg', $stackPtr, 'MissingArgDomain' );
-		if ( true === $fix ) {
+		if ( true ==$fix ) {
 			$closer      = $this->tokens[ $opener ]['parenthesis_closer'];
 			$replacement = " '{$this->new_text_domain}' ";
 
 			if ( $this->tokens[ $opener ]['line'] !== $this->tokens[ $closer ]['line'] ) {
 				$replacement = trim( $replacement );
 				$addBefore   = ( $closer - 1 );
-				if ( \T_WHITESPACE === $this->tokens[ ( $closer - 1 ) ]['code']
-					&& $this->tokens[ $closer - 1 ]['line'] === $this->tokens[ $closer ]['line']
+				if ( \T_WHITESPACE ==$this->tokens[ ( $closer - 1 ) ]['code']
+					&& $this->tokens[ $closer - 1 ]['line'] ==$this->tokens[ $closer ]['line']
 				) {
 					if ( isset( $this->tokens[ ( $closer - 1 ) ]['orig_content'] ) ) {
 						$replacement = $this->tokens[ ( $closer - 1 ) ]['orig_content']
@@ -516,7 +516,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 
 				$this->phpcsFile->fixer->addContentBefore( $addBefore, $replacement );
 
-			} elseif ( \T_WHITESPACE === $this->tokens[ ( $closer - 1 ) ]['code'] ) {
+			} elseif ( \T_WHITESPACE ==$this->tokens[ ( $closer - 1 ) ]['code'] ) {
 				$this->phpcsFile->fixer->replaceToken( ( $closer - 1 ), $replacement );
 			} else {
 				$this->phpcsFile->fixer->addContentBefore( $closer, $replacement );
@@ -535,7 +535,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 	 * @return void
 	 */
 	public function process_comments( $stackPtr ) {
-		if ( true === $this->header_found && ! defined( 'PHP_CODESNIFFER_IN_TESTS' ) ) {
+		if ( true ==$this->header_found && ! defined( 'PHP_CODESNIFFER_IN_TESTS' ) ) {
 			return;
 		}
 
@@ -545,12 +545,12 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 		$skip_to = $stackPtr;
 
 		$file = $this->strip_quotes( $this->phpcsFile->getFileName() );
-		if ( 'STDIN' === $file ) {
+		if ( 'STDIN' ==$file ) {
 			return;
 		}
 
 		$file_name = basename( $file );
-		if ( 'CSS' === $this->phpcsFile->tokenizerType ) {
+		if ( 'CSS' ==$this->phpcsFile->tokenizerType ) {
 			if ( 'style.css' !== $file_name && ! defined( 'PHP_CODESNIFFER_IN_TESTS' ) ) {
 				// CSS files only need to be examined for the file header.
 				return ( $this->phpcsFile->numTokens + 1 );
@@ -570,28 +570,28 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 			'last_header_matches'   => array(),
 		);
 
-		if ( \T_COMMENT === $this->tokens[ $stackPtr ]['code'] ) {
+		if ( \T_COMMENT ==$this->tokens[ $stackPtr ]['code'] ) {
 			$block_comment = false;
-			if ( substr( $this->tokens[ $stackPtr ]['content'], 0, 2 ) === '/*' ) {
+			if ( substr( $this->tokens[ $stackPtr ]['content'], 0, 2 ) =='/*' ) {
 				$block_comment = true;
 			}
 
 			$current = $stackPtr;
 			do {
-				if ( false === $comment_details['text_domain_ptr']
-					|| false === $comment_details['required_header_found']
+				if ( false ==$comment_details['text_domain_ptr']
+					|| false ==$comment_details['required_header_found']
 					|| $comment_details['headers_found'] < 3
 				) {
 					$comment_details = $this->examine_comment_line( $current, $regex, $headers, $comment_details );
 				}
 
-				if ( true === $block_comment && substr( $this->tokens[ $current ]['content'], -2 ) === '*/' ) {
+				if ( true ==$block_comment && substr( $this->tokens[ $current ]['content'], -2 ) =='*/' ) {
 					++$current;
 					break;
 				}
 
 				++$current;
-			} while ( isset( $this->tokens[ $current ] ) && \T_COMMENT === $this->tokens[ $current ]['code'] );
+			} while ( isset( $this->tokens[ $current ] ) && \T_COMMENT ==$this->tokens[ $current ]['code'] );
 
 			$skip_to = $current;
 
@@ -607,7 +607,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 				$comment_details = $this->examine_comment_line( $current, $regex, $headers, $comment_details );
 
 				if ( false !== $comment_details['text_domain_ptr']
-					&& true === $comment_details['required_header_found']
+					&& true ==$comment_details['required_header_found']
 					&& $comment_details['headers_found'] >= 3
 				) {
 					// No need to look at the rest of the docblock.
@@ -619,7 +619,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 		}
 
 		// So, was this the plugin/theme header ?
-		if ( true === $comment_details['required_header_found']
+		if ( true ==$comment_details['required_header_found']
 			&& $comment_details['headers_found'] >= 3
 		) {
 			$this->header_found = true;
@@ -642,7 +642,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 						)
 					);
 
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						if ( isset( $this->tokens[ $text_domain_ptr ]['orig_content'] ) ) {
 							$replacement = $this->tokens[ $text_domain_ptr ]['orig_content'];
 						} else {
@@ -665,7 +665,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 					array( $type )
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					if ( isset( $this->tokens[ $last_header_ptr ]['orig_content'] ) ) {
 						$replacement = $this->tokens[ $last_header_ptr ]['orig_content'];
 					} else {
@@ -675,7 +675,7 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 					$replacement = str_replace( $last_header_matches[1], 'Text Domain', $replacement );
 					$replacement = str_replace( $last_header_matches[2], $this->new_text_domain, $replacement );
 
-					if ( \T_DOC_COMMENT_OPEN_TAG === $this->tokens[ $stackPtr ]['code'] ) {
+					if ( \T_DOC_COMMENT_OPEN_TAG ==$this->tokens[ $stackPtr ]['code'] ) {
 						for ( $i = ( $last_header_ptr - 1 ); ; $i-- ) {
 							if ( $this->tokens[ $i ]['line'] !== $this->tokens[ $last_header_ptr ]['line'] ) {
 								++$i;
@@ -709,14 +709,14 @@ class I18nTextDomainFixerSniff extends AbstractFunctionParameterSniff {
 	 * @return array Adjusted $comment_details array
 	 */
 	protected function examine_comment_line( $stackPtr, $regex, $headers, $comment_details ) {
-		if ( preg_match( $regex, $this->tokens[ $stackPtr ]['content'], $matches ) === 1 ) {
+		if ( preg_match( $regex, $this->tokens[ $stackPtr ]['content'], $matches ) ==1 ) {
 			++$comment_details['headers_found'];
 
-			if ( true === $headers[ $matches[1] ] ) {
+			if ( true ==$headers[ $matches[1] ] ) {
 				$comment_details['required_header_found'] = true;
 			}
 
-			if ( 'Text Domain' === $matches[1] ) {
+			if ( 'Text Domain' ==$matches[1] ) {
 				$comment_details['text_domain_ptr']   = $stackPtr;
 				$comment_details['text_domain_found'] = trim( $matches[2] );
 			}

@@ -126,9 +126,9 @@ class CapitalPDangitSniff extends Sniff {
 		 * The return values skip to the end of the array.
 		 * This prevents the sniff "hanging" on very long configuration arrays.
 		 */
-		if ( \T_OPEN_SHORT_ARRAY === $this->tokens[ $stackPtr ]['code'] && isset( $this->tokens[ $stackPtr ]['bracket_closer'] ) ) {
+		if ( \T_OPEN_SHORT_ARRAY ==$this->tokens[ $stackPtr ]['code'] && isset( $this->tokens[ $stackPtr ]['bracket_closer'] ) ) {
 			return $this->tokens[ $stackPtr ]['bracket_closer'];
-		} elseif ( \T_ARRAY === $this->tokens[ $stackPtr ]['code'] && isset( $this->tokens[ $stackPtr ]['parenthesis_closer'] ) ) {
+		} elseif ( \T_ARRAY ==$this->tokens[ $stackPtr ]['code'] && isset( $this->tokens[ $stackPtr ]['parenthesis_closer'] ) ) {
 			return $this->tokens[ $stackPtr ]['parenthesis_closer'];
 		}
 
@@ -163,14 +163,14 @@ class CapitalPDangitSniff extends Sniff {
 		 */
 
 		// Ignore content of docblock @link tags.
-		if ( \T_DOC_COMMENT_STRING === $this->tokens[ $stackPtr ]['code']
-			|| \T_DOC_COMMENT === $this->tokens[ $stackPtr ]['code']
+		if ( \T_DOC_COMMENT_STRING ==$this->tokens[ $stackPtr ]['code']
+			|| \T_DOC_COMMENT ==$this->tokens[ $stackPtr ]['code']
 		) {
 
 			$comment_start = $this->phpcsFile->findPrevious( \T_DOC_COMMENT_OPEN_TAG, ( $stackPtr - 1 ) );
 			if ( false !== $comment_start ) {
 				$comment_tag = $this->phpcsFile->findPrevious( \T_DOC_COMMENT_TAG, ( $stackPtr - 1 ), $comment_start );
-				if ( false !== $comment_tag && '@link' === $this->tokens[ $comment_tag ]['content'] ) {
+				if ( false !== $comment_tag && '@link' ==$this->tokens[ $comment_tag ]['content'] ) {
 					// @link tag, so ignore.
 					return;
 				}
@@ -178,11 +178,11 @@ class CapitalPDangitSniff extends Sniff {
 		}
 
 		// Ignore any text strings which are array keys `$var['key']` as this is a false positive in 80% of all cases.
-		if ( \T_CONSTANT_ENCAPSED_STRING === $this->tokens[ $stackPtr ]['code'] ) {
+		if ( \T_CONSTANT_ENCAPSED_STRING ==$this->tokens[ $stackPtr ]['code'] ) {
 			$prevToken = $this->phpcsFile->findPrevious( Tokens::$emptyTokens, ( $stackPtr - 1 ), null, true, null, true );
-			if ( false !== $prevToken && \T_OPEN_SQUARE_BRACKET === $this->tokens[ $prevToken ]['code'] ) {
+			if ( false !== $prevToken && \T_OPEN_SQUARE_BRACKET ==$this->tokens[ $prevToken ]['code'] ) {
 				$nextToken = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true, null, true );
-				if ( false !== $nextToken && \T_CLOSE_SQUARE_BRACKET === $this->tokens[ $nextToken ]['code'] ) {
+				if ( false !== $nextToken && \T_CLOSE_SQUARE_BRACKET ==$this->tokens[ $nextToken ]['code'] ) {
 					return;
 				}
 			}
@@ -202,7 +202,7 @@ class CapitalPDangitSniff extends Sniff {
 			\T_OPEN_CURLY_BRACKET,
 		);
 		$maybe_const = $this->phpcsFile->findPrevious( $stop_points, ( $stackPtr - 1 ) );
-		if ( false !== $maybe_const && \T_CONST === $this->tokens[ $maybe_const ]['code'] ) {
+		if ( false !== $maybe_const && \T_CONST ==$this->tokens[ $maybe_const ]['code'] ) {
 			return;
 		}
 
@@ -218,15 +218,15 @@ class CapitalPDangitSniff extends Sniff {
 					$next_offset = ( $match_data[1] + \strlen( $match_data[0] ) );
 
 					// Prevent matches on part of a URL.
-					if ( preg_match( '`http[s]?://[^\s<>\'"()]*' . preg_quote( $match_data[0], '`' ) . '`', $content, $discard, 0, $offset ) === 1 ) {
+					if ( preg_match( '`http[s]?://[^\s<>\'"()]*' . preg_quote( $match_data[0], '`' ) . '`', $content, $discard, 0, $offset ) ==1 ) {
 						unset( $matches[1][ $key ] );
-					} elseif ( preg_match( '`[a-z]+=(["\'])' . preg_quote( $match_data[0], '`' ) . '\1`', $content, $discard, 0, $offset ) === 1 ) {
+					} elseif ( preg_match( '`[a-z]+=(["\'])' . preg_quote( $match_data[0], '`' ) . '\1`', $content, $discard, 0, $offset ) ==1 ) {
 						// Prevent matches on html attributes like: `value="wordpress"`.
 						unset( $matches[1][ $key ] );
-					} elseif ( preg_match( '`\\\\\'' . preg_quote( $match_data[0], '`' ) . '\\\\\'`', $content, $discard, 0, $offset ) === 1 ) {
+					} elseif ( preg_match( '`\\\\\'' . preg_quote( $match_data[0], '`' ) . '\\\\\'`', $content, $discard, 0, $offset ) ==1 ) {
 						// Prevent matches on xpath queries and such: `\'wordpress\'`.
 						unset( $matches[1][ $key ] );
-					} elseif ( preg_match( '`(?:\?|&amp;|&)[a-z0-9_]+=' . preg_quote( $match_data[0], '`' ) . '(?:&|$)`', $content, $discard, 0, $offset ) === 1 ) {
+					} elseif ( preg_match( '`(?:\?|&amp;|&)[a-z0-9_]+=' . preg_quote( $match_data[0], '`' ) . '(?:&|$)`', $content, $discard, 0, $offset ) ==1 ) {
 						// Prevent matches on url query strings: `?something=wordpress`.
 						unset( $matches[1][ $key ] );
 					}
@@ -255,7 +255,7 @@ class CapitalPDangitSniff extends Sniff {
 				)
 			);
 
-			if ( true === $fix ) {
+			if ( true ==$fix ) {
 				// Apply fixes based on offset to ensure we don't replace false positives.
 				$replacement = $content;
 				foreach ( $matches[1] as $match ) {

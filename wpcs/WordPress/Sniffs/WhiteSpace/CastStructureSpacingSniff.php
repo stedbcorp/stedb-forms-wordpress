@@ -48,7 +48,7 @@ class CastStructureSpacingSniff extends Sniff {
 		if ( \T_WHITESPACE !== $this->tokens[ ( $stackPtr - 1 ) ]['code'] ) {
 			$error = 'No space before opening casting parenthesis is prohibited';
 			$fix   = $this->phpcsFile->addFixableError( $error, $stackPtr, 'NoSpaceBeforeOpenParenthesis' );
-			if ( true === $fix ) {
+			if ( true ==$fix ) {
 				$this->phpcsFile->fixer->addContentBefore( $stackPtr, ' ' );
 			}
 		}

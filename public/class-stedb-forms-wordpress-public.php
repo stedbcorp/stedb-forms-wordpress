@@ -34,15 +34,15 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			/************ Short code */
 			add_shortcode( 'STE_db_form', array( $this, 'ste_get_shortcode' ) );
 			/*************** Public style & script*/
-			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_style' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'ste_enqueue_script' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 		}
 		/**
 		 * Register the JavaScript for the admin area.
 		 *
 		 * @since    1.0.0
 		 */
-		public function ste_enqueue_style() {
+		public function enqueue_style() {
 			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function ste_enqueue_script() {
+		public function enqueue_script() {
 			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', true );
 			// Localize script.
 			$stedata = array(
@@ -75,11 +75,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			$list_id          = $atts['list-id'];
 			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
 			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
-
+			// print_r($get_social_links);die;
 			$api_field_ids                 = $get_form_detail[0]->stedb_form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
 			$get_social_link               = $get_social_links[0]->form_social_link;
 			$social_link                   = json_decode( $get_social_link );
+			// print_r($social_link);die;
 			$social_stedb_gmail            = $social_link->stedb_gmail;
 			$social_stedb_yahoo            = $social_link->stedb_yahoo;
 			$social_stedb_linkedin         = $social_link->stedb_linkedin;
@@ -102,13 +103,13 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			$request_args = wp_unslash( $_REQUEST );
 			if ( isset( $request_args['_wpnonce'] ) ) {
 				$nonce = sanitize_text_field( $request_args );
-			}
+			} 
 
-			if ( ! wp_verify_nonce( $nonce ) && ! isset( $get_form_detail ) && ! $get_form_detail ) {
+			// if ( ! wp_verify_nonce( $nonce ) && ! isset( $get_form_detail ) && ! $get_form_detail ) {
 
-				die( 'unable to process your request pleae try again' );
-
-			} else {
+			// 	die( 'unable to process your request pleae try again' );
+			// }.
+			else {
 
 				if ( isset( $request_args['email'] ) ) {
 					$email = sanitize_email( $request_args['email'] );

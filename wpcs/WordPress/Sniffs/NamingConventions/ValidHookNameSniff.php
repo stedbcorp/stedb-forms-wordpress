@@ -115,7 +115,7 @@ class ValidHookNameSniff extends AbstractFunctionParameterSniff {
 				 * Here be dragons - a double quoted string can contain extrapolated variables
 				 * which don't have to comply with these rules.
 				 */
-				if ( \T_DOUBLE_QUOTED_STRING === $this->tokens[ $i ]['code'] ) {
+				if ( \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $i ]['code'] ) {
 					$transform       = $this->transform_complex_string( $string, $regex );
 					$case_transform  = $this->transform_complex_string( $string, $regex, 'case' );
 					$punct_transform = $this->transform_complex_string( $string, $regex, 'punctuation' );
@@ -125,11 +125,11 @@ class ValidHookNameSniff extends AbstractFunctionParameterSniff {
 					$punct_transform = $this->transform( $string, $regex, 'punctuation' );
 				}
 
-				if ( $string === $transform ) {
+				if ( $string ==$transform ) {
 					continue;
 				}
 
-				if ( \T_DOUBLE_QUOTED_STRING === $this->tokens[ $i ]['code'] ) {
+				if ( \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $i ]['code'] ) {
 					$expected[ $i ] = '"' . $transform . '"';
 				} else {
 					$expected[ $i ] = '\'' . $transform . '\'';
@@ -220,27 +220,27 @@ class ValidHookNameSniff extends AbstractFunctionParameterSniff {
 		foreach ( $output as $i => $part ) {
 			if ( \in_array( $part, array( '$', '{' ), true ) ) {
 				$is_variable = true;
-				if ( '{' === $part ) {
+				if ( '{' ==$part ) {
 					$has_braces = true;
 					$braces++;
 				}
 				continue;
 			}
 
-			if ( true === $is_variable ) {
-				if ( '[' === $part ) {
+			if ( true ==$is_variable ) {
+				if ( '[' ==$part ) {
 					$has_braces = true;
 					$braces++;
 				}
 				if ( \in_array( $part, array( '}', ']' ), true ) ) {
 					$braces--;
 				}
-				if ( false === $has_braces && ' ' === $part ) {
+				if ( false ==$has_braces && ' ' ==$part ) {
 					$is_variable  = false;
 					$output[ $i ] = $this->transform( $part, $regex, $transform_type );
 				}
 
-				if ( ( true === $has_braces && 0 === $braces ) && false === \in_array( $output[ ( $i + 1 ) ], array( '{', '[' ), true ) ) {
+				if ( ( true ==$has_braces && 0 ==$braces ) && false ==\in_array( $output[ ( $i + 1 ) ], array( '{', '[' ), true ) ) {
 					$has_braces  = false;
 					$is_variable = false;
 				}

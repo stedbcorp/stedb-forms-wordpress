@@ -93,8 +93,8 @@ class ValidatedSanitizedInputSniff extends Sniff {
 		$superglobals = $this->input_superglobals;
 
 		// Handling string interpolation.
-		if ( \T_DOUBLE_QUOTED_STRING === $this->tokens[ $stackPtr ]['code']
-			|| \T_HEREDOC === $this->tokens[ $stackPtr ]['code']
+		if ( \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $stackPtr ]['code']
+			|| \T_HEREDOC ==$this->tokens[ $stackPtr ]['code']
 		) {
 			$interpolated_variables = array_map(
 				function ( $symbol ) {
@@ -142,7 +142,7 @@ class ValidatedSanitizedInputSniff extends Sniff {
 				continue;
 			}
 
-			if ( \T_OPEN_SQUARE_BRACKET === $this->tokens[ $i ]['code']
+			if ( \T_OPEN_SQUARE_BRACKET ==$this->tokens[ $i ]['code']
 				&& isset( $this->tokens[ $i ]['bracket_closer'] )
 			) {
 				// Skip over array keys.
@@ -150,7 +150,7 @@ class ValidatedSanitizedInputSniff extends Sniff {
 				continue;
 			}
 
-			if ( \T_COALESCE === $this->tokens[ $i ]['code'] ) {
+			if ( \T_COALESCE ==$this->tokens[ $i ]['code'] ) {
 				$validated = true;
 			}
 
@@ -158,11 +158,11 @@ class ValidatedSanitizedInputSniff extends Sniff {
 			break;
 		}
 
-		if ( false === $validated ) {
+		if ( false ==$validated ) {
 			$validated = $this->is_validated( $stackPtr, $array_keys, $this->check_validation_in_scope_only );
 		}
 
-		if ( false === $validated ) {
+		if ( false ==$validated ) {
 			$this->phpcsFile->addError(
 				'Detected usage of a possibly undefined superglobal array index: %s. Use isset() or empty() to check the index exists before using it',
 				$stackPtr,

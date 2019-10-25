@@ -199,7 +199,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			}
 
 			if ( ! isset( Tokens::$textStringTokens[ $this->tokens[ $i ]['code'] ] ) ) {
-				if ( \T_VARIABLE === $this->tokens[ $i ]['code'] ) {
+				if ( \T_VARIABLE ==$this->tokens[ $i ]['code'] ) {
 					if ( '$wpdb' !== $this->tokens[ $i ]['content'] ) {
 						$variable_found = true;
 					}
@@ -207,9 +207,9 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 				}
 
 				// Detect a specific pattern for variable replacements in combination with `IN`.
-				if ( \T_STRING === $this->tokens[ $i ]['code'] ) {
+				if ( \T_STRING ==$this->tokens[ $i ]['code'] ) {
 
-					if ( 'sprintf' === strtolower( $this->tokens[ $i ]['content'] ) ) {
+					if ( 'sprintf' ==strtolower( $this->tokens[ $i ]['content'] ) ) {
 						$sprintf_parameters = $this->get_function_call_parameters( $i );
 
 						if ( ! empty( $sprintf_parameters ) ) {
@@ -222,7 +222,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 						}
 						unset( $sprintf_parameters, $last_param );
 
-					} elseif ( 'implode' === strtolower( $this->tokens[ $i ]['content'] ) ) {
+					} elseif ( 'implode' ==strtolower( $this->tokens[ $i ]['content'] ) ) {
 						$prev = $this->phpcsFile->findPrevious(
 							Tokens::$textStringTokens,
 							( $i - 1 ),
@@ -243,12 +243,12 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 								);
 							}
 
-							if ( $this->analyse_implode( $i ) === true ) {
+							if ( $this->analyse_implode( $i ) ==true ) {
 								++$valid_in_clauses['uses_in'];
 								++$valid_in_clauses['implode_fill'];
 
 								$next = $this->phpcsFile->findNext( Tokens::$emptyTokens, ( $i + 1 ), null, true );
-								if ( \T_OPEN_PARENTHESIS === $this->tokens[ $next ]['code']
+								if ( \T_OPEN_PARENTHESIS ==$this->tokens[ $next ]['code']
 									&& isset( $this->tokens[ $next ]['parenthesis_closer'] )
 								) {
 									$skip_from = ( $i + 1 );
@@ -272,8 +272,8 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 				$regex_quote = $this->get_regex_quote_snippet( $content, $this->tokens[ $i ]['content'] );
 			}
 
-			if ( \T_DOUBLE_QUOTED_STRING === $this->tokens[ $i ]['code']
-				|| \T_HEREDOC === $this->tokens[ $i ]['code']
+			if ( \T_DOUBLE_QUOTED_STRING ==$this->tokens[ $i ]['code']
+				|| \T_HEREDOC ==$this->tokens[ $i ]['code']
 			) {
 				// Only interested in actual query text, so strip out variables.
 				$stripped_content = $this->strip_interpolated_variables( $content );
@@ -324,7 +324,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 							$data = array( $matches[0][ $index ] );
 
 							// Both a `%` as well as a `_` are wildcards in SQL.
-							if ( strpos( $match, '%' ) === false && strpos( $match, '_' ) === false ) {
+							if ( strpos( $match, '%' ) ==false && strpos( $match, '_' ) ==false ) {
 								$this->phpcsFile->addWarning(
 									'Unless you are using SQL wildcards, using LIKE is inefficient. Use a straight compare instead. Found: %s.',
 									$i,
@@ -334,7 +334,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 							} else {
 								$sql_wildcard_found = true;
 
-								if ( strpos( $match, '%s' ) === false ) {
+								if ( strpos( $match, '%s' ) ==false ) {
 									$this->phpcsFile->addError(
 										'SQL wildcards for a LIKE query should be passed in through a replacement parameter. Found: %s.',
 										$i,
@@ -362,7 +362,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 				unset( $matches, $index, $match, $data );
 			}
 
-			if ( strpos( $content, '%' ) === false ) {
+			if ( strpos( $content, '%' ) ==false ) {
 				continue;
 			}
 
@@ -372,7 +372,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			if ( preg_match_all( self::UNSUPPORTED_PLACEHOLDER_REGEX, $content, $matches ) > 0 ) {
 				if ( ! empty( $matches[0] ) ) {
 					foreach ( $matches[0] as $match ) {
-						if ( '%' === $match ) {
+						if ( '%' ==$match ) {
 							$this->phpcsFile->addError(
 								'Found unescaped literal "%%" character.',
 								$i,
@@ -440,7 +440,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			unset( $found_in );
 		}
 
-		if ( false === $text_string_tokens_found ) {
+		if ( false ==$text_string_tokens_found ) {
 			// Query string passed in as a variable or function call, nothing to examine.
 			return;
 		}
@@ -450,9 +450,9 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			$stackPtr
 		);
 
-		if ( 0 === $total_placeholders ) {
-			if ( 1 === $total_parameters ) {
-				if ( false === $variable_found && false === $sql_wildcard_found ) {
+		if ( 0 ==$total_placeholders ) {
+			if ( 1 ==$total_parameters ) {
+				if ( false ==$variable_found && false ==$sql_wildcard_found ) {
 					/*
 					 * Only throw this warning if the PreparedSQL sniff won't throw one about
 					 * variables being found.
@@ -465,7 +465,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 						'UnnecessaryPrepare'
 					);
 				}
-			} elseif ( false === $count_diff_whitelisted && 0 === $valid_in_clauses['uses_in'] ) {
+			} elseif ( false ==$count_diff_whitelisted && 0 ==$valid_in_clauses['uses_in'] ) {
 				$this->phpcsFile->addWarning(
 					'Replacement variables found, but no valid placeholders found in the query.',
 					$i,
@@ -476,7 +476,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			return;
 		}
 
-		if ( 1 === $total_parameters ) {
+		if ( 1 ==$total_parameters ) {
 			$this->phpcsFile->addError(
 				'Placeholders found in the query passed to $wpdb->prepare(), but no replacements found. Expected %d replacement(s) parameters.',
 				$stackPtr,
@@ -486,7 +486,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			return;
 		}
 
-		if ( true === $count_diff_whitelisted ) {
+		if ( true ==$count_diff_whitelisted ) {
 			return;
 		}
 
@@ -494,7 +494,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 		array_shift( $replacements ); // Remove the query.
 
 		// The parameters may have been passed as an array in parameter 2.
-		if ( isset( $parameters[2] ) && 2 === $total_parameters ) {
+		if ( isset( $parameters[2] ) && 2 ==$total_parameters ) {
 			$next = $this->phpcsFile->findNext(
 				Tokens::$emptyTokens,
 				$parameters[2]['start'],
@@ -503,8 +503,8 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			);
 
 			if ( false !== $next
-				&& ( \T_ARRAY === $this->tokens[ $next ]['code']
-					|| \T_OPEN_SHORT_ARRAY === $this->tokens[ $next ]['code'] )
+				&& ( \T_ARRAY ==$this->tokens[ $next ]['code']
+					|| \T_OPEN_SHORT_ARRAY ==$this->tokens[ $next ]['code'] )
 			) {
 				$replacements = $this->get_function_call_parameters( $next );
 			}
@@ -515,8 +515,8 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 
 		// Bow out when `IN` clauses have been used which appear to be correct.
 		if ( $valid_in_clauses['uses_in'] > 0
-			&& $valid_in_clauses['uses_in'] === $valid_in_clauses['implode_fill']
-			&& 1 === $total_replacements
+			&& $valid_in_clauses['uses_in'] ==$valid_in_clauses['implode_fill']
+			&& 1 ==$total_replacements
 		) {
 			return;
 		}
@@ -555,9 +555,9 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 		if ( $original_content !== $stripped_content ) {
 			$quote_style = $original_content[0];
 
-			if ( '"' === $quote_style ) {
+			if ( '"' ==$quote_style ) {
 				$regex_quote = '\\\\"|\'';
-			} elseif ( "'" === $quote_style ) {
+			} elseif ( "'" ==$quote_style ) {
 				$regex_quote = '"|\\\\\'';
 			}
 		}
@@ -584,7 +584,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 		unset( $sprintf_params[1] );
 
 		foreach ( $sprintf_params as $sprintf_param ) {
-			if ( strpos( strtolower( $sprintf_param['raw'] ), 'implode' ) === false ) {
+			if ( strpos( strtolower( $sprintf_param['raw'] ), 'implode' ) ==false ) {
 				continue;
 			}
 
@@ -594,10 +594,10 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 				$sprintf_param['end'],
 				true
 			);
-			if ( \T_STRING === $this->tokens[ $implode ]['code']
-				&& 'implode' === strtolower( $this->tokens[ $implode ]['content'] )
+			if ( \T_STRING ==$this->tokens[ $implode ]['code']
+				&& 'implode' ==strtolower( $this->tokens[ $implode ]['content'] )
 			) {
-				if ( $this->analyse_implode( $implode ) === true ) {
+				if ( $this->analyse_implode( $implode ) ==true ) {
 					++$found;
 				}
 			}
@@ -632,7 +632,7 @@ class PreparedSQLPlaceholdersSniff extends Sniff {
 			return false;
 		}
 
-		if ( strpos( strtolower( $implode_params[2]['raw'] ), 'array_fill' ) === false ) {
+		if ( strpos( strtolower( $implode_params[2]['raw'] ), 'array_fill' ) ==false ) {
 			return false;
 		}
 

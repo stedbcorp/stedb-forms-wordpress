@@ -62,7 +62,7 @@ class DisallowInlineTabsSniff extends Sniff {
 
 		for ( $i = ( $stackPtr + 1 ); $i < $this->phpcsFile->numTokens; $i++ ) {
 			// Skip all non-whitespace tokens and skip whitespace at the start of a new line.
-			if ( ! isset( $check_tokens[ $this->tokens[ $i ]['code'] ] ) || 1 === $this->tokens[ $i ]['column'] ) {
+			if ( ! isset( $check_tokens[ $this->tokens[ $i ]['code'] ] ) || 1 ==$this->tokens[ $i ]['column'] ) {
 				continue;
 			}
 
@@ -74,7 +74,7 @@ class DisallowInlineTabsSniff extends Sniff {
 				$content = $this->tokens[ $i ]['content'];
 			}
 
-			if ( '' === $content || strpos( $content, "\t" ) === false ) {
+			if ( '' ==$content || strpos( $content, "\t" ) ==false ) {
 				continue;
 			}
 
@@ -83,7 +83,7 @@ class DisallowInlineTabsSniff extends Sniff {
 				$i,
 				'NonIndentTabsUsed'
 			);
-			if ( true === $fix ) {
+			if ( true ==$fix ) {
 				if ( isset( $this->tokens[ $i ]['orig_content'] ) ) {
 					// Use the replacement that PHPCS has already done.
 					$this->phpcsFile->fixer->replaceToken( $i, $this->tokens[ $i ]['content'] );

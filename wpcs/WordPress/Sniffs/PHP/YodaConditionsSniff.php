@@ -82,15 +82,15 @@ class YodaConditionsSniff extends Sniff {
 			}
 
 			// If this is a variable or array, we've seen all we need to see.
-			if ( \T_VARIABLE === $this->tokens[ $i ]['code']
-				|| \T_CLOSE_SQUARE_BRACKET === $this->tokens[ $i ]['code']
+			if ( \T_VARIABLE ==$this->tokens[ $i ]['code']
+				|| \T_CLOSE_SQUARE_BRACKET ==$this->tokens[ $i ]['code']
 			) {
 				$needs_yoda = true;
 				break;
 			}
 
 			// If this is a function call or something, we are OK.
-			if ( \T_CLOSE_PARENTHESIS === $this->tokens[ $i ]['code'] ) {
+			if ( \T_CLOSE_PARENTHESIS ==$this->tokens[ $i ]['code'] ) {
 				return;
 			}
 		}
@@ -115,7 +115,7 @@ class YodaConditionsSniff extends Sniff {
 			);
 		}
 
-		if ( \T_VARIABLE === $this->tokens[ $next_non_empty ]['code'] ) {
+		if ( \T_VARIABLE ==$this->tokens[ $next_non_empty ]['code'] ) {
 			return;
 		}
 

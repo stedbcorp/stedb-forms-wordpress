@@ -55,7 +55,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 		 * Determine the array opener & closer.
 		 */
 		$array_open_close = $this->find_array_open_close( $stackPtr );
-		if ( false === $array_open_close ) {
+		if ( false ==$array_open_close ) {
 			// Array open/close could not be determined.
 			return;
 		}
@@ -65,7 +65,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 		unset( $array_open_close );
 
 		// This array is empty, so the below checks aren't necessary.
-		if ( ( $opener + 1 ) === $closer ) {
+		if ( ( $opener + 1 ) ==$closer ) {
 			return;
 		}
 
@@ -86,23 +86,23 @@ class CommaAfterArrayItemSniff extends Sniff {
 		foreach ( $array_items as $item_index => $item ) {
 			$maybe_comma = ( $item['end'] + 1 );
 			$is_comma    = false;
-			if ( isset( $this->tokens[ $maybe_comma ] ) && \T_COMMA === $this->tokens[ $maybe_comma ]['code'] ) {
+			if ( isset( $this->tokens[ $maybe_comma ] ) && \T_COMMA ==$this->tokens[ $maybe_comma ]['code'] ) {
 				$is_comma = true;
 			}
 
 			/*
 			 * Check if this is a comma at the end of the last item in a single line array.
 			 */
-			if ( true === $single_line && $item_index === $array_item_count ) {
+			if ( true ==$single_line && $item_index ==$array_item_count ) {
 
-				if ( true === $is_comma ) {
+				if ( true ==$is_comma ) {
 					$fix = $this->phpcsFile->addFixableError(
 						'Comma not allowed after last value in single-line array declaration',
 						$maybe_comma,
 						'CommaAfterLast'
 					);
 
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						$this->phpcsFile->fixer->replaceToken( $maybe_comma, '' );
 					}
 				}
@@ -121,7 +121,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 				true
 			);
 
-			if ( false === $last_content ) {
+			if ( false ==$last_content ) {
 				// Shouldn't be able to happen, but just in case, ignore this array item.
 				continue;
 			}
@@ -132,7 +132,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 			 * Should in reality only be triggered by the last item in a multi-line array
 			 * as otherwise we'd have a parse error already.
 			 */
-			if ( false === $is_comma && false === $single_line ) {
+			if ( false ==$is_comma && false ==$single_line ) {
 
 				$fix = $this->phpcsFile->addFixableError(
 					'Each array item in a multi-line array declaration must end in a comma',
@@ -140,12 +140,12 @@ class CommaAfterArrayItemSniff extends Sniff {
 					'NoComma'
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->addContent( $last_content, ',' );
 				}
 			}
 
-			if ( false === $is_comma ) {
+			if ( false ==$is_comma ) {
 				// Can't check spacing around the comma if there is no comma.
 				continue;
 			}
@@ -155,20 +155,20 @@ class CommaAfterArrayItemSniff extends Sniff {
 			 */
 			if ( $last_content !== $item['end']
 				// Ignore whitespace at the end of a multi-line item if it is the end of a heredoc/nowdoc.
-				&& ( true === $single_line
+				&& ( true ==$single_line
 					|| ! isset( Tokens::$heredocTokens[ $this->tokens[ $last_content ]['code'] ] ) )
 			) {
 				$newlines = 0;
 				$spaces   = 0;
 				for ( $i = $item['end']; $i > $last_content; $i-- ) {
 
-					if ( \T_WHITESPACE === $this->tokens[ $i ]['code'] ) {
-						if ( $this->tokens[ $i ]['content'] === $this->phpcsFile->eolChar ) {
+					if ( \T_WHITESPACE ==$this->tokens[ $i ]['code'] ) {
+						if ( $this->tokens[ $i ]['content'] ==$this->phpcsFile->eolChar ) {
 							$newlines++;
 						} else {
 							$spaces += $this->tokens[ $i ]['length'];
 						}
-					} elseif ( \T_COMMENT === $this->tokens[ $i ]['code']
+					} elseif ( \T_COMMENT ==$this->tokens[ $i ]['code']
 						|| isset( Tokens::$phpcsCommentTokens[ $this->tokens[ $i ]['code'] ] )
 					) {
 						break;
@@ -194,14 +194,14 @@ class CommaAfterArrayItemSniff extends Sniff {
 					)
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->beginChangeset();
 					for ( $i = $item['end']; $i > $last_content; $i-- ) {
 
-						if ( \T_WHITESPACE === $this->tokens[ $i ]['code'] ) {
+						if ( \T_WHITESPACE ==$this->tokens[ $i ]['code'] ) {
 							$this->phpcsFile->fixer->replaceToken( $i, '' );
 
-						} elseif ( \T_COMMENT === $this->tokens[ $i ]['code']
+						} elseif ( \T_COMMENT ==$this->tokens[ $i ]['code']
 							|| isset( Tokens::$phpcsCommentTokens[ $this->tokens[ $i ]['code'] ] )
 						) {
 							// We need to move the comma to before the comment.
@@ -231,9 +231,9 @@ class CommaAfterArrayItemSniff extends Sniff {
 			 */
 			$next_token = $this->tokens[ ( $maybe_comma + 1 ) ];
 
-			if ( \T_WHITESPACE === $next_token['code'] ) {
+			if ( \T_WHITESPACE ==$next_token['code'] ) {
 
-				if ( false === $single_line && $this->phpcsFile->eolChar === $next_token['content'] ) {
+				if ( false ==$single_line && $this->phpcsFile->eolChar ==$next_token['content'] ) {
 					continue;
 				}
 
@@ -244,17 +244,17 @@ class CommaAfterArrayItemSniff extends Sniff {
 					true
 				);
 
-				if ( false === $next_non_whitespace
-					|| ( false === $single_line
-						&& $this->tokens[ $next_non_whitespace ]['line'] === $this->tokens[ $maybe_comma ]['line']
-						&& ( \T_COMMENT === $this->tokens[ $next_non_whitespace ]['code']
+				if ( false ==$next_non_whitespace
+					|| ( false ==$single_line
+						&& $this->tokens[ $next_non_whitespace ]['line'] ==$this->tokens[ $maybe_comma ]['line']
+						&& ( \T_COMMENT ==$this->tokens[ $next_non_whitespace ]['code']
 							|| isset( Tokens::$phpcsCommentTokens[ $this->tokens[ $next_non_whitespace ]['code'] ] ) ) )
 				) {
 					continue;
 				}
 
 				$space_length = $next_token['length'];
-				if ( 1 === $space_length ) {
+				if ( 1 ==$space_length ) {
 					continue;
 				}
 
@@ -268,7 +268,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 					)
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->replaceToken( ( $maybe_comma + 1 ), ' ' );
 				}
 			} else {
@@ -281,7 +281,7 @@ class CommaAfterArrayItemSniff extends Sniff {
 					array( $next_token['content'] )
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->addContent( $maybe_comma, ' ' );
 				}
 			}

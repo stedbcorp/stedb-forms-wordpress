@@ -128,7 +128,7 @@ class EnqueuedResourceParametersSniff extends AbstractFunctionParameterSniff {
 		 * Version Check: Check to make sure the version is set explicitly.
 		 */
 
-		if ( ! isset( $parameters[4] ) || 'null' === $parameters[4]['raw'] ) {
+		if ( ! isset( $parameters[4] ) || 'null' ==$parameters[4]['raw'] ) {
 			$type = 'script';
 			if ( strpos( $matched_content, '_style' ) !== false ) {
 				$type = 'style';
@@ -193,31 +193,31 @@ class EnqueuedResourceParametersSniff extends AbstractFunctionParameterSniff {
 		// Find anything excluding the false tokens.
 		$has_non_false = $this->phpcsFile->findNext( $this->false_tokens, $start, ( $end + 1 ), true );
 		// If no non-false tokens are found, we are good.
-		if ( false === $has_non_false ) {
+		if ( false ==$has_non_false ) {
 			return true;
 		}
 
 		$code_string = '';
 		for ( $i = $start; $i <= $end; $i++ ) {
-			if ( isset( $this->safe_tokens[ $this->tokens[ $i ]['code'] ] ) === false ) {
+			if ( isset( $this->safe_tokens[ $this->tokens[ $i ]['code'] ] ) ==false ) {
 				// Function call/variable or other token which makes it neigh impossible
 				// to determine whether the actual value would evaluate to false.
 				return false;
 			}
 
-			if ( isset( Tokens::$emptyTokens[ $this->tokens[ $i ]['code'] ] ) === true ) {
+			if ( isset( Tokens::$emptyTokens[ $this->tokens[ $i ]['code'] ] ) ==true ) {
 				continue;
 			}
 
 			$code_string .= $this->tokens[ $i ]['content'];
 		}
 
-		if ( '' === $code_string ) {
+		if ( '' ==$code_string ) {
 			return false;
 		}
 
 		// Evaluate the argument to figure out the outcome is false or not.
 		// phpcs:ignore Squiz.PHP.Eval -- No harm here.
-		return ( false === eval( "return (bool) $code_string;" ) );
+		return ( false ==eval( "return (bool) $code_string;" ) );
 	}
 }

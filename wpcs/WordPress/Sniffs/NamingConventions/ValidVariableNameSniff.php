@@ -123,10 +123,10 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 		}
 
 		$obj_operator = $phpcs_file->findNext( Tokens::$emptyTokens, ( $stack_ptr + 1 ), null, true );
-		if ( \T_OBJECT_OPERATOR === $tokens[ $obj_operator ]['code'] ) {
+		if ( \T_OBJECT_OPERATOR ==$tokens[ $obj_operator ]['code'] ) {
 			// Check to see if we are using a variable from an object.
 			$var = $phpcs_file->findNext( Tokens::$emptyTokens, ( $obj_operator + 1 ), null, true );
-			if ( \T_STRING === $tokens[ $var ]['code'] ) {
+			if ( \T_STRING ==$tokens[ $var ]['code'] ) {
 				$bracket = $phpcs_file->findNext( Tokens::$emptyTokens, ( $var + 1 ), null, true );
 				if ( \T_OPEN_PARENTHESIS !== $tokens[ $bracket ]['code'] ) {
 					$obj_var_name = $tokens[ $var ]['content'];
@@ -135,11 +135,11 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 					// private, so we have to ignore a leading underscore if there is
 					// one and just check the main part of the variable name.
 					$original_var_name = $obj_var_name;
-					if ( '_' === substr( $obj_var_name, 0, 1 ) ) {
+					if ( '_' ==substr( $obj_var_name, 0, 1 ) ) {
 						$obj_var_name = substr( $obj_var_name, 1 );
 					}
 
-					if ( ! isset( $this->whitelisted_mixed_case_member_var_names[ $obj_var_name ] ) && self::isSnakeCase( $obj_var_name ) === false ) {
+					if ( ! isset( $this->whitelisted_mixed_case_member_var_names[ $obj_var_name ] ) && self::isSnakeCase( $obj_var_name ) ==false ) {
 						$error = 'Object property "$%s" is not in valid snake_case format, try "$%s"';
 						$data  = array(
 							$original_var_name,
@@ -153,7 +153,7 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 
 		$in_class     = false;
 		$obj_operator = $phpcs_file->findPrevious( Tokens::$emptyTokens, ( $stack_ptr - 1 ), null, true );
-		if ( \T_DOUBLE_COLON === $tokens[ $obj_operator ]['code'] || \T_OBJECT_OPERATOR === $tokens[ $obj_operator ]['code'] ) {
+		if ( \T_DOUBLE_COLON ==$tokens[ $obj_operator ]['code'] || \T_OBJECT_OPERATOR ==$tokens[ $obj_operator ]['code'] ) {
 			// The variable lives within a class, and is referenced like
 			// this: MyClass::$_variable or $class->variable.
 			$in_class = true;
@@ -163,11 +163,11 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 		// so we have to ignore a leading underscore if there is one and just
 		// check the main part of the variable name.
 		$original_var_name = $var_name;
-		if ( '_' === substr( $var_name, 0, 1 ) && true === $in_class ) {
+		if ( '_' ==substr( $var_name, 0, 1 ) && true ==$in_class ) {
 			$var_name = substr( $var_name, 1 );
 		}
 
-		if ( self::isSnakeCase( $var_name ) === false ) {
+		if ( self::isSnakeCase( $var_name ) ==false ) {
 			if ( $in_class && ! isset( $this->whitelisted_mixed_case_member_var_names[ $var_name ] ) ) {
 				$error      = 'Object property "$%s" is not in valid snake_case format, try "$%s"';
 				$error_name = 'UsedPropertyNotSnakeCase';
@@ -212,7 +212,7 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 		// Merge any custom variables with the defaults.
 		$this->mergeWhiteList();
 
-		if ( ! isset( $this->whitelisted_mixed_case_member_var_names[ $var_name ] ) && false === self::isSnakeCase( $var_name ) ) {
+		if ( ! isset( $this->whitelisted_mixed_case_member_var_names[ $var_name ] ) && false ==self::isSnakeCase( $var_name ) ) {
 			$error = 'Member variable "$%s" is not in valid snake_case format, try "$%s"';
 			$data  = array(
 				$var_name,
@@ -251,7 +251,7 @@ class ValidVariableNameSniff extends PHPCS_AbstractVariableSniff {
 					return;
 				}
 
-				if ( false === self::isSnakeCase( $var_name ) ) {
+				if ( false ==self::isSnakeCase( $var_name ) ) {
 					$error = 'Variable "$%s" is not in valid snake_case format, try "$%s"';
 					$data  = array(
 						$var_name,

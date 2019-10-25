@@ -64,7 +64,7 @@ class EmptyStatementSniff extends Sniff {
 					true
 				);
 
-				if ( false === $prevNonEmpty
+				if ( false ==$prevNonEmpty
 					|| ( \T_SEMICOLON !== $this->tokens[ $prevNonEmpty ]['code']
 						&& \T_OPEN_TAG !== $this->tokens[ $prevNonEmpty ]['code']
 						&& \T_OPEN_TAG_WITH_ECHO !== $this->tokens[ $prevNonEmpty ]['code'] )
@@ -76,7 +76,7 @@ class EmptyStatementSniff extends Sniff {
 					$nested      = $this->tokens[ $stackPtr ]['nested_parenthesis'];
 					$last_closer = array_pop( $nested );
 					if ( isset( $this->tokens[ $last_closer ]['parenthesis_owner'] )
-						&& \T_FOR === $this->tokens[ $this->tokens[ $last_closer ]['parenthesis_owner'] ]['code']
+						&& \T_FOR ==$this->tokens[ $this->tokens[ $last_closer ]['parenthesis_owner'] ]['code']
 					) {
 						// Empty for() condition.
 						return;
@@ -88,11 +88,11 @@ class EmptyStatementSniff extends Sniff {
 					$stackPtr,
 					'SemicolonWithoutCodeDetected'
 				);
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->beginChangeset();
 
-					if ( \T_OPEN_TAG === $this->tokens[ $prevNonEmpty ]['code']
-						|| \T_OPEN_TAG_WITH_ECHO === $this->tokens[ $prevNonEmpty ]['code']
+					if ( \T_OPEN_TAG ==$this->tokens[ $prevNonEmpty ]['code']
+						|| \T_OPEN_TAG_WITH_ECHO ==$this->tokens[ $prevNonEmpty ]['code']
 					) {
 						/*
 						 * Check for superfluous whitespace after the semi-colon which will be
@@ -100,7 +100,7 @@ class EmptyStatementSniff extends Sniff {
 						 * either a space or a new line and in case of a new line, the indentation
 						 * should be done via tabs, so spaces can be safely removed.
 						 */
-						if ( \T_WHITESPACE === $this->tokens[ ( $stackPtr + 1 ) ]['code'] ) {
+						if ( \T_WHITESPACE ==$this->tokens[ ( $stackPtr + 1 ) ]['code'] ) {
 							$replacement = str_replace( ' ', '', $this->tokens[ ( $stackPtr + 1 ) ]['content'] );
 							$this->phpcsFile->fixer->replaceToken( ( $stackPtr + 1 ), $replacement );
 						}
@@ -130,7 +130,7 @@ class EmptyStatementSniff extends Sniff {
 					true
 				);
 
-				if ( false === $prevNonEmpty
+				if ( false ==$prevNonEmpty
 					|| ( \T_OPEN_TAG !== $this->tokens[ $prevNonEmpty ]['code']
 						&& \T_OPEN_TAG_WITH_ECHO !== $this->tokens[ $prevNonEmpty ]['code'] )
 				) {
@@ -142,7 +142,7 @@ class EmptyStatementSniff extends Sniff {
 					$prevNonEmpty,
 					'EmptyPHPOpenCloseTagsDetected'
 				);
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->beginChangeset();
 					for ( $i = $prevNonEmpty; $i <= $stackPtr; $i++ ) {
 						$this->phpcsFile->fixer->replaceToken( $i, '' );

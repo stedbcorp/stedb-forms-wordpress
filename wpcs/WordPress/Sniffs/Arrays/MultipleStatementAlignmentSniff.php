@@ -168,7 +168,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		 * Determine the array opener & closer.
 		 */
 		$array_open_close = $this->find_array_open_close( $stackPtr );
-		if ( false === $array_open_close ) {
+		if ( false ==$array_open_close ) {
 			// Array open/close could not be determined.
 			return;
 		}
@@ -182,7 +182,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		}
 
 		// Pass off to either the single line or multi-line array analysis.
-		if ( $this->tokens[ $opener ]['line'] === $this->tokens[ $closer ]['line'] ) {
+		if ( $this->tokens[ $opener ]['line'] ==$this->tokens[ $closer ]['line'] ) {
 			return $this->process_single_line_array( $stackPtr, $array_items, $opener, $closer );
 		} else {
 			return $this->process_multi_line_array( $stackPtr, $array_items, $opener, $closer );
@@ -222,7 +222,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		);
 
 		while ( false !== $next_arrow ) {
-			if ( \T_WHITESPACE === $this->tokens[ ( $next_arrow - 1 ) ]['code'] ) {
+			if ( \T_WHITESPACE ==$this->tokens[ ( $next_arrow - 1 ) ]['code'] ) {
 				$space_length = $this->tokens[ ( $next_arrow - 1 ) ]['length'];
 				if ( 1 !== $space_length ) {
 					$error = 'Expected 1 space between "%s" and double arrow; %s found';
@@ -232,7 +232,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 					);
 
 					$fix = $this->phpcsFile->addFixableWarning( $error, $next_arrow, 'SpaceBeforeDoubleArrow', $data );
-					if ( true === $fix ) {
+					if ( true ==$fix ) {
 						$this->phpcsFile->fixer->replaceToken( ( $next_arrow - 1 ), ' ' );
 					}
 				}
@@ -285,7 +285,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		$total_items       = \count( $items );
 
 		foreach ( $items as $key => $item ) {
-			if ( strpos( $item['raw'], '=>' ) === false ) {
+			if ( strpos( $item['raw'], '=>' ) ==false ) {
 				// Ignore items without assignment operators.
 				unset( $items[ $key ] );
 				continue;
@@ -298,7 +298,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 				( $item['end'] + 1 )
 			);
 
-			if ( false === $double_arrow ) {
+			if ( false ==$double_arrow ) {
 				// Shouldn't happen, just in case.
 				unset( $items[ $key ] );
 				continue;
@@ -325,13 +325,13 @@ class MultipleStatementAlignmentSniff extends Sniff {
 				true
 			);
 
-			if ( false === $last_index_token ) {
+			if ( false ==$last_index_token ) {
 				// Shouldn't happen, but just in case.
 				unset( $items[ $key ] );
 				continue;
 			}
 
-			if ( true === $this->ignoreNewlines
+			if ( true ==$this->ignoreNewlines
 				&& $this->tokens[ $last_index_token ]['line'] !== $this->tokens[ $double_arrow ]['line']
 			) {
 				// Ignore this item as it has a new line between the item key and the double arrow.
@@ -344,7 +344,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 			$items[ $key ]['last_index_token'] = $last_index_token;
 			$items[ $key ]['last_index_col']   = $index_end_position;
 
-			if ( $this->tokens[ $last_index_token ]['line'] === $this->tokens[ $item['end'] ]['line'] ) {
+			if ( $this->tokens[ $last_index_token ]['line'] ==$this->tokens[ $item['end'] ]['line'] ) {
 				$items[ $key ]['single_line'] = true;
 			} else {
 				$items[ $key ]['single_line'] = false;
@@ -371,9 +371,9 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		/*
 		 * Determine whether the operators for multi-line items should be aligned.
 		 */
-		if ( 'always' === $this->alignMultilineItems ) {
+		if ( 'always' ==$this->alignMultilineItems ) {
 			$alignMultilineItems = true;
-		} elseif ( 'never' === $this->alignMultilineItems ) {
+		} elseif ( 'never' ==$this->alignMultilineItems ) {
 			$alignMultilineItems = false;
 		} else {
 			$percentage = (string) round( ( $multi_line_count / $total_items ) * 100, 0 );
@@ -387,12 +387,12 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		 * If necessary, rebuild the $index_end_cols and $double_arrow_cols arrays
 		 * excluding multi-line items.
 		 */
-		if ( false === $alignMultilineItems ) {
+		if ( false ==$alignMultilineItems ) {
 			$select_index_end_cols = array();
 			$double_arrow_cols     = array();
 
 			foreach ( $items as $item ) {
-				if ( false === $item['single_line'] ) {
+				if ( false ==$item['single_line'] ) {
 					continue;
 				}
 
@@ -419,7 +419,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 
 		$expected_col = ( $max_index_width + 2 );
 
-		if ( false === $this->exact && ! empty( $double_arrow_cols ) ) {
+		if ( false ==$this->exact && ! empty( $double_arrow_cols ) ) {
 			/*
 			 * If the alignment does not have to be exact, see if a majority
 			 * group of the arrows is already at an acceptable position.
@@ -428,7 +428,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 			reset( $double_arrow_cols );
 			$count = current( $double_arrow_cols );
 
-			if ( $count > 1 || ( 1 === $count && \count( $items ) === 1 ) ) {
+			if ( $count > 1 || ( 1 ==$count && \count( $items ) ==1 ) ) {
 				// Allow for several groups of arrows having the same $count.
 				$filtered_double_arrow_cols = array_keys( $double_arrow_cols, $count, true );
 
@@ -446,8 +446,8 @@ class MultipleStatementAlignmentSniff extends Sniff {
 		 * Verify and correct the spacing around the double arrows.
 		 */
 		foreach ( $items as $item ) {
-			if ( $this->tokens[ $item['operatorPtr'] ]['column'] === $expected_col
-				&& $this->tokens[ $item['operatorPtr'] ]['line'] === $this->tokens[ $item['last_index_token'] ]['line']
+			if ( $this->tokens[ $item['operatorPtr'] ]['column'] ==$expected_col
+				&& $this->tokens[ $item['operatorPtr'] ]['line'] ==$this->tokens[ $item['last_index_token'] ]['line']
 			) {
 				// Already correctly aligned.
 				continue;
@@ -468,23 +468,23 @@ class MultipleStatementAlignmentSniff extends Sniff {
 			 * array items which should not be aligned.
 			 */
 			if ( ( $item['last_index_col'] + 2 ) > $this->maxColumn
-				|| ( false === $alignMultilineItems && false === $item['single_line'] )
+				|| ( false ==$alignMultilineItems && false ==$item['single_line'] )
 			) {
 
-				if ( ( $item['last_index_col'] + 2 ) === $this->tokens[ $item['operatorPtr'] ]['column']
-					&& $this->tokens[ $item['operatorPtr'] ]['line'] === $this->tokens[ $item['last_index_token'] ]['line']
+				if ( ( $item['last_index_col'] + 2 ) ==$this->tokens[ $item['operatorPtr'] ]['column']
+					&& $this->tokens[ $item['operatorPtr'] ]['line'] ==$this->tokens[ $item['last_index_token'] ]['line']
 				) {
 					// MaxColumn/Multi-line item exception, already correctly aligned.
 					continue;
 				}
 
 				$prefix = 'LongIndex';
-				if ( false === $alignMultilineItems && false === $item['single_line'] ) {
+				if ( false ==$alignMultilineItems && false ==$item['single_line'] ) {
 					$prefix = 'MultilineItem';
 				}
 
 				$error_code = $prefix . 'SpaceBeforeDoubleArrow';
-				if ( 0 === $before ) {
+				if ( 0 ==$before ) {
 					$error_code = $prefix . 'NoSpaceBeforeDoubleArrow';
 				}
 
@@ -498,7 +498,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 					)
 				);
 
-				if ( true === $fix ) {
+				if ( true ==$fix ) {
 					$this->phpcsFile->fixer->beginChangeset();
 
 					// Remove whitespace tokens between the end of the index and the arrow, if any.
@@ -530,8 +530,8 @@ class MultipleStatementAlignmentSniff extends Sniff {
 				)
 			);
 
-			if ( true === $fix ) {
-				if ( 0 === $before || 'newline' === $before ) {
+			if ( true ==$fix ) {
+				if ( 0 ==$before || 'newline' ==$before ) {
 					$this->phpcsFile->fixer->beginChangeset();
 
 					// Remove whitespace tokens between the end of the index and the arrow, if any.
@@ -574,7 +574,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 	protected function validate_align_multiline_items() {
 		$alignMultilineItems = $this->alignMultilineItems;
 
-		if ( 'always' === $alignMultilineItems || 'never' === $alignMultilineItems ) {
+		if ( 'always' ==$alignMultilineItems || 'never' ==$alignMultilineItems ) {
 			return;
 		} else {
 			// Correct for a potentially added % sign.
@@ -584,7 +584,7 @@ class MultipleStatementAlignmentSniff extends Sniff {
 				$operator = $matches[1];
 				$number   = (int) $matches[2];
 
-				if ( \in_array( $operator, array( '<', '<=', '>', '>=', '==', '=', '!=', '<>' ), true ) === true
+				if ( \in_array( $operator, array( '<', '<=', '>', '>=', '==', '=', '!=', '<>' ), true ) ==true
 					&& ( $number >= 0 && $number <= 100 )
 				) {
 					$this->alignMultilineItems = $alignMultilineItems;

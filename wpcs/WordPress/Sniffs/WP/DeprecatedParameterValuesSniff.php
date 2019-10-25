@@ -183,7 +183,7 @@ class DeprecatedParameterValuesSniff extends AbstractFunctionParameterSniff {
 			true
 		);
 
-		if ( false === $parameter_position ) {
+		if ( false ==$parameter_position ) {
 			return;
 		}
 
