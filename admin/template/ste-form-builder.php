@@ -22,11 +22,11 @@
 					<div class="row card-body">
 						<div class="col-6 form-group">
 							<label class="ste-form-label"><?php esc_html_e( 'Form Name:', 'ste-social-form-builder' ); ?></label>
-							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Contact US Form" >
+							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Contact US Form" required >
 						</div>
 						<div class="col-6 form-group">
 							<label class="ste-form-label "><?php esc_html_e( 'Receiver:', 'ste-social-form-builder' ); ?></label>
-							<input type="email"  id="receiver" name="receiver" class="ste-form-receiver" placeholder=" john@anywhere.com">
+							<input type="email"  id="receiver" name="receiver" class="ste-form-receiver" placeholder=" john@anywhere.com" required>
 						</div>
 					</div>
 				</div>
@@ -42,8 +42,8 @@
 			<div class="row ste-form-builder-btn">
 				<div class="col py-3">
 					<input type="text" id="shortcode" name="ste-form-shortcode-display" class="shortcode-show-input shortcode ste-form-shortcode-display mr-2" disabled="disabled">								
-					<button type="button" id="shortcode" class="btn btn-success mr-2 ste-form-btn-show-shortcode white" name="copy_shortcode"> <span class="icon icon-copy "></span> <?php esc_html_e( ' Copy Shortcode', 'ste-social-form-builder' ); ?></button>
-					<button type="button" class="btn btn-primary ste-form-btn-show-shortcode  ste-form-btn-show-shortcode-disable create_form white" id="shortcode"><span class="icon icon-code "></span><?php esc_html_e( ' Done with shortcode', 'ste-social-form-builder' ); ?></button>
+					<button type="button" id="shortcode" class="btn btn-success mr-2 ste-form-btn-show-shortcode " name="copy_shortcode"> <span class="icon icon-copy "></span> <?php esc_html_e( 'Copy Shortcode', 'ste-social-form-builder' ); ?></button>
+					<button type="button" class="btn btn-primary ste-form-btn-show-shortcode  ste-form-btn-show-shortcode-disable create_form " id="shortcode"><span class="icon icon-code "></span><?php esc_html_e( 'Done with shortcode', 'ste-social-form-builder' ); ?></button>
 					<img id="loader" src="<?php echo esc_url( plugins_url( 'images/giphy.gif', dirname( __FILE__ ) ) ); ?>">
 				</div>
 			</div>
@@ -124,18 +124,20 @@
 					</div>
 				</div>
 				<div class="tab-pane  fade" id="stedb_property" role="tabpanel" aria-labelledby="property-tab">
-					<div class="container-2 ste-m-all"> Coming Soon... </div>
+					<div class="container-2  ste-coming-soon p-2 m-3 icon icon-time"> 		
+						<?php esc_html_e( 'Coming soon in our next release...', 'ste-social-form-builder' ); ?>
+					</div>
 				</div>
 			</div>
 			<div class="send-email-section">
 								<div class="send-email-label"> 
 									<span>Send Email</span> 
 								</div>
-							<div class="row pt-2">
-								<div class="col-3 ml-3 gurantee-logo ">
+							<div class="row">
+								<div class="col-3 p-2 gurantee-logo ">
 									<img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/gurantee_logo.png' ); ?>" class="ste-img">	
 								</div>
-								<div class="col-8">
+								<div class="col-9 p-2">
 									<span class="ste-text"><?php esc_html_e( 'Instead of the traditional email field, we use social integration to guarantee no fake leads, and no fake emails submitting through your forms.', 'ste-social-form-builder' ); ?></span>
 								</div>
 							</div>

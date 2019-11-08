@@ -100,7 +100,6 @@ var web_url = ste.site_url;
 
 })(jQuery);
 
-
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -184,14 +183,14 @@ function getRadioFieldHTML() {
         // +'</div>'
         +
         '<div class="field_extra_info_' + field + '">' +
-        '<div class="ste-radio-list  ste-my-0-5 radio_row_' + field + '" data-field="' + field + '" data-opt="' + opt1 + '"> ' +
-        '<div class=" ste-flex mt-radio ste-align-center ste-justify-space radio_list_' + field + '">' +
-        '<label class="ste-custom-input ste-flex ste-flexb-7 ste-mt-0-2">' +
+        '<div class="ste-radio-list my-3 radio_row_' + field + '" data-field="' + field + '" data-opt="' + opt1 + '"> ' +
+        '<div class=" ste-flex mt-radio radio_list_' + field + '">' +
+        '<label class="ste-custom-input ste-flex ste-mt-0-2">' +
         '<input data-opt="' + opt1 + '" type="radio" name="radio_' + field + '" class=" r_opt_name_' + opt1 + '">' +
         '<span class="checkmark-radio ste-pos-relative"></span>' +
         '</label>' +
-        '<input type="text" name="ste-radio-value" class="r_opt ste-radio-value form-control ste-flexb-80">' +
-        '<button class="ste-add-more ste-flexb-5 ste-btn-add-option add_more_radio" data-field="' + field + '">+</button>' +
+        '<input type="text" name="ste-radio-value" class="r_opt ste-radio-value form-control col-3 mx-3">' +
+        '<button class="ste-add-more ste-btn-add-option add_more_radio" data-field="' + field + '">+ Add</button>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -213,14 +212,14 @@ function getCheckboxFieldHTML() {
         // +'</div>'
         +
         '<div class="field_extra_info_' + field + '">' +
-        '<div class="ste-checkbox-list ste-my-0-5 checkbox_row_' + field + '" data-field="' + field + '" data-opt="' + opt1 + '">' +
-        '<div class="ste-flex mt-checkbox ste-align-center ste-justify-space checkbox_list_' + field + '">' +
-        '<label class="ste-custom-input ste-flex ste-flexb-7">' +
+        '<div class="ste-checkbox-list my-3 checkbox_row_' + field + '" data-field="' + field + '" data-opt="' + opt1 + '">' +
+        '<div class="ste-flex mt-checkbox checkbox_list_' + field + '">' +
+        '<label class="ste-custom-input ste-flex">' +
         '<input data-opt="' + opt1 + '" type="checkbox" name="checkbox_' + field + '" class=" c_opt_name_' + opt1 + '">' +
         '<span class="checkmark-checkbox ste-pos-relative"></span>' +
         '</label>' +
-        '<input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control ste-flexb-80">' +
-        '<button class="ste-add-more ste-flexb-5 ste-btn-add-option add_more_checkbox" data-field="' + field + '">+</button>' +
+        '<input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3">' +
+        '<button class="ste-add-more ste-btn-add-option add_more_checkbox" data-field="' + field + '">+ Add</button>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -242,20 +241,20 @@ function getSelectFieldHTML() {
         '<input type="text" name="label_' + field + '" class="ste-field form_input_label form-control" placeholder="Label" data-field="' + field + '">'
         // +'</div>'
         +
-        '<div class="ste-selectbox-list ste-my-0-5">' +
-        '<div class="ste-flex ste-align-center ste-justify-space">' +
-        '<select name="select_' + field + '" class="ste-selectbox ste-selectbox-value ste-flexb-90">' +
+        '<div class="ste-selectbox-list my-3">' +
+        '<div class="ste-flex">' +
+        '<select name="select_' + field + '" class="ste-selectbox form-control mb-3  ste-selectbox-value col-3 mr-3">' +
         '<option value="">Select Option</option>' +
         '<option data-opt="' + opt1 + '" value="Value">Option 1</option>' +
         '</select>' +
-        '<button class="ste-add-more ste-flexb-5 ste-btn-add-option add_more_select" data-field="' + field + '">+</button>' +
+        '<button class="ste-add-more ste-btn-add-option add_more_select" data-field="' + field + '">+ Add</button>' +
         '</div>' +
         '<div class="field_extra_info_' + field + '">' +
         '<div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + opt1 + '">'
         //+'<div class="ste-flex ">' 
         +
         '<label class="ste-selectbox-inputbox ste-flex ste-py-rm-0-4">' +
-        '<input type="text" name="ste-selectbox-options" class="s_opt ste-selectbox-options form-control ste-flexb-90">' +
+        '<input type="text" name="ste-selectbox-options" class="s_opt ste-selectbox-options form-control ste-flexb-90 ">' +
         '</label>'
         //+'</div>'
         +
@@ -287,18 +286,15 @@ function getYahooHTML() {
     var field = generateField();
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_yahoo" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="'+ site_url+ 'admin/images/yh.png"><img src="'+site_url+'admin/images/vertical_yh.png"><span>Send with yahoo!</span></a></div></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
-        '<div class="ste-flex ste-justify-space ste-align-center">' +
-        '<label class="ste-col-85"></label>' +
-        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
-        '</div>' +
-        '<div class="li_row form_output ste-my-0-5" data-type="social_yahoo" data-field="' + field + '">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_yahoo" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button yh">' +
         '<a class="form_save" social-yahoo="s_yahoo">' +
-        '<img src="' + site_url + 'admin/images/yh.png">' +
-        '<img src="' + site_url + 'admin/images/vertical_yh.png">' +
-        '<span>Send with yahoo!</span>' +
+        '<img src="' + site_url + 'admin/images/yahoo.png">' +
+        // '<img src="' + site_url + 'admin/images/vertical_yh.png">' +
+        '<span class="align-self-center">Use My Yahoo Mail!</span>' +
         '</a>' +
         '</div>' +
+        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
         '</div>';
     return html;
@@ -308,18 +304,15 @@ function getGmailHTML() {
     var field = generateField();
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_gmail" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+site_url+'admin/images/gp.png"><img src="'+site_url+'admin/images/vertical_gp.png"><span>Send with Gmail</span></a></div></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
-        '<div class="ste-flex ste-justify-space ste-align-center">' +
-        '<label class="ste-col-85"></label>' +
-        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
-        '</div>' +
-        '<div class="li_row form_output ste-my-0-5" data-type="social_gmail" data-field="' + field + '">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button gp">' +
         '<a class="form_save" social-gmail="s_gmail">' +
-        '<img src="' + site_url + 'admin/images/gp.png">' +
-        '<img src="' + site_url + 'admin/images/vertical_gp.png">' +
-        '<span>Send with Gmail</span>' +
+        '<img src="' + site_url + 'admin/images/gmail.png">' +
+        // '<img src="' + site_url + 'admin/images/vertical_gp.png">' +
+        '<span class="align-self-center">Use My Gmail!</span>' +
         '</a>' +
         '</div>' +
+        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
         '</div>';
     return html;
@@ -329,18 +322,15 @@ function getLinkedinHTML() {
     var field = generateField();
     // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_linkedin" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+site_url+'admin/images/ln.png"><img src="'+site_url+'admin/images/vertical_ln.png"><span>Send with Linkedin</span></a></div></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
-        '<div class="ste-flex ste-justify-space ste-align-center">' +
-        '<label class="ste-col-85"></label>' +
-        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
-        '</div>' +
-        '<div class="li_row form_output ste-my-0-5" data-type="social_linkedin" data-field="' + field + '">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button ln">' +
         '<a class="form_save" social-linkedin="s_linkedin">' +
-        '<img src="' + site_url + 'admin/images/ln.png">' +
-        '<img src="' + site_url + 'admin/images/vertical_ln.png">' +
-        '<span>Send with Linkedin</span>' +
+        '<img src="' + site_url + 'admin/images/linkedin.png">' +
+        // '<img src="' + site_url + 'admin/images/vertical_ln.png">' +
+        '<span class="align-self-center">Use My Linkedin!</span>' +
         '</a>' +
         '</div>' +
+        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
         '</div>';
     return html;
@@ -364,13 +354,13 @@ function getLinkedinHTML() {
         var option = generateField();
         $('.field_extra_info_' + field).append(
             '<div class="mt-radio ste-my-0-5 radio_row_' + field + '"  data-field="' + field + '" data-opt="' + option + '">' +
-            '<div class=" ste-flex ste-align-center ste-justify-space radio_list_' + field + '">' +
-            '<label class="ste-custom-input ste-flex ste-flexb-7 ste-mt-0-2">' +
+            '<div class=" ste-flex radio_list_' + field + '">' +
+            '<label class="ste-custom-input ste-flex  ste-mt-0-2">' +
             '<input data-opt="' + option + '" type="radio" name="radio_' + field + '" class="r_opt_name_' + option + '">' +
             '<span class="checkmark-radio ste-pos-relative"></span>' +
             '</label>' +
-            '<input type="text" name="ste-radio-value" class="r_opt ste-radio-value ste-flexb-80">' +
-            '<button class="ste-add-more ste-flexb-5 ste-btn-add-option remove_more_radio" data-field="' + field + '">x</button>' +
+            '<input type="text" name="ste-radio-value" class="r_opt ste-radio-value form-control col-3 mx-3">' +
+            '<button class="ste-add-more ste-btn-remove-option remove_more_radio" data-field="' + field + '">x</button>' +
             '</div>' +
             '</div>'
             // '<div data-opt="' + option + '" data-field="' + field + '" class="row radio_row_' + field + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="r_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="r_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_radio" data-field="' + field + '"></i><i class="margin-top-5 margin-left-5 fa fa-times-circle default_red fa-2x remove_more_radio" data-field="' + field + '"></i></div></div>'
@@ -390,14 +380,14 @@ function getLinkedinHTML() {
         var field = $(this).attr('data-field');
         var option = generateField();
         $('.field_extra_info_' + field).append(
-            '<div class="ste-checkbox-list ste-my-0-5 checkbox_row_' + field + '" data-field="' + field + '" data-opt="' + option + '">' +
-            '<div class="ste-flex mt-checkbox ste-align-center ste-justify-space checkbox_list_' + field + '">' +
-            '<label class="ste-custom-input ste-flex ste-flexb-7">' +
+            '<div class="ste-checkbox-list  checkbox_row_' + field + '" data-field="' + field + '" data-opt="' + option + '">' +
+            '<div class="ste-flex mt-checkbox my-3 checkbox_list_' + field + '">' +
+            '<label class="ste-custom-input ste-flex ">' +
             '<input data-opt="' + option + '" type="checkbox" name="checkbox_' + field + '" class=" c_opt_name_' + option + '">' +
             '<span class="checkmark-checkbox ste-pos-relative"></span>' +
             '</label>' +
-            '<input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value ste-flexb-80">' +
-            '<button class="ste-add-more ste-flexb-5 ste-btn-add-option remove_more_checkbox" data-field="' + field + '">x</button>' +
+            '<input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3">' +
+            '<button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="' + field + '">x</button>' +
             '</div>' +
             '</div>'
 
@@ -419,9 +409,9 @@ function getLinkedinHTML() {
         var option = generateField();
         $('.field_extra_info_' + field).append(
             '<div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + option + '">' +
-            '<div class="ste-flex ste-my-0-5 ste-align-center ste-justify-space">' +
-            '<input type="text" name="ste-selectbox-options" class="s_opt ste-selectbox-options ste-flexb-90 ">' +
-            '<button class="ste-add-more ste-flexb-5 ste-btn-add-option remove_more_select" data-field="' + field + '" data-opt="' + option + '" >x</button>' +
+            '<div class="ste-flex mb-3 ">' +
+            '<input type="text" name="ste-selectbox-options" class="s_opt form-control ste-selectbox-options col-8 mr-3 ">' +
+            '<button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="' + field + '" data-opt="' + option + '" >x</button>' +
             '</div>' +
             '</div>'
             // '<div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + option + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="s_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="s_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_select" data-field="' + field + '"></i><i class="margin-top-5 margin-left-5 fa fa-times-circle default_red fa-2x remove_more_select" data-field="' + field + '"></i></div></div>'
@@ -565,16 +555,16 @@ function getLinkedinHTML() {
             var name = $(this).find('.form_input_name').val();
 
             if (data_type == 'text') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=""><input type="text" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="ste-col-60 form-control text-field" /></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><input type="text" name="' + label.toLowerCase().replace(/ /g, "_") + '" class=" form-control text-field" /></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
 
             }
             if (data_type == 'textarea') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=""><textarea rows="5" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="ste-col-60 form-control textarea-field" /></textarea></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><textarea rows="5" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control textarea-field" /></textarea></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
             }
             if (data_type == 'date') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class=""><input type="date" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="ste-col-60 form-control date-field" /></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-60"><input type="date" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control date-field" /></div></div>';
                 field_detail = { 'field_name': label, 'field_type': data_type, 'default_value': label.toLowerCase().replace(/ /g, "_") };
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
             }
@@ -589,7 +579,7 @@ function getLinkedinHTML() {
                     opt_arr.push({ 'label': opt, 'value': opt });
                 });
 
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class=""><select class="ste-col-60 form-control form-dropdown-field" name="' + label.toLowerCase().replace(/ /g, "_") + '">' + option_html + '</select></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class="ste-col-60"><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-60"><select class="form-control form-dropdown-field" name="' + label.toLowerCase().replace(/ /g, "_") + '">' + option_html + '</select></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': opt_arr };
             }
             if (data_type == 'radio') {
@@ -599,7 +589,7 @@ function getLinkedinHTML() {
                     // var option = $(this).find('p').html();
                     var option = $(this).find('input[type=text]').val();
                     // var value = $(this).find('input[type=radio]').val();
-                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label"><input style="margin: 0px 5px 0px 0px; vertical-align: middle;" type="radio" class="form-radio-field" name="' + label.toLowerCase().replace(/ /g, "_") + '" value="' + option + '">' + option + '</label></div>';
+                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label"><input style="margin: 0px 5px 0px 0px;  vertical-align: middle;" type="radio" class="form-radio-field" name="' + label.toLowerCase().replace(/ /g, "_") + '" value="' + option + '">' + option + '</label></div>';
                     radio_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                 });
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '"><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
@@ -612,24 +602,24 @@ function getLinkedinHTML() {
                     // var option = $(this).find('p').html();
                     var option = $(this).find('input[type=text]').val();
                     // var value = $(this).find('input[type=checkbox]').val();
-                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label "><input style="margin: 0px 5px 0px 0px; vertical-align: middle;" type="checkbox" data-name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-checkbox-field" name="' + label.toLowerCase().replace(/ /g, "_") + '[]" value="' + option + '">' + option + '</label></div>';
+                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label "><input style="margin: 0px 5px 0px 0px; border-radius:5px; vertical-align: middle;" type="checkbox" data-name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-checkbox-field" name="' + label.toLowerCase().replace(/ /g, "_") + '[]" value="' + option + '">' + option + '</label></div>';
                     checkbox_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                 });
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': checkbox_arr };
             }
             if (data_type == 'social_yahoo') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-col-60 ste-sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yh.png"><img src="' + site_url + 'admin/images/vertical_yh.png"><span>Send with yahoo!</span></a></div></div>';
+                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yahoo.png"><span class="align-self-center">Use My Yahoo Mail!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }
             if (data_type == 'social_gmail') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-col-60  ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gp.png"><img src="' + site_url + 'admin/images/vertical_gp.png"><span>Send with Gmail</span></a></div></div>';
+                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }
             if (data_type == 'social_linkedin') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button ste-col-60 ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/ln.png"><img src="' + site_url + 'admin/images/vertical_ln.png"><span>Send with Linkedin</span></a></div></div>';
+                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button  ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }
@@ -643,6 +633,15 @@ function getLinkedinHTML() {
             var form_name = $('#form_name').val();
             var receiver = $('#receiver').val();
             var form_id = getUrlParameter('id');
+            if (form_name == '') {
+                alert("Please Enter Form Name!");
+                return;
+            }
+            if (receiver == '') {
+                alert("Please Enter Receiver Email!");
+                return;
+
+            }
             if (full_html_code.indexOf("social_yahoo") != -1 || full_html_code.indexOf("social_gmail") != -1 || full_html_code.indexOf("social_linkedin") != -1) {
                 if (form_id != undefined) {
                     $.ajax({
@@ -800,6 +799,7 @@ function getLinkedinHTML() {
             }
         });
 
+
         var $full_html = full_html_code = '';
         $(document).on('click', '.preview_form', function() {
             var btnText = $('.preview_form').text();
@@ -808,12 +808,12 @@ function getLinkedinHTML() {
                 $full_html = $('#ste-sortable').clone();
                 full_html_code = $full_html.html();
                 getPreview();
-                $('.preview_form').html('Back');
+                $('.preview_form').html('<span class="icon">&#8592;</span>Back');
                 $('.create_form').prop('disabled', true);
             } else {
                 // $('#sortable').html(full_html_code);
                 $('#ste-sortable').html(full_html_code);
-                $('.preview_form').html('Preview');
+                $('.preview_form').html('<span class="icon icon-view"></span>Preview');
                 $('.create_form').prop('disabled', false);
             }
         });
@@ -867,6 +867,5 @@ function getLinkedinHTML() {
     } else {
         $('.btn-shortcode').hide();
     }
-
 
 })(jQuery);

@@ -13,7 +13,7 @@
  * @wordpress-plugin
  * Plugin Name:       STEdb Forms
  * Plugin URI:        https://stedb.com/stedb-forms/
- * Description:       Drag and drop form builder, send button with social integration which guarantees no fake leads, no fake emails submitting your forms and FREE email marketing automation platform.s
+ * Description:       Drag and drop form builder, send button with social integration which guarantees no fake leads, no fake emails submitting your forms and FREE email marketing automation platforms.
  * Version:           1.0.0
  * Author:            STEDB
  * Author URI:        https://stedb.com

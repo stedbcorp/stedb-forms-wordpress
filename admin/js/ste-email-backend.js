@@ -27,6 +27,7 @@ var web_url = ste_email.site_url;
         var full_html_code = '';
         var shortcode = '';
         var html_content = '';
+        var html_content_short = '';
 
         $.ajax({
             // url:'../wp-admin/admin-ajax.php',
@@ -37,7 +38,7 @@ var web_url = ste_email.site_url;
             success: function(response) {
                 if (response.success) {
                     var emailList = response.result;
-                    console.log(emailList);
+                    // console.log(emailList);
                     for (var i = 0; i < emailList.length; i++) {
                         if (emailList[i].status == 4) {
                             var status = "Running";
@@ -61,14 +62,6 @@ var web_url = ste_email.site_url;
                             var status = '';
                         }
                         var run_date = (emailList[i].run_date == null) ? '' : emailList[i].run_date;
-                        // html_content += '<tr id='+emailList[i].form_id+'>'+
-                        // 					'<td><a href="'+site_url+'/wp-admin/admin.php?page=STEdb-form-plugin&action=form_creation_div&id='+emailList[i].form_id+'">'+emailList[i].form_name+'</a></td>'+
-                        // 					 '<td id = "status">'+status+'</td>'+ 
-                        // 					'<td>'+emailList[i].creation_date+'</td>'+
-                        // 					'<td id = "type"><a style="cursor: pointer;" onclick="ste_get_email_data('+emailList[i].form_id+')">'+type+'</a></td>'+
-                        // 					'<td id = "run_date">'+run_date+'</td>'+
-                        // 					'<td>'+emailList[i].shortcode+'</td>'+
-                        // 				'</tr>';
 
                         if (i % 2 == 0) {
                             var tr_class = "ste-se-tr-odd";
@@ -95,6 +88,70 @@ var web_url = ste_email.site_url;
                 }
             }
         });
+
+        // SHort
+
+        $.ajax({
+            // url:'../wp-admin/admin-ajax.php',
+            url: ajax_url,
+            type: 'post',
+            data: { action: 'ste_get_form_data', nonce: ste.nonce },
+            dataType: 'JSON',
+            success: function(response) {
+                if (response.success) {
+                    var emailList = response.result;
+                    console.log(emailList.length);
+                    for (var i = 0; i < emailList.length; i++) {
+                        if (emailList[i].status == 4) {
+                            var status = "Running";
+                        }
+                        if (emailList[i].type == 1) {
+                            var type = "Autoresponder";
+                        }
+                        if (emailList[i].status == 1) {
+                            var status = "Draft";
+                        }
+                        if (emailList[i].status == 3) {
+                            var status = "Scheduled";
+                        }
+                        if (emailList[i].type == 0) {
+                            var type = "Regular Email";
+                        }
+                        if (emailList[i].type == null || emailList[i].type == '') {
+                            var type = '';
+                        }
+                        if (emailList[i].status == null || emailList[i].status == '') {
+                            var status = '';
+                        }
+                        var run_date = (emailList[i].run_date == null) ? '' : emailList[i].run_date;
+
+                        if (i % 2 == 0) {
+                            var tr_class = "ste-se-tr-odd";
+                        } else {
+                            var tr_class = "ste-se-tr-even";
+                        }
+                        html_content_short += '<div id=' + emailList[i].id + ' data-list-id="' + emailList[i].form_id + '"class="ste-se-tr ' + tr_class + '">' +
+                            '<div class="ste-se-td"><a href="' + web_url + '/wp-admin/admin.php?page=ste-form-builder&action=form_creation_div&id=' + emailList[i].id + '">' + emailList[i].form_name + '</a></div>' +
+                            // '<div class="ste-se-td  ste-se-td-15">' + status + '</div>' +
+                            // '<div class="ste-se-td  ste-se-td-15">' + emailList[i].creation_date + '</div>' +
+                            // '<div class="ste-se-td  ste-se-td-15"><a style="cursor: pointer;" onclick="ste_get_email_data(' + emailList[i].form_id + ')">' + type + '</a></div>' +
+                            // '<div class="ste-se-td  ste-se-td-15">' + run_date + '</div>' +
+                            // '<div class="ste-se-td  ste-se-td-20">' + emailList[i].shortcode + '</div>' +
+                            // '<div class="dropdown ste-se-td btn-group ste-se-td-5  ">' +
+                            // '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">hello</button>' +
+                            // '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            // '<a class="dropdown-item" href="#">Edit</a>' +
+                            // '<a class="dropdown-item" href="#">Delete</a>' +
+                            // '</div>' +
+                            // '</div>' +
+                            '</div>';
+                    }
+                    $('.email_list_short').html(html_content_short);
+                }
+            }
+        });
+        // Short End
+
     });
     // option drop down
 

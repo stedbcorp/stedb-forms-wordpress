@@ -30,7 +30,7 @@ class STEDB_Account {
 	 */
 	public function stedb_create_registration() {
 		global $wpdb;
-		$user     = wp_get_current_user();
+		$user     = wp_get_current_user();		
 		$base_url = 'https://opt4.stedb.com/crm';
 		$data     = array(
 			'email'  => $user->user_email,
@@ -130,7 +130,7 @@ class STEDB_Account {
 		$get_custom      = $this->stedb_remove_element_with_value( $get_custom_data, 'field_type' );
 		$id_arr          = array();
 		foreach ( $get_custom as $key => $value ) {
-			if ( 'radio' ==$value['field_type'] || 'checkbox' ==$value['field_type'] || 'select' ==$value['field_type'] ) {
+			if ( 'radio' == $value['field_type'] || 'checkbox' == $value['field_type'] || 'select' == $value['field_type'] ) {
 				$default_vale = wp_json_encode( $value['default_value'] );
 			} else {
 

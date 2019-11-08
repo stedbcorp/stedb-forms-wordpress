@@ -97,7 +97,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_scripts() {
-
+			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
 			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
 			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
@@ -109,8 +109,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				'plugin_url' => stedb_plugin_url(),
 				'nonce'      => wp_create_nonce( 'ajax-nonce' ),
 			);
+			wp_localize_script( 'ste-generic', 'ste', $stedata );
 			wp_localize_script( 'ste-backend', 'ste', $stedata );
 			wp_localize_script( 'ste-email-backend', 'ste_email', $stedata );
+			wp_enqueue_style( 'ste_jquery-ui' );			
+			wp_enqueue_script( 'ste-generic' );
 		}
 
 		/**
@@ -127,7 +130,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Report', 'Report', 'manage_options', 'ste-report-template', array( $this, 'ste_report_page' ) );
-		}
+
+			/*adding submenu*/
+			add_submenu_page( 'ste-form-builder', 'STEdb All Forms ', 'STEdb All Forms', 'manage_options', 'ste-form-data-template', array( $this, 'ste_form_data_page' ) );		}
 		/**
 		 * [ste_form_admin_page description]
 		 * html template form admin
@@ -161,6 +166,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_enqueue_style( 'ste_fonts_css' );
 			wp_enqueue_style( 'ste_bootstrap' );
 			wp_enqueue_script( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_popper' );
 			$this->ste_top_bar();
 			$this->ste_send_email();
 			$this->ste_footer();
@@ -179,6 +185,21 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$this->ste_top_bar();
 			$this->ste_report();
 			$this->ste_footer();
+		}
+
+		/**
+		 * [ste_form_data_page description]
+		 * html template for form data
+		 */
+		public function ste_form_data_page() {
+			wp_enqueue_style( 'ste_css' );
+			wp_enqueue_script( 'ste-email-backend' );
+			wp_enqueue_script( 'ste-ckeditor' );
+			wp_enqueue_style( 'ste_fonts_css' );
+			wp_enqueue_style( 'ste_bootstrap' );
+			wp_enqueue_script( 'ste_bootstrap' );
+
+			$this->ste_form_data();
 		}
 
 		/**
@@ -210,11 +231,19 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 		/**
 		 * [ste_report description]
-		 * Html template for sanitize send email.
+		 * Html template for sanitize report.
 		 */
 		public function ste_report() {
 			$ste_report = sanitize_file_name( 'ste-report' );
 			require_once 'template/' . $ste_report . '.php';
+		}
+
+		/**
+		 * [ste_form_data description]
+		 * Html template for sanitize from data.
+		 */
+		public function ste_form_data() {
+			require_once 'template/ste-form-data.php';
 		}
 
 		/**
@@ -307,7 +336,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 								'shortcode' => $shortcode,
 								'form_id'   => $lastid,
 							)
-						);die;
+						);
+						die;
 					}
 				}
 			}
