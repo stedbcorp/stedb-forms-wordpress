@@ -71,6 +71,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_action( 'wp_ajax_ste_send_regular_email', array( $this, 'ste_send_regular_email' ) );
 			add_action( 'wp_ajax_create_campaign', array( $this, 'stedb_create_campaign' ) );
 			add_action( 'wp_ajax_ste_get_form_data', array( $this, 'ste_get_form_data' ) );
+			add_action( 'wp_ajax_ste_verify_code', array( $this, 'ste_verify_code' ) );
 
 			/* Public Ajax*/
 			add_action( 'wp_ajax_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
@@ -832,6 +833,47 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 								}
 				}
 			}
+		}
+				/**
+				 * [ste_verify_code description]
+				 * HTML template to verify email
+				 */
+		public function ste_verify_code() {
+			global $wpdb;
+			$args = wp_unslash( $_POST );
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+				if ( isset( $args['stedb_email'] ) && isset( $args['code'] ) ) {
+					print_r( $args );
+						$code = $args['code'];
+						$user     = wp_get_current_user();
+						$base_url = 'https://opt4.stedb.com/crm';
+						$data     = array(
+							'email'  => $user->user_email,
+							'domain' => get_option( 'siteurl' ),
+							'code'   => implode( '', $code ),
+						);
+						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
+						$output   = $client->ste_send_request( '/account/reactivate', 'POST', $data );
+
+						if ( ! isset( $output->data->error ) ) {
+							$user_id  = $output->data->user_id;
+							$secret   = $output->data->secret;
+							$base_url = $output->data->base_url;
+
+							if ( ! empty( $user_id ) && ! empty( $secret ) && ! empty( $base_url ) ) {
+								add_option( 'stedb_user_id', $user_id );
+								add_option( 'stedb_secret', $secret );
+								add_option( 'stedb_base_url', $base_url );
+							}
+							echo wp_json_encode( array( 'success' => true ) );
+							die;
+						} else {
+							echo wp_json_encode( array( 'error' => true, 'message' => $output->data->error ) );
+							die;
+						}
+				}
+			}
+
 		}
 	}
 }
