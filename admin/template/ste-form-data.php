@@ -144,10 +144,10 @@ function stedb_page_form_data() {
 	?>
 	<div class="wrap">
 		<div class="icon32 icon32-posts-post" id="icon-edit" ><br></div>
-		<h2><?php esc_html_e( 'STEdb Form', 'stedb_table' ); ?> <a class="add-new-h2" href="<?php echo get_admin_url( get_current_blog_id(), 'admin.php?page=ste-form-builder' ); ?>"><?php esc_html_e( 'Add new', 'stedb_table' ); ?></a>
+		<h2><?php esc_html_e( 'STEdb Form', 'stedb_table' ); ?> <a class="add-new-h2" href="<?php echo ( esc_html_e( get_admin_url( get_current_blog_id(), 'admin.php?page=ste-form-builder' ) ) ); ?>"><?php esc_html_e( 'Add new', 'stedb_table' ); ?></a>
 	</h2>
 		<form id="stedb-table" method="GET" >
-			<input type = "hidden" name="page" value="<?php echo $args['page']; ?>"/>
+			<input type = "hidden" name="page" value="<?php echo esc_html_e( $args['page'] ); ?>"/>
 			<?php $table->display(); ?>
 		</form>
 	</div>

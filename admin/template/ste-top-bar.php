@@ -11,8 +11,8 @@
 
 $args         = wp_unslash( $_GET );
 $current_page = $args['page'];
-$user     = wp_get_current_user();
-$email = $user->user_email;
+$user         = wp_get_current_user();
+$email        = $user->user_email;
 ?>
 <div class="ste-container">
 <div class=" ste-header-section ">
@@ -50,7 +50,7 @@ $email = $user->user_email;
 					<div class="row align-items-center">
 						<div class="col-9 ste-nav-bar">
 							<div class="ste-header-tabs-container ste-h-auto ste-col-100 ste-flex ste-flex-left ">
-							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" data-toggle="modal" data-target="#exampleModalCenter" class="ste-tab-item  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
 								<?php esc_html_e( 'Form Builder', 'ste-social-form-builder' ); ?>
 							</a>
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-send-email-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-send-email-template' == $current_page ) ? 'active' : ''; ?>">
@@ -61,51 +61,6 @@ $email = $user->user_email;
 							</a>	
 							</div>
 						</div>
-						<!-- Modal -->
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content p-4">
-					<div class="modal-header">
-						<div class="modal-title align-self-center col-9  ml-5" id="exampleModalCenterTitle">
-						<span>  Verification</span>
-						</div>
-						<button type="button" class="btn align-self-center col-1" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true" class="icon icon-close"></span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="code-bg-img mb-3"></div>
-						<div class="stedb_tagline"><span> Please enter the 4-digit verification code we sent via E-mail: </span></div>
-						<form id="stedb_acct_reg_form"class="needs-validation" novalidate>
-							<div class="form-group row my-4">
-							<div class="stedb_popup_email col text-center">
-								<span><?php echo esc_html_e( $email ); ?> </span>
-							</div>
-							</div>
-							<div class="form-group row">
-							<div class="stedb_popup_code_field col text-center">
-							<!-- <input type="password" name="code"  class="form-control" id="inputPassword" maxlength="4" placeholder="----" required> -->
-							<!-- 4 digit code -->
-							<input class="form-control" name="stedb_email" value="<?php echo esc_html_e( $email ); ?>" type="hidden" />
-							<input class="form-control" name="code[]"  type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" placeholder="0" required/>
-							<input class="form-control" name="code[]"  type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}"  placeholder="0" required/>
-							<input class="form-control" name="code[]"  type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}"  placeholder="0" required/>
-							<input class="form-control" name="code[]"  type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}"  placeholder="0"required/>
-							<!-- coded -->
-							</div>
-							<div class="invalid-feedback">
-								Please enter a Code.
-							</div>
-							</div>
-							<div class="stedb_popup_submit mt-4 text-center">
-								<button type="submit"  class="btn btn-success"><span class="icon icon-tick"></span>Verify</button>
-							</div>
-						</form>
-					</div>
-					</div>
-				</div>
-				</div>
-<!-- modal -->
 				<div class="col-3 ste-btn">
 					<?php if ( 'ste-report-template' != $current_page ) { ?> 
 					<button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>

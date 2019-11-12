@@ -32,7 +32,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 */
 		public function __construct() {
 			/************ Short code */
-			add_shortcode( 'STE_db_form', array( $this, 'ste_get_shortcode' ) );
+			add_shortcode( 'stedb_form', array( $this, 'ste_get_shortcode' ) );
 			/*************** Public style & script*/
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
 				'plugin_url' => stedb_plugin_url(),
-
+				'nonce'      => wp_create_nonce( 'ajax-nonce' ),
 			);
 			wp_localize_script( 'ste-public', 'ste', $stedata );
 		}
@@ -73,10 +73,11 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			global $wpdb;
 			$form_id          = $atts['id'];
 			$list_id          = $atts['list-id'];
+			// print_r($list_id);die;
 			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
 			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
 			// print_r($get_social_links);die;
-			$api_field_ids                 = $get_form_detail[0]->stedb_form_id;
+			$api_field_ids                 = $get_form_detail[0]->form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
 			$get_social_link               = $get_social_links[0]->form_social_link;
 			$social_link                   = json_decode( $get_social_link );
