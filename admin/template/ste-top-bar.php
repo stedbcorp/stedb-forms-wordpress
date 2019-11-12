@@ -79,7 +79,7 @@ $email = $user->user_email;
 						<form id="stedb_acct_reg_form"class="needs-validation" novalidate>
 							<div class="form-group row my-4">
 							<div class="stedb_popup_email col text-center">
-								<span><?php echo esc_html_e( $email ); ?></span>
+								<span><?php echo esc_html_e( $email ); ?> </span>
 							</div>
 							</div>
 							<div class="form-group row">

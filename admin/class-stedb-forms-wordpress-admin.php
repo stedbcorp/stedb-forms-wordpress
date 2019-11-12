@@ -193,12 +193,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * html template for form data
 		 */
 		public function ste_form_data_page() {
-			wp_enqueue_style( 'ste_css' );
-			wp_enqueue_script( 'ste-email-backend' );
-			wp_enqueue_script( 'ste-ckeditor' );
-			wp_enqueue_style( 'ste_fonts_css' );
-			wp_enqueue_style( 'ste_bootstrap' );
-			wp_enqueue_script( 'ste_bootstrap' );
+
 
 			$this->ste_form_data();
 		}
