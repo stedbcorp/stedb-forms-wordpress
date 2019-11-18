@@ -63,7 +63,7 @@
 				<div class="tab-pane  fade show active" id="stedb_fields" role="tabpanel" aria-labelledby="home-tab">
 					<!-- icons fields start -->
 					<div class="container">
-						<div class="row ">
+						<div class="row">
 							<div id="text_box"  class="col ste-field-border-c-1 ste-fields-icon ste-drag-text-box draggable text_box">
 								<div class="inner-col">
 									<div class="icon icon-text"></div>
@@ -78,7 +78,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row ">
+						<div class="row">
 							<div id="text_box" class="col ste-field-border-c-1 ste-fields-icon ste-drag-text-area draggable text_box">
 								<div class="inner-col">
 									<div class="icon icon-hashtag"></div>

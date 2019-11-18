@@ -73,15 +73,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			global $wpdb;
 			$form_id          = $atts['id'];
 			$list_id          = $atts['list-id'];
-			// print_r($list_id);die;
 			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
 			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
-			// print_r($get_social_links);die;
 			$api_field_ids                 = $get_form_detail[0]->form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
 			$get_social_link               = $get_social_links[0]->form_social_link;
 			$social_link                   = json_decode( $get_social_link );
-			// print_r($social_link);die;
 			$social_stedb_gmail            = $social_link->stedb_gmail;
 			$social_stedb_yahoo            = $social_link->stedb_yahoo;
 			$social_stedb_linkedin         = $social_link->stedb_linkedin;
@@ -104,14 +101,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			$request_args = wp_unslash( $_REQUEST );
 			if ( isset( $request_args['_wpnonce'] ) ) {
 				$nonce = sanitize_text_field( $request_args );
-			} 
-
-			// if ( ! wp_verify_nonce( $nonce ) && ! isset( $get_form_detail ) && ! $get_form_detail ) {
-
-			// 	die( 'unable to process your request pleae try again' );
-			// }.
-			else {
-
+			} else {
 				if ( isset( $request_args['email'] ) ) {
 					$email = sanitize_email( $request_args['email'] );
 					if ( null !== ( sanitize_email( $email ) ) && $email ) {
@@ -121,13 +111,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 							'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
 						);
 					}
-					session_destroy();
-					$user_id      = sanitize_option( get_option( 'stedb_user_id' ) );
-					$secret       = sanitize_option( get_option( 'stedb_secret' ) );
-					$base_url     = sanitize_option( get_option( 'stedb_base_url' ) );
+					$user_id      = get_option( 'stedb_user_id' );
+					$secret       = get_option( 'stedb_secret' );
+					$base_url     = get_option( 'stedb_base_url' );
 					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
-
+					unset( $_SESSION['form_data_array'] );
 					echo '<div class="thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
 					die;
 				}
@@ -139,11 +128,12 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					wp_nonce_field() .
 					$html_code .
 				'</form>';
+
 			$html .= '
 				<script type="text/javascript">
 					var site_url = "' . esc_js( get_option( 'siteurl' ) ) . '";
 					var page_id = "' . esc_js( get_the_ID() ) . '";
-					var page_link = "' . esc_js( get_page_link( 'page_id' ) ) . '";					
+					var page_link = "' . esc_js( get_permalink( get_the_ID() ) ) . '";					
 				</script>';
 			return $html;
 		}

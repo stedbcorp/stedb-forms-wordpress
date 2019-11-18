@@ -38,11 +38,11 @@ class Stedb_Form_Data extends WP_List_Table {
 	 * HTML template to column default
 
 	 * @return $item
-	 * @param item        $item getting item.
-	 * @param column_name $column_name getting column_name.
+	 * @param item             $item getting item.
+	 * @param column_form_name $column_form_name getting column_form_name.
 	 */
-	public function column_default( $item, $column_name ) {
-		return $item[ $column_name ];
+	public function column_default( $item, $column_form_name ) {
+		return $item[ $column_form_name ];
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Stedb_Form_Data extends WP_List_Table {
 
 	 * @param item $item getting item.
 	 */
-	public function column_name( $item ) {
+	public function column_form_name( $item ) {
 		$actions = array(
 			'edit' => sprintf( '<a href="?page=ste-form-builder&action=form_creation_div&id=%s">%s</a>', $item['form_id'], __( 'Edit', 'ste-social-form-builder' ) ),
 		);
@@ -108,7 +108,7 @@ class Stedb_Form_Data extends WP_List_Table {
 		global $wpdb;
 		$args  = wp_unslash( $_REQUEST );
 		$table    = $wpdb->get_results( 'SELECT * FROM stedb_form_builder_data' );
-		$per_page = 5;
+		$per_page = 20;
 		$columns  = $this->get_columns();
 		$hidden   = array();
 		$sortable = $this->get_sortable_columns();
@@ -118,7 +118,7 @@ class Stedb_Form_Data extends WP_List_Table {
 		$this->process_bulk_action();
 		$total_items = $wpdb->get_var( 'SELECT COUNT(form_id) FROM stedb_form_builder_data' );
 		$paged       = isset( $args['paged'] ) ? ( $per_page * max( 0, intval( $args['paged'] ) - 1 ) ) : 0;
-		$orderby     = ( isset( $args['orderby'] ) && in_array( $args['orderby'], array_keys( $this->get_sortable_columns() ) ) ) ? $args['orderby'] : 'name';
+		$orderby     = ( isset( $args['orderby'] ) && in_array( $args['orderby'], array_keys( $this->get_sortable_columns() ) ) ) ? $args['orderby'] : 'form_name';
 		$order       = ( isset( $args['order'] ) && in_array( $args['order'], array( 'asc', 'desc' ) ) ) ? $args['order'] : 'asc';
 
 		$this->items = $wpdb->get_results( 'SELECT * FROM stedb_form_builder_data', ARRAY_A );

@@ -10,7 +10,7 @@
                 t = jQuery(e.target),
                 sib = t.next('input[name="code[]"]');
 
-            if (key != 9 && (key < 48 || key > 57)) {
+            if (key != 9 && (key < 48 || key > 57) && (key < 96 || key > 105)) {
                 e.preventDefault();
                 return false;
             }
@@ -18,9 +18,9 @@
             if (key === 9) {
                 return true;
             }
-            // no more field found return to index 0
+            // no more field found return to button
             if (!sib || !sib.length) {
-                sib = jQuery('input[name="code[]"]').eq(0);
+                sib = jQuery('button[name="stedb-verify"]');
             }
             sib.select().focus();
         });
@@ -29,7 +29,7 @@
 
             var key = e.which;
 
-            if (key === 9 || (key >= 48 && key <= 57)) {
+            if (key === 9 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105)) {
                 return true;
             }
 
@@ -41,6 +41,20 @@
 
             jQuery(e.target).select();
         });
+        // on press backspace return previous field
+
+        //     jQuery('input[name="code[]"]').on('keyup', 'input.phone-input', function()
+        // {
+        //   if( key == 8 || key == 46 )
+        //   {
+        //     var indexNum = inputs.index(this);
+        //     if(indexNum != 0)
+        //     {
+        //     inputs.eq(inputs.index(this) - 1).val('').focus();
+        //     }
+        //   }
+
+        // });
     });
 
     /////start//

@@ -69,12 +69,12 @@ var web_url = ste_email.site_url;
                             var tr_class = "ste-se-tr-even";
                         }
                         html_content += '<div id=' + emailList[i].id + ' data-list-id="' + emailList[i].form_id + '"class="ste-se-tr ' + tr_class + '">' +
-                            '<div class="ste-se-td  ste-se-td-15"><a href="' + web_url + '/wp-admin/admin.php?page=ste-form-builder&action=form_creation_div&id=' + emailList[i].id + '">' + emailList[i].form_name + '</a></div>' +
-                            '<div class="ste-se-td  ste-se-td-15">' + status + '</div>' +
-                            '<div class="ste-se-td  ste-se-td-15">' + emailList[i].creation_date + '</div>' +
-                            '<div class="ste-se-td  ste-se-td-15"><a style="cursor: pointer;" onclick="ste_get_email_data(' + emailList[i].form_id + ')">' + type + '</a></div>' +
-                            '<div class="ste-se-td  ste-se-td-15">' + run_date + '</div>' +
-                            '<div class="ste-se-td  ste-se-td-20">' + emailList[i].shortcode + '</div>' +
+                            '<div class="ste-se-td  ste-se-td-15 shouldShowWhenMinified">' + emailList[i].form_name + '</div>' +
+                            '<div class="ste-se-td ste-b-clr ste-se-td-15 shouldNotShowWhenMinified">' + status + '</div>' +
+                            '<div class="ste-se-td  ste-se-td-15 shouldShowWhenMinified">' + emailList[i].creation_date + '</div>' +
+                            '<div class="ste-se-td ste-b-clr  ste-se-td-15 shouldNotShowWhenMinified"><a style="cursor: pointer;" onclick="ste_get_email_data(' + emailList[i].form_id + ')">' + type + '</a></div>' +
+                            '<div class="ste-se-td  ste-se-td-15 shouldNotShowWhenMinified">' + run_date + '</div>' +
+                            '<div class="ste-se-td  ste-se-td-20 shouldNotShowWhenMinified">' + emailList[i].shortcode + '</div>' +
                             // '<div class="dropdown ste-se-td btn-group ste-se-td-5  ">' +
                             // '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">hello</button>' +
                             // '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
@@ -88,74 +88,7 @@ var web_url = ste_email.site_url;
                 }
             }
         });
-
-        // SHort
-
-        $.ajax({
-            // url:'../wp-admin/admin-ajax.php',
-            url: ajax_url,
-            type: 'post',
-            data: { action: 'ste_get_form_data', nonce: ste.nonce },
-            dataType: 'JSON',
-            success: function(response) {
-                if (response.success) {
-                    var emailList = response.result;
-                    console.log(emailList.length);
-                    for (var i = 0; i < emailList.length; i++) {
-                        if (emailList[i].status == 4) {
-                            var status = "Running";
-                        }
-                        if (emailList[i].type == 1) {
-                            var type = "Autoresponder";
-                        }
-                        if (emailList[i].status == 1) {
-                            var status = "Draft";
-                        }
-                        if (emailList[i].status == 3) {
-                            var status = "Scheduled";
-                        }
-                        if (emailList[i].type == 0) {
-                            var type = "Regular Email";
-                        }
-                        if (emailList[i].type == null || emailList[i].type == '') {
-                            var type = '';
-                        }
-                        if (emailList[i].status == null || emailList[i].status == '') {
-                            var status = '';
-                        }
-                        var run_date = (emailList[i].run_date == null) ? '' : emailList[i].run_date;
-
-                        if (i % 2 == 0) {
-                            var tr_class = "ste-se-tr-odd";
-                        } else {
-                            var tr_class = "ste-se-tr-even";
-                        }
-                        html_content_short += '<div id=' + emailList[i].id + ' data-list-id="' + emailList[i].form_id + '"class="ste-se-tr ' + tr_class + '">' +
-                            '<div class="ste-se-td"><a href="' + web_url + '/wp-admin/admin.php?page=ste-form-builder&action=form_creation_div&id=' + emailList[i].id + '">' + emailList[i].form_name + '</a></div>' +
-                            // '<div class="ste-se-td  ste-se-td-15">' + status + '</div>' +
-                            // '<div class="ste-se-td  ste-se-td-15">' + emailList[i].creation_date + '</div>' +
-                            // '<div class="ste-se-td  ste-se-td-15"><a style="cursor: pointer;" onclick="ste_get_email_data(' + emailList[i].form_id + ')">' + type + '</a></div>' +
-                            // '<div class="ste-se-td  ste-se-td-15">' + run_date + '</div>' +
-                            // '<div class="ste-se-td  ste-se-td-20">' + emailList[i].shortcode + '</div>' +
-                            // '<div class="dropdown ste-se-td btn-group ste-se-td-5  ">' +
-                            // '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">hello</button>' +
-                            // '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                            // '<a class="dropdown-item" href="#">Edit</a>' +
-                            // '<a class="dropdown-item" href="#">Delete</a>' +
-                            // '</div>' +
-                            // '</div>' +
-                            '</div>';
-                    }
-                    $('.email_list_short').html(html_content_short);
-                }
-            }
-        });
-        // Short End
-
     });
-    // option drop down
-
-    // option drop down
     /*********************** Run Autoresponder  **************************/
     document.getElementById('getdata').addEventListener('click', () => {
         var email_content = CKEDITOR.instances["txtFT_Content"].getData();
@@ -174,7 +107,7 @@ var web_url = ste_email.site_url;
             // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
-            data: { 'action': 'stedb_create_campaign', 'email_content': email_content, 'from_name': from_name, 'email_subject': email_subject, 'email_status': email_status, 'email_type': email_type, 'list_id': list_id, 'form_id': new_list_id },
+            data: { 'action': 'stedb_create_campaign', 'email_content': email_content, 'from_name': from_name, 'email_subject': email_subject, 'email_status': email_status, 'email_type': email_type, 'list_id': list_id, 'form_id': new_list_id, nonce: ste.nonce },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#loader1").show();
@@ -228,7 +161,7 @@ var web_url = ste_email.site_url;
             // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
-            data: { 'action': 'ste_send_regular_email', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id },
+            data: { 'action': 'ste_send_regular_email', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id, nonce: ste.nonce },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#loader1").show();
@@ -281,7 +214,7 @@ var web_url = ste_email.site_url;
             // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
-            data: { 'action': 'ste_set_email_draft', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id },
+            data: { 'action': 'ste_set_email_draft', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id, nonce: ste.nonce },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#loader1").show();
@@ -396,3 +329,13 @@ var web_url = ste_email.site_url;
         }
     }
 })(jQuery);
+
+
+function openNav() {
+
+    if (jQuery("#mySidenav").hasClass('mini')) {
+        jQuery("#mySidenav").removeClass('mini').addClass('normal');
+    } else {
+        jQuery("#mySidenav").removeClass('normal').addClass('mini');
+    }
+}

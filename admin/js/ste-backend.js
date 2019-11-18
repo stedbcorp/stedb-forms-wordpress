@@ -62,14 +62,20 @@ var web_url = ste.site_url;
             $('.btn-shortcode').show();
             return getYahooHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: "#ste-sortable",
+        stop: function() {
+            jQuery(".social_gmail").draggable('disable');
+        }
     });
     $(".social_gmail").draggable({
         helper: function() {
-            $('.btn-shortcode').show();
+            $('.btn-shortcode').hide();
             return getGmailHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: "#ste-sortable",
+        stop: function() {
+            jQuery(".social_yahoo").draggable('disable');
+        }
     });
     $(".social_linkedin").draggable({
         helper: function() {
@@ -346,6 +352,10 @@ function getLinkedinHTML() {
                 $('.btn-shortcode').hide();
             }
         });
+        if ($(document).on('click', '.remove_bal_field')) {
+            jQuery(".social_gmail").draggable('enable');
+            jQuery(".social_yahoo").draggable('enable');
+        }
     });
 
     $(document).on('click', '.add_more_radio', function() {
@@ -632,6 +642,7 @@ function getLinkedinHTML() {
         if (plain_html == 'html') {
             var form_name = $('#form_name').val();
             var receiver = $('#receiver').val();
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var form_id = getUrlParameter('id');
             if (form_name == '') {
                 alert("Please Enter Form Name!");
@@ -640,8 +651,14 @@ function getLinkedinHTML() {
             if (receiver == '') {
                 alert("Please Enter Receiver Email!");
                 return;
-
             }
+            if (receiver != '') {
+                if (!regex.test(receiver)) {
+                    alert('Please Enter a Valid Email');
+                    return;
+                }
+            }
+
             if (full_html_code.indexOf("social_yahoo") != -1 || full_html_code.indexOf("social_gmail") != -1 || full_html_code.indexOf("social_linkedin") != -1) {
                 if (form_id != undefined) {
                     $.ajax({
@@ -845,7 +862,6 @@ function getLinkedinHTML() {
             data: { action: 'ste_get_edit_form_data', nonce: ste.nonce, form_id: formID },
             dataType: 'JSON',
             success: function(response) {
-                console.log("responce", response);
                 if (response.success) {
                     form_name = response.result[0].form_name;
                     receiver = response.result[0].receiver;
@@ -859,6 +875,7 @@ function getLinkedinHTML() {
                     // $('.shortcode').text(shortcode);
                     $('.shortcode').prop('readonly', true);
                     $('.appendableDiv').before(full_html_code);
+                    $("#sortable").removeClass('ste-bg-drag-img');
                     $('.btn-shortcode').show();
                     $(".shrt_btn").show();
                 }

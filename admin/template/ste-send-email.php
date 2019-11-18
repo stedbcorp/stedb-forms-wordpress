@@ -13,7 +13,7 @@
 <div class="row ste-send-email-main" >
 <img id="loader1" src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/giphy.gif' ); ?>" />
 		<!-- left container -->
-		<div class="col-9 p-4" onclick="closeNav()">
+		<div class="col-9 p-4" >
 			<div class="ste-auto-responder p-4">
 				<div class="ste-auto-responder-title">	
 					<span><?php esc_html_e( 'Create your autoresponder', 'ste-social-form-builder' ); ?></span>
@@ -43,29 +43,22 @@
 			</div>
 		</div>
 		<!-- side nav -->
-		<div class="col-3">
-			<div class=" sticky-icon-bar"  onclick="openNav()">
-				<span class="nav-icon-left col-3">&#8592;</span>
+		<div id="mySidenav"  class="sidenav mini">
+			<div class="sticky-icon-bar" onclick="openNav()">
+			<span href="javascript:void(0)" class="nav-icon mx-4 px-2" ></span>
 			</div>
-			<div class="send-email-list ste-se-tr pt-3 px-4"><span class="icon-bar-text">Form Name</span></div>
-			<div class="ste-se-body email_list_short px-4"></div>
-		</div>
-		<div id="mySidenav"  class="sidenav">
-			<div class=" sticky-icon-bar" onclick="closeNav()">
-			<span href="javascript:void(0)" class="nav-icon-right mx-4 px-2" >&#8594;</span>
-			</div>
-			<div class="col ste-send-email-container  p-4">  	  
+			<div class="col ste-send-email-container p-2"> 	  
 				<div class="ste-send-email-mini-container">
 					<div class="ste-send-email-tbl-reponsive">
 						<div class="ste-send-email-tbl" id="form_data_table">
 								<div class="ste-se-thead ">
 									<div class="ste-se-tr ">
-										<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Name', 'ste-social-form-builder' ); ?></div>
-										<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Status', 'ste-social-form-builder' ); ?></div>
-										<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Create Date', 'ste-social-form-builder' ); ?></div>
-										<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Type', 'ste-social-form-builder' ); ?></div>
-										<div class="ste-se-td  ste-se-td-15"><?php esc_html_e( 'Date Run', 'ste-social-form-builder' ); ?></div>
-										<div class="ste-se-td  ste-se-td-20"><?php esc_html_e( 'Short Code', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-15 shouldShowWhenMinified"><?php esc_html_e( 'Name', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-15 shouldNotShowWhenMinified"><?php esc_html_e( 'Status', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-15 shouldShowWhenMinified"><?php esc_html_e( 'Create Date', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-15 shouldNotShowWhenMinified"><?php esc_html_e( 'Type', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-15 shouldNotShowWhenMinified"><?php esc_html_e( 'Date Run', 'ste-social-form-builder' ); ?></div>
+										<div class="ste-se-td  ste-se-td-20 shouldNotShowWhenMinified"><?php esc_html_e( 'Short Code', 'ste-social-form-builder' ); ?></div>
 									</div>
 								</div>
 								<div class="send-email-list email_list">
@@ -75,15 +68,6 @@
 				</div> 
 			</div>
 		</div>
-				<script>
-				function openNav() {
-				document.getElementById("mySidenav").style.width = "70%";
-				}
-
-				function closeNav() {
-				document.getElementById("mySidenav").style.width = "0";
-				}
-				</script>
 		<!-- side nav -->
 </div>
 

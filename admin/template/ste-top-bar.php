@@ -26,14 +26,14 @@ $email        = $user->user_email;
 <div class="col py-4">
 <span class="ste-header-account-id f-clr"><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span>
 <div> 
-<a class="ste_underline_none f-clr" href="javascript:void(0);"><?php esc_html_e( get_option( 'stedb_secret' ) ); ?></a> 
+<a class="f-clr" href="javascript:void(0);"><?php esc_html_e( get_option( 'stedb_secret' ) ); ?></a> 
 </div>
 </div>       
 <div class="align-self-center f-clr"><span class="icon icon-phone-call"></span></div>  
 <div class="col ste-header-phone py-4">
-<a class="ste_underline_none f-clr" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
+<a class="f-clr" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
 <div> 
-<a class="ste_underline_none f-clr" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
+<a class="f-clr" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
 </div>
 </div>       
 <div class="ste-round-setting-icon">
@@ -46,7 +46,7 @@ $email        = $user->user_email;
 
 </div>
 <!-- links -->
-<div class=".container-fluid ste-clr-wh ste-col-100">
+<div class=".container-fluid ste-clr-wh">
 					<div class="row align-items-center">
 						<div class="col-9 ste-nav-bar">
 							<div class="ste-header-tabs-container ste-h-auto ste-col-100 ste-flex ste-flex-left ">

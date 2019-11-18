@@ -50,18 +50,26 @@ $email        = $user->user_email;
 							</div>
 							<div class="stedb_modal_action_handler">
 								<div style="display:none" id="modal_loader">
-									<img src="https://loading.io/spinners/lava-lamp/index.svg" class="zoom2">
+									<svg class="stedb-popup-loader" width="100px" height="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+									<circle cx="35" cy="38.0799" r="15" fill="#0099e5">
+									<animate attributeName="cy" calcMode="spline" keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5" repeatCount="indefinite" values="62.5;37.5;62.5;62.5" keyTimes="0;0.25;0.5;1" dur="1s" begin="-0.5s"></animate>
+									</circle> <circle cx="70" cy="41.1353" r="15" fill="#ff4c4c">
+									<animate attributeName="cy" calcMode="spline" keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5" repeatCount="indefinite" values="62.5;37.5;62.5;62.5" keyTimes="0;0.25;0.5;1" dur="1s" begin="-0.3333333333333333s"></animate>
+									</circle> <circle cx="105" cy="62.5" r="15" fill="#34bf49">
+									<animate attributeName="cy" calcMode="spline" keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5" repeatCount="indefinite" values="62.5;37.5;62.5;62.5" keyTimes="0;0.25;0.5;1" dur="1s" begin="-0.16666666666666666s"></animate>
+									</circle>
+									</svg>
 								</div>
 							<div id="stedb_modal_error_wrong_code" style="display:none"  class="alert alert-danger">
-								<strong>Oops!</strong> Wrong Code, Please try again.
+								<span class="stedb-popup-message"> &#9888; <strong> Oops!</strong> Wrong Code, Please try again. </span>	
 							</div>
 							<div id="stedb_modal_success_code" style="display:none" class="alert alert-success">
-								<strong>Congratulations!</strong> You are verified Successfully. Hold tight while we setup your plugin.
-								</div>
+								<span class="stedb-popup-message"> &#9745; <strong>Congratulations!</strong> You are verified Successfully. Hold tight while we setup your plugin.</span>
+							</div>
 							</div>
 							</div>
 							<div class="stedb_popup_submit mt-2 text-center">
-								<button type="submit"  class="btn btn-success"><span class="icon icon-tick"></span>Verify</button>
+								<button type="submit" name="stedb-verify"  class="btn btn-success"><span class="icon icon-tick"></span>Verify</button>
 							</div>
 						</form>
 					</div>
@@ -69,9 +77,9 @@ $email        = $user->user_email;
 				</div>
 				</div>
 <!-- modal -->
-<script>
-	jQuery('#exampleModalCenter').modal({
-        keyboard: false,
-        backdrop: 'static',
-    });
-	</script>
+				<script>
+					jQuery('#exampleModalCenter').modal({
+						keyboard: false,
+						backdrop: 'static',
+					});
+				</script>
