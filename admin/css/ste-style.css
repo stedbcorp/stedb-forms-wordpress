@@ -172,7 +172,9 @@ a.ste-tab-item {
     color: #000;
 }
 
-.remove_bal_field {
+.remove_social_bal_field,
+.remove_bal_field, 
+.remove_linkedin_bal_field {
     background-color: #ffff;
     border: none;
 }
@@ -1282,3 +1284,40 @@ img#loader1 {
     background-image: none !important;
     text-align: center;
 }
+
+
+
+.ui-draggable-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  a.ui-draggable-disabled {
+    color: currentColor;
+    display: inline-block;  /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
+  }
+
+  .help {
+    background-color: #2f333b;
+    width: 20px;
+    text-indent: 0px;
+    padding-left: 0;
+    height: 20px;
+    line-height: 20px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    border-radius: 13px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    color: #f1f1f1;
+    display: inline-block;
+    font-weight: 700;
+    content: counter(list);
+    margin-right: 15px;
+    font-size: 14px;
+    position: absolute;
+    margin-top: -8px;
+    margin-left: 10px;
+  }

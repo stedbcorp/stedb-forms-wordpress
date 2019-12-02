@@ -26,7 +26,7 @@
 						</div>
 						<div class="col-6 form-group">
 							<label class="ste-form-label "><?php esc_html_e( 'Receiver:', 'ste-social-form-builder' ); ?></label>
-							<input type="email"  id="receiver" name="receiver" class="ste-form-receiver" placeholder=" john@anywhere.com" required>
+							<input type="email" title="Please enter your email address at which you would like to receive the information."  id="receiver" name="receiver" class="ste-form-receiver" placeholder=" john@anywhere.com" required>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div id="text_box" class="col ste-field-border-c-1 ste-fields-icon ste-drag-text-area draggable text_box">
+							<div id="number" class="col ste-field-border-c-1 ste-fields-icon ste-drag-text-area draggable number_box">
 								<div class="inner-col">
 									<div class="icon icon-hashtag"></div>
 									<span class="word"> Numbers </span>
@@ -114,7 +114,7 @@
 									<span class="word"> Checkbox </span>
 								</div>
 							</div>	
-							<div id="link" class="col ste-field-border-c-2 ste-fields-icon ste-drag-text-area draggable link">
+							<div id="link" class="col ste-field-border-c-2 ste-fields-icon ste-drag-text-area draggable link_box">
 								<div class="inner-col">
 									<div class="icon icon-link"></div>
 									<span class="word"> Link </span>
@@ -141,14 +141,14 @@
 									<span class="ste-text"><?php esc_html_e( 'Instead of the traditional email field, we use social integration to guarantee no fake leads, and no fake emails submitting through your forms.', 'ste-social-form-builder' ); ?></span>
 								</div>
 							</div>
-							<div class="row ste-social-icon-section mt-2">
-								<div class="col-4 ste-social-icon  ste-b-r">
-										<a href="javascript:void(0);" class="social_yahoo">
+							<div class="row ste-social-icon-section mt-2" >
+								<div class="col-4 ste-social-icon  ste-b-r" >
+										<a href="javascript:void(0);" class="social_yahoo" >
 											<img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/yahoo.png' ); ?>" class="ste-admin-icon">
 										</a>
 								</div>
-								<div class="col-4 ste-social-icon ste-b-r" >
-										<a href="javascript:void(0);" class="social_gmail">
+								<div class="col-4 ste-social-icon ste-b-r">
+										<a href="javascript:void(0);" class="social_gmail" >
 											<img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/gmail.png' ); ?>" class="ste-admin-icon">
 										</a>
 								</div>

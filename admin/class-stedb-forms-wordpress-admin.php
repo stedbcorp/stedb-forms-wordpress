@@ -119,7 +119,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_localize_script( 'ste-email-backend', 'ste_email', $stedata );
 
 			wp_enqueue_script( 'ste-generic' );
+			wp_enqueue_script( 'ste_popper' );
 			wp_enqueue_script( 'ste_bootstrap' );
+			
 		}
 
 		/**
@@ -129,16 +131,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function ste_admin_menu() {
 
 			/*adding main admin menu*/
-			add_menu_page( 'STEdb Form', 'STEdb Form', 'manage_options', 'ste-form-data-template', array( $this, 'ste_form_data_page' ) );
-
+			add_menu_page( 'STEdb Form', 'STEdb Form', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
 			/*adding submenu*/
-			add_submenu_page( 'ste-form-data-template', 'STEdb Form Builder ', 'STEdb Form Builder', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
-
+			add_submenu_page( 'ste-form-builder', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
 			/*adding submenu*/
-			add_submenu_page( 'ste-form-data-template', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
-
+			add_submenu_page( 'ste-form-builder', 'Report', 'Report', 'manage_options', 'ste-report-template', array( $this, 'ste_report_page' ) );
 			/*adding submenu*/
-			add_submenu_page( 'ste-form-data-template', 'Report', 'Report', 'manage_options', 'ste-report-template', array( $this, 'ste_report_page' ) );
+			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'STEdb Forms', 'manage_options', 'ste-from-data-template', array( $this, 'ste_form_data_page' ) );
 		}
 		/**
 		 * [ste_form_admin_page description]
