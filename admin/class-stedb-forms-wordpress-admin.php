@@ -121,7 +121,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_enqueue_script( 'ste-generic' );
 			wp_enqueue_script( 'ste_popper' );
 			wp_enqueue_script( 'ste_bootstrap' );
-			
 		}
 
 		/**
@@ -751,7 +750,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					} else {
 						$entry_id = 1;
 					}
-					// print_r($form_data);
 					foreach ( $form_data as $key => $value ) {
 						foreach ( $value as $val ) {
 							$insert_data       = array(
