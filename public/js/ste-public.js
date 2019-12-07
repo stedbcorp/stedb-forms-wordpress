@@ -32,6 +32,14 @@ var web_url = ste.site_url;
                         group.find('.form-radio-field:checked').each(function() {
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
+                    } else if (data_type == 'number') {
+                            group.find('.number-field:checked').each(function() {
+                                postArray[data_type].push({ 'name': name, 'value': $(this).val() });
+                            });
+                    } else if (data_type == 'link') {
+                            group.find('.link-field:checked').each(function() {
+                                postArray[data_type].push({ 'name': name, 'value': $(this).val() });
+                            });
                     } else if (data_type == 'checkbox') {
                         sel_val = [];
                         group.find('.form-checkbox-field:checked').each(function() {
