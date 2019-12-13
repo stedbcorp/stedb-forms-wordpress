@@ -7,80 +7,87 @@ var web_url = ste.site_url;
 
 (function($) {
     'use strict';
-    
+   
     /* draggable jquery*/
+    $(".html_row").draggable({
+        helper: function() {
+            return getHTMLRow();
+        },
+        connectToSortable: "#ste-sortable"
+    });
+
+    $(".html_col").draggable({
+        helper: function() {
+            return getHTMLCol();
+        },
+        connectToSortable: ".html_item_row_container"
+    });
+
     $(".text_box").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getTextFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
-    });
-    $(".link").draggable({
-        helper: function() {
-            $('.btn-shortcode').show();
-            return getLinkFieldHTML();
-        },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".text_area").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getTextAreaFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".number_box").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getNumberFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".radio_button").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getRadioFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".checkbox").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getCheckboxFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".select_box").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getSelectFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".date_box").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getDateFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".link_box").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getLinkFieldHTML();
         },
-        connectToSortable: "#ste-sortable"
+        connectToSortable: ".html_item_row_container"
     });
     $(".social_yahoo").draggable({
         helper: function() {
             $('.btn-shortcode').show();
             return getYahooHTML();
         },
-        connectToSortable: "#ste-sortable",
+        connectToSortable: ".html_item_row_container",
         
         stop: function() {
-            var $full_html = $('#ste-sortable').clone();
+            var $full_html = $('.html_item_row_container').clone();
             $full_html.find('.appendableDiv').remove();
             full_html_code = $.trim($full_html.html());
             if (full_html_code.indexOf("social_yahoo") != -1 ) { 
@@ -103,9 +110,9 @@ var web_url = ste.site_url;
             $('.btn-shortcode').hide();
             return getGmailHTML();
         },
-        connectToSortable: "#ste-sortable",
+        connectToSortable: ".html_item_row_container",
         stop: function() {
-            var $full_html = $('#ste-sortable').clone();
+            var $full_html = $('.html_item_row_container').clone();
             $full_html.find('.appendableDiv').remove();
             full_html_code = $.trim($full_html.html());
 
@@ -130,9 +137,9 @@ var web_url = ste.site_url;
             $('.btn-shortcode').show();
             return getLinkedinHTML();
         },
-        connectToSortable: "#ste-sortable",
+        connectToSortable: ".html_item_row_container",
         stop: function() {
-            var $full_html = $('#ste-sortable').clone();
+            var $full_html = $('.html_item_row_container').clone();
             $full_html.find('.appendableDiv').remove();
             full_html_code = $.trim($full_html.html());
 
@@ -142,7 +149,6 @@ var web_url = ste.site_url;
             }
         }
     });
-
     $("#ste-sortable").sortable({
         cursor: 'move',
         placeholder: 'placeholder',
@@ -150,18 +156,66 @@ var web_url = ste.site_url;
             ui.placeholder.height(ui.helper.outerHeight());
             $("#sortable").removeClass('ste-bg-drag-img');
         },
+        receive: function(ev, ui){
+            if('add_row_item' == ui.item.attr('id') ){
+                /**row container droppable*/
+                $( ".html_item_row_container" ).droppable({
+                    accept: ".draggable, .social_gmail, .social_yahoo, .social_linkedin",
+                    classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover",
+                    },
+                    
+                    drop: function( event, ui ) {
+                        //console.log('yes dropped',ui,  ui.helper.html(), ui.draggable);
+                            var elem;
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'text' ){
+                                elem = getTextFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'textarea' ){
+                                elem = getTextAreaFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'number' ){
+                                elem = getNumberFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'url' ){
+                                elem = getLinkFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'radio' ){
+                                elem = getRadioFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'checkbox' ){
+                                elem = getCheckboxFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'select' ){
+                                elem = getSelectFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'date' ){
+                                elem = getDateFieldHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'social_yahoo' ){
+                                elem = getYahooHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'social_gmail' ){
+                                elem = getGmailHTML();
+                            }
+                            if( ui.helper.find('[data-type]').attr('data-type') == 'social_linkedin' ){
+                                elem = getLinkedinHTML();
+                            }   
+                            $(this).find('[data-type=row]').append(elem);
+                    },
+                });
+            }
+        },
         stop: function(ev, ui) {
-            // getPreview();
-            if (!$('.sortable .form_output').length > 0) {
+            if (!$('.sortable .form_output').length > 0) { 
 
                 $("#sortable").addClass('ste-bg-drag-img');
             }
-
         }
     });
-
     $("#ste-sortable").disableSelection();
-
+    
 })(jQuery);
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -179,7 +233,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-
 // edit form ajax
 
 /**
@@ -189,6 +242,16 @@ function generateField() {
     return Math.floor(Math.random() * (100000 - 1 + 1) + 57);
 }
 
+function getHTMLRow() {
+    var field = generateField();
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row-full html_item_row_container">' +
+        '<div class="ste-row ste-flex ste-align-center">' +
+        '<button class="remove_bal_field" data-field="' + field + '">X</button>' 
+    +'</div>' +
+    '<div class="li_row " data-type="row" data-field="' + field + '"></div>' +
+        '</div>';
+    return html;
+}
 function getTextFieldHTML() {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
@@ -196,21 +259,8 @@ function getTextFieldHTML() {
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>'
 
     +'</div>' +
-    '<div class="li_row form_output" data-type="text" data-field="' + field + '">' +
+    '<div id="text-box" class="li_row form_output" data-type="text" data-field="' + field + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
-        '</div>' +
-        '</div>';
-    return html;
-}
-
-function getLinkFieldHTML() {
-    var field = generateField();
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
-        '<div class="ste-flex ste-justify-space ste-align-center">' +
-        '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
-        '</div>' +
-        '<div class="li_row form_output" data-type="text" data-field="' + field + '">' +
-        '<input type="url" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
     return html;
@@ -218,8 +268,7 @@ function getLinkFieldHTML() {
 
 function getTextAreaFieldHTML() {
     var field = generateField();
-    //var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Textarea Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="textarea" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-margin ">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
@@ -227,19 +276,17 @@ function getTextAreaFieldHTML() {
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
-    // return html;   
     return html;
 }
 
 function getNumberFieldHTML() {
     var field = generateField();
-    //var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Textarea Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="textarea" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
         '<div class="li_row form_output" data-type="number" data-field="' + field + '">' +
-        '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
+        '<input type="text" name="label_' + field +'" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
     // return html;   
@@ -248,7 +295,6 @@ function getNumberFieldHTML() {
 
 function getLinkFieldHTML() {
     var field = generateField();
-    //var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Textarea Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="textarea" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
@@ -264,7 +310,7 @@ function getLinkFieldHTML() {
 function getRadioFieldHTML() {
     var field = generateField();
     var opt1 = generateField();
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-margin">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
@@ -292,7 +338,7 @@ function getRadioFieldHTML() {
 function getCheckboxFieldHTML() {
     var field = generateField();
     var opt1 = generateField();
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-margin">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
@@ -320,8 +366,7 @@ function getCheckboxFieldHTML() {
 function getSelectFieldHTML() {
     var field = generateField();
     var opt1 = generateField();
-    // var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Dropdown Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div><div class="row li_row form_output" data-type="select" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div><div class="col-md-12"><div class="form-group"><select name="select_' + field + '" class="form-control"><option data-opt="' + opt1 + '" value="Value">Option</option></select></div></div></div><div class="row li_row"><div class="col-md-12"><div class="field_extra_info_' + field + '"><div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + opt1 + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="s_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="s_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_select" data-field="' + field + '"></i></div></div></div></div></div></div></div>';
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-margin">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
@@ -357,7 +402,6 @@ function getSelectFieldHTML() {
 function getDateFieldHTML() {
     var field = generateField();
     var opt1 = generateField();
-    // var html = '<div class="li_'+field+' form_builder_field"><div class="all_div"> Date Field <div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="date" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><input type="text" name="label_' + field + '" class="form-control form_input_label" value="" placeholder="Label" data-field="' + field + '"/></div></div></div></div>';
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50">' +
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
@@ -371,8 +415,7 @@ function getDateFieldHTML() {
 
 function getYahooHTML() {
     var field = generateField();
-    // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_yahoo" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="'+ site_url+ 'admin/images/yh.png"><img src="'+site_url+'admin/images/vertical_yh.png"><span>Send with yahoo!</span></a></div></div></div></div></div>';
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto ste-col-50">' +
         '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_yahoo" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button yh">' +
         '<a class="form_save" social-yahoo="s_yahoo">' +
@@ -389,8 +432,7 @@ function getYahooHTML() {
 
 function getGmailHTML() {
     var field = generateField();
-    // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_gmail" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+site_url+'admin/images/gp.png"><img src="'+site_url+'admin/images/vertical_gp.png"><span>Send with Gmail</span></a></div></div></div></div></div>';
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto ste-col-50">' +
         '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button gp">' +
         '<a class="form_save" social-gmail="s_gmail">' +
@@ -407,8 +449,7 @@ function getGmailHTML() {
 
 function getLinkedinHTML() {
     var field = generateField();
-    // var html = '<div class="li_'+field+' form_builder_field btn-width"><div class="all_div"><div class="row li_row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm remove_bal_field pull-right btn-pos" data-field="' + field + '"><i class="fa fa-times"></i></button></div></div></div><div class="row li_row form_output" data-type="social_linkedin" data-field="' + field + '"><div class="col-md-12"><div class="form-group"><div class="sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+site_url+'admin/images/ln.png"><img src="'+site_url+'admin/images/vertical_ln.png"><span>Send with Linkedin</span></a></div></div></div></div></div>';
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-col-50 ste-height-auto">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto ste-col-50">' +
         '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="' + field + '">' +
         '<div class="sign-up-button ste-sign-up-button ln">' +
         '<a class="form_save" social-linkedin="s_linkedin">' +
@@ -674,24 +715,24 @@ function getLinkedinHTML() {
             var name = $(this).find('.form_input_name').val();
 
             if (data_type == 'text') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><input type="text" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control text-field" /></div></div>';
+                html += '<div class="ste-mb-1 ste-col-50-prev form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-50-prev"><input type="text" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control ste-container-alpha text-field" /></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
 
             }
             if (data_type == 'textarea') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><textarea rows="5" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control textarea-field" /></textarea></div></div>';
-                field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview ste-col-60" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=""><textarea rows="5" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control textarea-field" /></textarea></div></div>';
+                field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label }
             }
             if (data_type == 'number') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><input type="number" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control number-field" /></div></div>';
+                html += '<div class="ste-mb-1 ste-col-50-prev form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-50-prev"><input type="number" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control number-field" /></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
             }
             if (data_type == 'url') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-60"><input type="url" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control link-field" /></div></div>';
+                html += '<div class="ste-mb-1 ste-col-50-prev form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class="ste-col-50-prev"><input type="url" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control link-field" /></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
             }
             if (data_type == 'date') {
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-60"><input type="date" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control date-field" /></div></div>';
+                html += '<div class="ste-mb-1 ste-col-50-prev form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-50-prev"><input type="date" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control date-field" /></div></div>';
                 field_detail = { 'field_name': label, 'field_type': data_type, 'default_value': label.toLowerCase().replace(/ /g, "_") };
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
             }
@@ -706,7 +747,7 @@ function getLinkedinHTML() {
                     opt_arr.push({ 'label': opt, 'value': opt });
                 });
 
-                html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class="ste-col-60"><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-60"><select class="form-control form-dropdown-field" name="' + label.toLowerCase().replace(/ /g, "_") + '">' + option_html + '</select></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview ste-col-60" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class="ste-col-60"><label class="control-label ste-public-form-label-text ste-flexb-20">' + label + '</label></div><div class="ste-col-60"><select class="form-control form-dropdown-field" name="' + label.toLowerCase().replace(/ /g, "_") + '">' + option_html + '</select></div></div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': opt_arr };
             }
             if (data_type == 'radio') {
@@ -716,7 +757,7 @@ function getLinkedinHTML() {
                     // var option = $(this).find('p').html();
                     var option = $(this).find('input[type=text]').val();
                     // var value = $(this).find('input[type=radio]').val();
-                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label"><input style="margin: 0px 5px 0px 0px;  vertical-align: middle;" type="radio" class="form-radio-field" name="' + label.toLowerCase().replace(/ /g, "_") + '" value="' + option + '">' + option + '</label></div>';
+                    option_html += '<div class="form-check ste-mr-0-5 ste-col-60"><label class="form-check-label"><input style="margin: 0px 5px 0px 0px;  vertical-align: middle;" type="radio" class="form-radio-field" name="' + label.toLowerCase().replace(/ /g, "_") + '" value="' + option + '">' + option + '</label></div>';
                     radio_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                 });
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '"><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
@@ -729,24 +770,24 @@ function getLinkedinHTML() {
                     // var option = $(this).find('p').html();
                     var option = $(this).find('input[type=text]').val();
                     // var value = $(this).find('input[type=checkbox]').val();
-                    option_html += '<div class="form-check ste-mr-0-5"><label class="form-check-label "><input style="margin: 0px 5px 0px 0px; border-radius:5px; vertical-align: middle;" type="checkbox" data-name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-checkbox-field" name="' + label.toLowerCase().replace(/ /g, "_") + '[]" value="' + option + '">' + option + '</label></div>';
+                    option_html += '<div class="form-check ste-mr-0-5 ste-col-60"><label class="form-check-label "><input style="margin: 0px 5px 0px 0px; border-radius:5px; vertical-align: middle;" type="checkbox" data-name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-checkbox-field" name="' + label.toLowerCase().replace(/ /g, "_") + '[]" value="' + option + '">' + option + '</label></div>';
                     checkbox_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                 });
                 html += '<div class="ste-mb-1 form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><label class=" ste-public-form-label-text control-label">' + label + '</label>' + option_html + '</div>';
                 field_detail_array[i] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': checkbox_arr };
             }
             if (data_type == 'social_yahoo') {
-                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yahoo.png"><span class="align-self-center">Use My Yahoo Mail!</span></a></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview ste-col-50" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-sign-up-button yh"><a class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yahoo.png"><span class="align-self-center">Use My Yahoo Mail!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }
             if (data_type == 'social_gmail') {
-                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview ste-col-50" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }
             if (data_type == 'social_linkedin') {
-                html += '<div class="ste-mb-1 ste-col-60 form-group form_builder_field_preview" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button  ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div></div>';
+                html += '<div class="ste-mb-1 form-group form_builder_field_preview ste-col-50" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button  ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div></div>';
                 field_detail_array[i] = { 'field_type': data_type };
 
             }

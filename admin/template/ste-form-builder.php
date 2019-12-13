@@ -22,11 +22,11 @@
 					<div class="row card-body">
 						<div class="col-6 form-group">
 							<label class="ste-form-label"><?php esc_html_e( 'Form Name:', 'ste-social-form-builder' ); ?></label>
-							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Contact US Form" required >
+							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Enter a name to your form" required >
 						</div>
 						<div class="col-6 form-group">
 							<label class="ste-form-label "><?php esc_html_e( 'Receiver:', 'ste-social-form-builder' ); ?></label>
-							<input type="email" title="Please enter your email address at which you would like to receive the information."  id="receiver" name="receiver" class="ste-form-receiver" placeholder=" john@anywhere.com" required>
+							<input type="email" title="Please enter your email address at which you would like to receive the information."  id="receiver" name="receiver" class="ste-form-receiver" placeholder="Enter your email at which you would like to receive the form submissions" required>
 						</div>
 					</div>
 				</div>
@@ -41,11 +41,12 @@
 			</div>
 			<div class="row ste-form-builder-btn">
 				<div class="col py-3">
-					<input type="text" id="shortcode" name="ste-form-shortcode-display" class="shortcode-show-input shortcode ste-form-shortcode-display mr-2" disabled="disabled">								
+					<button type="button" class="btn btn-primary ste-form-btn-show-shortcode  ste-form-btn-show-shortcode-disable create_form " id="shortcode"><span class="icon icon-code "></span><?php esc_html_e( 'Save my form', 'ste-social-form-builder' ); ?></button>
+					<button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
 					<button type="button" id="shortcode" class="btn btn-success mr-2 ste-form-btn-show-shortcode " name="copy_shortcode"> <span class="icon icon-copy "></span> <?php esc_html_e( 'Copy Shortcode', 'ste-social-form-builder' ); ?></button>
-					<button type="button" class="btn btn-primary ste-form-btn-show-shortcode  ste-form-btn-show-shortcode-disable create_form " id="shortcode"><span class="icon icon-code "></span><?php esc_html_e( 'Done with shortcode', 'ste-social-form-builder' ); ?></button>
+					<input type="text" id="shortcode" name="ste-form-shortcode-display" class="shortcode-show-input shortcode ste-form-shortcode-display mr-2" disabled="disabled">								
 					<img id="loader" src="<?php echo esc_url( plugins_url( 'images/giphy.gif', dirname( __FILE__ ) ) ); ?>">
-				</div>
+				</div> 
 			</div>
 		</div>
 		<!-- Draggable Area -->
@@ -63,6 +64,14 @@
 				<div class="tab-pane  fade show active" id="stedb_fields" role="tabpanel" aria-labelledby="home-tab">
 					<!-- icons fields start -->
 					<div class="container">
+					<div class="row">
+							<div id="add_row_item"  class="col ste-fields-icon ste-drag-text-box draggable html_row">
+								<div class="inner-col">
+									<div class="icon icon-text"></div>
+									<span class="word"> Row </span>
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div id="text_box"  class="col ste-field-border-c-1 ste-fields-icon ste-drag-text-box draggable text_box">
 								<div class="inner-col">

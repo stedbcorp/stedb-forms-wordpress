@@ -46,8 +46,8 @@ $email        = $user->user_email;
 
 </div>
 <!-- links -->
-<div class=".container-fluid ste-clr-wh">
-					<div class="row align-items-center">
+<div class=".container-fluid ste-clr-wh ste-top-container-border">
+					<div class="row align-items-center ste-top-container-border">
 						<div class="col-9 ste-nav-bar">
 							<div class="ste-header-tabs-container ste-h-auto ste-col-100 ste-flex ste-flex-left ">
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
@@ -62,8 +62,8 @@ $email        = $user->user_email;
 							</div>
 						</div>
 				<div class="col-3 ste-btn">
-					<?php if ( 'ste-report-template' != $current_page ) { ?> 
-					<button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
+					<?php if ( 'ste-report-template' != $current_page && 'ste-form-builder' != $current_page && 'ste-send-email-template' != $current_page ) { ?> 
+					<!-- <button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span>< ?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button> -->
 					<button type="button"  class="btn btn-success set_email_draft ste-btn-draft" name="ste-btn-draft"><span class="icon icon-tick "></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
 						<?php
 					}

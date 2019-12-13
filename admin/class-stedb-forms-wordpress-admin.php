@@ -89,11 +89,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
+			wp_register_style( 'template_css', plugins_url( '/css/template.css', __FILE__ ), '', '0.1' );
 			// including generic media.
 			wp_enqueue_style( 'ste_css' );
 			wp_enqueue_style( 'ste_fonts_css' );
 			wp_enqueue_style( 'ste_bootstrap' );
 			wp_enqueue_style( 'ste_jquery-ui' );
+			wp_enqueue_style( 'template_css' );
 		}
 
 		/**
@@ -102,12 +104,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_scripts() {
-			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
-			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable' ), '0.1', true );
+			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
+			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
 			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', '', '0.1' );
 			wp_register_script( 'ste_popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', '', '0.1' );
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
+			wp_register_script( 'ste-template', plugins_url( '/js/template.js', __FILE__ ), '', '0.1', true );
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
@@ -117,6 +120,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_localize_script( 'ste-generic', 'ste', $stedata );
 			wp_localize_script( 'ste-backend', 'ste', $stedata );
 			wp_localize_script( 'ste-email-backend', 'ste_email', $stedata );
+			wp_localize_script( 'ste-template', 'ste', $stedata );
 
 			wp_enqueue_script( 'ste-generic' );
 			wp_enqueue_script( 'ste_popper' );
@@ -145,6 +149,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function ste_form_admin_page() {
 
 			wp_enqueue_style( 'ste_jquery-ui' );
+			wp_enqueue_style( 'template_css' );
 			wp_enqueue_script( 'jquery-ui-draggable' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'ste-backend' );
