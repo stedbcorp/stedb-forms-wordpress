@@ -4,7 +4,7 @@
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
     font-weight: semi-bold;
-    color: #000000;
+    
     word-wrap: break-word;
 }
 
@@ -95,6 +95,7 @@
 
 .stedb-li-row-flex {
     display:flex;
+    min-height: 100px;
 }
 .stedb-col {
     max-width: 100%;
@@ -206,9 +207,11 @@ a.ste-tab-item {
     margin-top: 15px;
     padding-top: 20px;
     padding-bottom:20px;
+    
 }
 .ste-builder-field.ste-row-full:hover {
     border: 1px dashed black;
+    background: #F2F6FB;
 }
 
 .ste-builder-field label {
@@ -552,25 +555,24 @@ a.ste-tab-item {
 
 .ste-btn-add-option {
     background: #F1F1F1;
-    width: 50px;
+    /* width: 50px; */
     height: 30px;
     color: #B7B8BA;
     border: none;
-    padding: 0px;
+    padding: 0px 10px;
     font-size: 12px;
     border-radius: 5px;
 }
 
 .ste-btn-remove-option {
-    background: #fff;
-    width: 50px;
+    background: #F1F1F1;
+    /* width: 50px; */
     height: 30px;
-    color: #ccc;
-    text-align: left;
-    padding: 0px;
-    font-size: 16px;
+    color: #B7B8BA;
     border: none;
-    ;
+    padding: 0px 10px;
+    font-size: 12px;
+    border-radius: 5px;
 }
 
 
@@ -1421,3 +1423,64 @@ width: 50px;
 font-size: 14px;
     font-weight: 500;
 }
+
+.control-box {
+    position: absolute;
+    right: 15px;
+    margin-top: -32px;
+}
+.html_item_row_container .remove_bal_field {
+    
+    
+    background: #efa067;
+    border-radius: 20px;
+    padding: 7px 8px;
+    color: #fff;
+    
+    /* margin-right: 0px; */
+    font-size: 7px;
+    /* margin-top: -14px; */
+    /* position: absolute; */
+    
+    border: 1px solid #f1f1f1;
+    line-height: 7px;
+    
+}
+
+.stedb-col .remove_bal_field, .remove_social_bal_field, .remove_linkedin_bal_field {
+    
+    background: #B8C0C9;
+    border-radius: 20px;
+    padding: 7px 8px;
+    color: #fff;
+    position: relative !important;
+    /* margin-right: 0px; */
+    font-size: 7px;
+    /* margin-top: -14px; */
+    /* position: absolute; */
+    right: 14px;
+    top: 15px;
+    border: 1px solid #f1f1f1;
+    line-height: 7px;
+}
+
+.ste-container  .modal-body .row{
+    background: #d7e7f9;
+    border: 1px solid #3688e1;
+    
+    color: #3688e1 !important;
+    margin: 10px;
+    padding: 20px;
+}
+
+.modal-body .row:hover{
+    background: #2f333b;
+    border: 1px solid #3688e1;
+    color: #fff;
+}
+/* .remove_bal_field {
+    display: none;;
+}
+.html_item_row_container:hover+.remove_bal_field {
+    display: block;
+} */
