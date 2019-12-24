@@ -843,10 +843,12 @@ function getLinkedinHTML(parentId) {
                         dataType: 'json',
                         beforeSend: function() {
                             $("#loader").show();
+                            $(".create_form").prop("disabled", true);
                         },
                         success: function(response) {
                             if (response.success) {
                                 $("#loader").hide();
+                                $(".create_form").prop("disabled", false);
                                 $('#after_update_dialog').css('display', 'block');
                             }
                         }
@@ -860,11 +862,13 @@ function getLinkedinHTML(parentId) {
                         dataType: 'json',
                         beforeSend: function() {
                             $("#loader").show();
+                            $(".create_form").prop("disabled", true);
                         },
                         success: function(response) {
                             console.log(response);
                             if (response.success) {
                                 $("#loader").hide();
+                                $(".create_form").prop("disabled", false);
                                 // $('.shortcode').text(response.shortcode);
                                 $('.shortcode').val(response.shortcode);
                                 // window.location.href = web_url+'/wp-admin/admin.php?page=ste-form-builder&id='+response.form_id;
