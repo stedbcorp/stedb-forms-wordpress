@@ -76,10 +76,4 @@ $email        = $user->user_email;
 					</div>
 				</div>
 				</div>
-<!-- modal -->
-				<script>
-					jQuery('#exampleModalCenter').modal({
-						keyboard: false,
-						backdrop: 'static',
-					});
-				</script>
+

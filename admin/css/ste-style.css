@@ -78,8 +78,6 @@
 .ste-mb-1.form-group.form_builder_field_preview.col50p .ste-col-60{
     width: 100%;  
 }
-
-
 .ste-col-40 {
     width: 40%;
 }
@@ -89,26 +87,36 @@
 }
 
 .ste-col-50 {
-    width: 40% !important;
-    margin-right: 40px;
+    width: 45% !important;
+    /* margin-right: 40px; */
     margin-left: 20px;
+    margin-bottom:20px;
 }
-.ste-col-50-prev {
-    width: 300px;
-    margin-right: 40px;
-    /* margin-left: 20px; */
+
+.stedb-li-row-flex {
+    display:flex;
+}
+.stedb-col {
+    max-width: 100%;
+    /* display: inline-block; */
+    flex-grow: 1;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    margin: 10px 10px 10px 10px;
+    
+}
+.stedb-col-50 {
+    max-width: 100%;
+    /* display: inline-block; */
+    flex-grow: 1;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
     
 }
 .ste-col-social {
     width: 50% !important;
     margin-right: 40px;
     margin-left: 20px;
-}
-.ste-margin {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
 }
 .ste-col-40 {
     width: 40%;
@@ -193,14 +201,14 @@ a.ste-tab-item {
 .ste-builder-field.ste-row-full {
     width: 100% !important;
     border: 1px solid #d4d8d8;
-    height: 50% !important;
+    height: 20% !important;
     margin-bottom: 15px;
     margin-top: 15px;
-    padding-top: 10px;
-    padding-bottom:10px;
+    padding-top: 20px;
+    padding-bottom:20px;
 }
-.ste-builder-field:hover {
-    border: 1px dashed;
+.ste-builder-field.ste-row-full:hover {
+    border: 1px dashed black;
 }
 
 .ste-builder-field label {
@@ -1385,7 +1393,7 @@ img#loader1 {
      margin: 30px 0px 0px 30px;
      text-decoration: underline;
      font-weight: bold;
-     cursor: help;
+     cursor: pointer;
  }  
   [data-title]:hover::before {
     content: attr(data-title);
@@ -1397,3 +1405,19 @@ img#loader1 {
     color: #fff;
     font-size: 12px;
   }
+/* POP_UP_FORM */
+.temp_form_main .temp_form_header {
+    border-bottom: 1px solid #ccc !important;
+}
+.temp_form_main .form_thumb img{
+height: 50px;
+width: 50px;
+}
+.temp_form_main .form_content {
+    font-size: 16px;
+    font-weight: 600;
+}
+.tag_line{
+font-size: 14px;
+    font-weight: 500;
+}

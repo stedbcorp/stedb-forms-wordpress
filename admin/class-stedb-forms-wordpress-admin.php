@@ -89,13 +89,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), '', '0.1' );
 			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
-			wp_register_style( 'template_css', plugins_url( '/css/template.css', __FILE__ ), '', '0.1' );
 			// including generic media.
 			wp_enqueue_style( 'ste_css' );
 			wp_enqueue_style( 'ste_fonts_css' );
 			wp_enqueue_style( 'ste_bootstrap' );
 			wp_enqueue_style( 'ste_jquery-ui' );
-			wp_enqueue_style( 'template_css' );
 		}
 
 		/**
@@ -105,10 +103,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		 */
 		public function enqueue_scripts() {
 			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
-			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
+			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', '', '0.1', true );
+			wp_register_script( 'ste_popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', '', '0.1', true );
+			
+			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'ste_bootstrap','jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
-			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', '', '0.1' );
-			wp_register_script( 'ste_popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', '', '0.1' );
 			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
 			wp_register_script( 'ste-template', plugins_url( '/js/template.js', __FILE__ ), '', '0.1', true );
 			$stedata = array(
@@ -429,6 +428,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$secret    = get_option( 'stedb_secret' );
 					$base_url  = get_option( 'stedb_base_url' );
 					$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
+					//print_r($results);die;
 					$stedb_obj = new STEDB_Account();
 					$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
 					echo wp_json_encode(

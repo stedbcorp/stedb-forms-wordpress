@@ -96,9 +96,16 @@
             }
         }, false);
     });
-
+    jQuery(window).load(function() {
+    jQuery('#exampleModalCenter').modal({
+        keyboard: false,
+        backdrop: 'static',
+    });
+});
+    
     (jQuery);
 
+    
     //Pop-up end//
 
 })();

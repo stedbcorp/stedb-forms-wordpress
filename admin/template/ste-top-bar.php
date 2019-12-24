@@ -37,7 +37,7 @@ $email        = $user->user_email;
 </div>
 </div>       
 <div class="ste-round-setting-icon">
-<span class="icon icon-settings"></span>
+<span class="icon icon-settings" title="Coming Soon"></span>
 </div>
 
 </div>
@@ -50,7 +50,7 @@ $email        = $user->user_email;
 					<div class="row align-items-center ste-top-container-border">
 						<div class="col-9 ste-nav-bar">
 							<div class="ste-header-tabs-container ste-h-auto ste-col-100 ste-flex ste-flex-left ">
-							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item form_builder  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
 								<?php esc_html_e( 'Form Builder', 'ste-social-form-builder' ); ?>
 							</a>
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-send-email-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-send-email-template' == $current_page ) ? 'active' : ''; ?>">
@@ -59,6 +59,7 @@ $email        = $user->user_email;
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-report-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-report-template' == $current_page ) ? 'active' : ''; ?>">
 								<?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?>
 							</a>	
+							
 							</div>
 						</div>
 				<div class="col-3 ste-btn">
@@ -68,6 +69,7 @@ $email        = $user->user_email;
 						<?php
 					}
 					?>
+					
 				</div>
 					</div>
 				</div>

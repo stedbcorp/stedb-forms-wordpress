@@ -10,6 +10,31 @@
 	 */
 
 ?>
+<div class="modal fade temp_form_main" id="formTemplateChoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header temp_form_header ">
+		<h5 class="modal-title" id="exampleModalLabel">Please Choose Any STEdb Form Template.</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+			<div class="col-3 form_thumb"> <img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+			<div class="col-9 form_content align-self-center" id="contact_form" data-dismiss="modal" style="cursor:pointer">Contact Form</div>
+
+			<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+			<div class="col-9 form_content align-self-center" id="simple_form" data-dismiss="modal" style="cursor:pointer">Simple Form</div>
+		
+			<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+			<div class="col-9 form_content align-self-center" id="shipping_form" data-dismiss="modal" style="cursor:pointer">Shipping Form</div>
+		</div>
+      </div>
+      <div class="modal-footer"><span class="tag_line">No, I would like to create my own form. </span>
+	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Skip</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
 <div class="ste-form-builder container-fluid form-builder-box ste-block">
 	<div class="row updated_base gform_editor_status" id="after_update_dialog" style="display: none;">
 		<strong><?php esc_html_e( 'Form updated successfully.', 'ste-social-form-builder' ); ?></strong>
@@ -34,9 +59,9 @@
 			<!-- Draggable Area -->
 			<div class="row">
 				<div id="sortable" class="box1 col ste-bg-drag-img sortable p-4">
-					<ul id="ste-sortable">
-					<li style="visibility: hidden;" class="ui-state-default appendableDiv"></li>
-					</ul>
+					<div id="ste-sortable">
+						<div style="visibility: hidden;" class="ui-state-default appendableDiv"></div>
+					</div>
 				</div>
 			</div>
 			<div class="row ste-form-builder-btn">
@@ -67,7 +92,7 @@
 					<div class="row">
 							<div id="add_row_item"  class="col ste-fields-icon ste-drag-text-box draggable html_row">
 								<div class="inner-col">
-									<div class="icon icon-text"></div>
+									<div class="icon icon-add-row"></div>
 									<span class="word"> Row </span>
 								</div>
 							</div>
