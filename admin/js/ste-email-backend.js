@@ -289,45 +289,19 @@ var web_url = ste_email.site_url;
     });
 
     $(document).on('click', '#show_preview', function() {
-        // $("#email_preview").modal('show');
-        // $("#email_preview").css({'display' :'flex','flex-wrap':'wrap'});
-        $("#email_preview").css({ 'display': 'block' });
+        $("#emailPreviewModal").modal('show');
+        
         var from_name = $('#from_name').val();
         var subject = $("#subject").val();
         var editor_data = CKEDITOR.instances["txtFT_Content"].getData();
         var d = new Date();
         var current_date = d.toDateString();
-        $(".t3 .tb3 .tr3 .td3 .from_name").text("From : " + from_name);
-        $(".t3 .tb3 .tr3 .td3 .subject").text("Subject : " + subject);
-        $("#explanation-preview").html(editor_data);
-        $(".t1 .tb1 .tr1 .td1 .current_date").text(current_date);
-
+        $(".from_name").text("From : " + from_name);
+        $(".subject").text("Subject : " + subject);
+        $(".email-body").html(editor_data);
+        $(".current_date").text(current_date);
     });
 
-    // Get the modal
-    var modal = document.getElementById("email_preview");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("show_preview");
-
-    // Get the <span> element that closes the modal
-    var span_close = document.getElementsByClassName("email_preview_close")[0];
-    var span = document.getElementsByClassName("email_preview_close_1")[0];
-
-    // When the user clicks on <span> (x), close the modal
-    span_close.onclick = function() {
-        modal.style.display = "none";
-    }
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 })(jQuery);
 
 

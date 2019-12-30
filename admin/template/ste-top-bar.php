@@ -58,8 +58,7 @@ $email        = $user->user_email;
 							</a>
 							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-report-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-report-template' == $current_page ) ? 'active' : ''; ?>">
 								<?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?>
-							</a>	
-							
+							</a>
 							</div>
 						</div>
 				<div class="col-3 ste-btn">
@@ -69,7 +68,6 @@ $email        = $user->user_email;
 						<?php
 					}
 					?>
-					
 				</div>
 					</div>
 				</div>

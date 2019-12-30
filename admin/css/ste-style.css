@@ -196,6 +196,7 @@ a.ste-tab-item {
     padding: 10px;
     width: 50% !important;
     margin-bottom: 50px;
+
     cursor: all-scroll;
 }
 
@@ -1019,7 +1020,7 @@ img#loader1 {
 }
 
 .ste-send-email-main .col-9 {
-    padding-left: 15px !important;
+    padding-left: 0px !important;
 }
 
 .ste-send-email-main .col-3 {
@@ -1392,7 +1393,6 @@ img#loader1 {
   }
  /* tootl tip  */
  .ste-tool-tips{
-     margin: 30px 0px 0px 30px;
      text-decoration: underline;
      font-weight: bold;
      cursor: pointer;
@@ -1400,12 +1400,15 @@ img#loader1 {
   [data-title]:hover::before {
     content: attr(data-title);
     position: absolute;
+    left: 10%;
     padding: 3px 6px;
     margin-top:25px ;
     border-radius: 2px;
     background: #000;
     color: #fff;
     font-size: 12px;
+    text-align: left;
+    width:175px
   }
 /* POP_UP_FORM */
 .temp_form_main .temp_form_header {
@@ -1464,7 +1467,25 @@ font-size: 14px;
     line-height: 7px;
 }
 
-.ste-container  .modal-body .row{
+
+#emailPreviewModal.modal {
+    z-index:50000
+}
+
+#emailPreviewModal .modal-body .row{
+    padding:10px;
+    color: #000 !important;
+}
+#emailPreviewModal .modal-body .row.gray{
+    background: #e5e5e5;
+
+}
+
+#emailPreviewModal .modal-body .row.bordered{
+    border: 1px solid #e5e5e5;
+}
+
+#formTemplateChoiceModal .modal-body .row{
     background: #d7e7f9;
     border: 1px solid #3688e1;
     
@@ -1473,10 +1494,10 @@ font-size: 14px;
     padding: 20px;
 }
 
-.modal-body .row:hover{
+#formTemplateChoiceModal .modal-body .row:hover{
     background: #2f333b;
     border: 1px solid #3688e1;
-    color: #fff;
+    color: #fff !important;
 }
 /* .remove_bal_field {
     display: none;;
