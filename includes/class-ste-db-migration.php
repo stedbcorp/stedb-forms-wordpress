@@ -26,8 +26,8 @@ class STE_DB_Migration {
 	public function stedb_migrate() {
 
 		global $wpdb;
-		$user  = wp_get_current_user();
-		$id = $user->ID;
+		$user             = wp_get_current_user();
+		$id               = $user->ID;
 			$migration    = array();
 			$migration[1] = array(
 				"CREATE TABLE if not exists `stedb_form_builder_data` (

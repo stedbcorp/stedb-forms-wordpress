@@ -98,7 +98,7 @@
     min-height: 100px;
 }
 .stedb-col {
-    max-width: 100%;
+    width: 100%;
     /* display: inline-block; */
     flex-grow: 1;
     flex-basis: 0;
@@ -230,6 +230,7 @@ a.ste-tab-item {
 
 .ste-icon-field {
     margin-bottom: 5px;
+    font-size: 9px !important;
 }
 
 .ste-remove-field {
@@ -1439,12 +1440,7 @@ font-size: 14px;
     border-radius: 20px;
     padding: 7px 8px;
     color: #fff;
-    
-    /* margin-right: 0px; */
     font-size: 7px;
-    /* margin-top: -14px; */
-    /* position: absolute; */
-    
     border: 1px solid #f1f1f1;
     line-height: 7px;
     
@@ -1457,10 +1453,7 @@ font-size: 14px;
     padding: 7px 8px;
     color: #fff;
     position: relative !important;
-    /* margin-right: 0px; */
     font-size: 7px;
-    /* margin-top: -14px; */
-    /* position: absolute; */
     right: 14px;
     top: 15px;
     border: 1px solid #f1f1f1;
@@ -1499,9 +1492,3 @@ font-size: 14px;
     border: 1px solid #3688e1;
     color: #fff !important;
 }
-/* .remove_bal_field {
-    display: none;;
-}
-.html_item_row_container:hover+.remove_bal_field {
-    display: block;
-} */

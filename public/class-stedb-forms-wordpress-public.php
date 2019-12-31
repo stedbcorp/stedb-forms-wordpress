@@ -71,10 +71,10 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		public function ste_get_shortcode( $atts ) {
 
 			global $wpdb;
-			$form_id          = $atts['id'];
-			$list_id          = $atts['list-id'];
-			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
-			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
+			$form_id                       = $atts['id'];
+			$list_id                       = $atts['list-id'];
+			$get_form_detail               = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
+			$get_social_links              = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
 			$api_field_ids                 = $get_form_detail[0]->form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
 			$get_social_link               = $get_social_links[0]->form_social_link;
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					die;
 				}
 			}
-			$html  = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
+			$html = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
 					'<div class="form-group">' .
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .

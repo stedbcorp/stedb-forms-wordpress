@@ -11,8 +11,6 @@
 
 ?>
 
-
-
 <div class="row ste-send-email-main" >
 <img id="loader1" src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/giphy.gif' ); ?>" />
 		<!-- left container -->
@@ -55,10 +53,6 @@
 						</ul>
 					</div>
 				</div>	
-
-
-
-
 			</div>
 		</div>
 		<!-- side nav -->
@@ -90,13 +84,6 @@
 		</div>
 		<!-- side nav -->
 </div>
-
-
-
-
-
-
-
 <div class="modal fade bd-example-modal-xl" id="emailPreviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 		<div class="modal-content">
@@ -107,7 +94,6 @@
 		<div class="row gray">	
 			<div class="col from_name" > </div>
 			<div class="col current_date"> </div>
-			
 		</div>
 		<div class="row gray">	
 			<div class="col subject" > </div>

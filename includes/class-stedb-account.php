@@ -36,9 +36,8 @@ class STEDB_Account {
 			'email'  => $user->user_email,
 			'domain' => get_option( 'siteurl' ),
 		);
-		
-		$user_id = '';
-		$secret = '';
+		$user_id  = '';
+		$secret   = '';
 		$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
 		$output   = $client->ste_send_request( '/account/create', 'POST', $data );
 		if ( ! isset( $output->data->error ) ) {

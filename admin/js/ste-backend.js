@@ -4,11 +4,6 @@ var ajax_url = ste.ajax_url;
 var site_url = ste.plugin_url;
 var web_url = ste.site_url;
 
-
-
-
-
-
 /* 
 * Find Parent Objet
 */
@@ -44,9 +39,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function generateField() {
     return Math.floor(Math.random() * (100000 - 1 + 1) + 57);
 }
-
-
-
 function getHTMLRow() {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row-full html_item_row_container html_row">' +
@@ -220,7 +212,7 @@ function getDateFieldHTML(parentId) {
 
 function getYahooHTML(parentId) {
     var field = generateField();
-    var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto stedb-col">' +
+    var html = '<div class="li_' + field + ' ste-builder-field ste-row  stedb-col">' +
         '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_yahoo" data-field="' + field + '" data-parent-field="'+parentId+'">' +
         '<div class="sign-up-button ste-sign-up-button yh">' +
         '<a class="form_save" social-yahoo="s_yahoo">' +
@@ -416,25 +408,6 @@ function getLinkedinHTML(parentId) {
             return getYahooHTML();
         },
         connectToSortable: ".html_item_row_container",
-        
-        // stop: function() {
-        //     var $full_html = $('.html_item_row_container').clone();
-        //     $full_html.find('.appendableDiv').remove();
-        //     full_html_code = $.trim($full_html.html());
-        //     if (full_html_code.indexOf("social_yahoo") != -1) { 
-        //         jQuery(".social_gmail").draggable('disable');
-        //         jQuery(".social_yahoo").draggable('disable');
-        //         jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-        //         jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-        //         $( "[title]" ).tooltip({
-        //             position: {
-        //               my: "left top",
-        //               at: "right+5 top-5",
-        //               collision: "none"
-        //             }
-        //           });
-        //     }
-        // }
     });
     $(".social_gmail").draggable({
         helper: function() {
@@ -442,26 +415,6 @@ function getLinkedinHTML(parentId) {
             return getGmailHTML();
         },
         connectToSortable: ".html_item_row_container",
-        // stop: function() {
-        //     var $full_html = $('.html_item_row_container').clone();
-        //     $full_html.find('.appendableDiv').remove();
-        //     full_html_code = $.trim($full_html.html());
-
-        //     if (full_html_code.indexOf("social_gmail") >= 0 ) { 
-        //         jQuery(".social_gmail").draggable('disable');
-        //         jQuery(".social_yahoo").draggable('disable');
-        //         jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-        //         jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-        //         $( "[title]" ).tooltip({
-        //             position: {
-        //               my: "left top",
-        //               at: "right+5 top-5",
-        //               collision: "none"
-        //             }
-        //           });
-        //     }
-        // }
-        
     });
     $(".social_linkedin").draggable({
         helper: function() {
@@ -469,16 +422,6 @@ function getLinkedinHTML(parentId) {
             return getLinkedinHTML();
         },
         connectToSortable: ".html_item_row_container",
-        // stop: function() {
-        //     var $full_html = $('.html_item_row_container').clone();
-        //     $full_html.find('.appendableDiv').remove();
-        //     full_html_code = $.trim($full_html.html());
-
-        //     if (full_html_code.indexOf("social_linkedin") != -1 ) { 
-        //         jQuery(".social_linkedin").draggable('disable');
-                
-        //     }
-        // }
     });
     $("#ste-sortable").sortable({
         cursor: 'move',
@@ -489,7 +432,6 @@ function getLinkedinHTML(parentId) {
         },
         receive: function(ev, ui){
             if('add_row_item' == ui.item.attr('id') ){
-                //console.log(ui);
                 /**row container droppable*/
                 addDroppableListener();
             }
@@ -502,10 +444,6 @@ function getLinkedinHTML(parentId) {
         }
     });
     $("#ste-sortable").disableSelection();
-
-
-
-
 
     $(document).on('click', '.remove_bal_field', function(e) {
         e.preventDefault();
@@ -558,12 +496,9 @@ function getLinkedinHTML(parentId) {
                 $('.btn-shortcode').hide();
             }
         });
-        
         jQuery(".social_linkedin").draggable('enable');
         
     });
-
-
     $(document).on('click', '.add_more_radio', function() {
         $(this).closest('.ste-builder-field').css('height', 'auto');
         var field = $(this).attr('data-field');
@@ -579,16 +514,8 @@ function getLinkedinHTML(parentId) {
             '<button class="ste-add-more ste-btn-remove-option remove_more_radio" data-field="' + field + '">x</button>' +
             '</div>' +
             '</div>'
-            // '<div data-opt="' + option + '" data-field="' + field + '" class="row radio_row_' + field + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="r_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="r_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_radio" data-field="' + field + '"></i><i class="margin-top-5 margin-left-5 fa fa-times-circle default_red fa-2x remove_more_radio" data-field="' + field + '"></i></div></div>'
         );
-        // var options = '';
-        // $('.radio_row_' + field).each(function () {
-        //     var opt = $(this).find('.r_opt').val();
-        //     var val = $(this).find('.r_val').val();
-        //     var s_opt = $(this).attr('data-opt');
-        //     options += '<label class="mt-radio mt-radio-outline"><input data-opt="' + s_opt + '" type="radio" name="radio_' + field + '" value="' + val + '"> <p class="r_opt_name_' + s_opt + '">' + opt + '</p><span></span></label>';
-        // });
-        // $('.radio_list_' + field).html(options);
+        
     });
 
     $(document).on('click', '.add_more_checkbox', function() {
@@ -606,17 +533,7 @@ function getLinkedinHTML(parentId) {
             '<button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="' + field + '">x</button>' +
             '</div>' +
             '</div>'
-
-            //'<div data-opt="' + option + '" data-field="' + field + '" class="row checkbox_row_' + field + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="c_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="c_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_checkbox" data-field="' + field + '"></i><i class="margin-top-5 margin-left-5 fa fa-times-circle default_red fa-2x remove_more_checkbox" data-field="' + field + '"></i></div></div>'
         );
-        // var options = '';
-        // $('.checkbox_row_' + field).each(function () {
-        //     var opt = $(this).find('.c_opt').val();
-        //     var val = $(this).find('.c_val').val();
-        //     var s_opt = $(this).attr('data-opt');
-        //     options += '<label class="mt-checkbox mt-checkbox-outline"><input data-opt="' + s_opt + '" name="checkbox_' + field + '" type="checkbox" value="' + val + '"> <p class="c_opt_name_' + s_opt + '">' + opt + '</p><span></span></label>';
-        // });
-        // $('.checkbox_list_' + field).html(options);
     });
 
     $(document).on('click', '.add_more_select', function() {
@@ -630,12 +547,10 @@ function getLinkedinHTML(parentId) {
             '<button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="' + field + '" data-opt="' + option + '" >x</button>' +
             '</div>' +
             '</div>'
-            // '<div data-field="' + field + '" class="row select_row_' + field + '" data-opt="' + option + '"><div class="col-md-4"><div class="form-group"><input type="text" value="Option" class="s_opt form-control"/></div></div><div class="col-md-4"><div class="form-group"><input type="text" value="Value" class="s_val form-control hidden"/></div></div><div class="col-md-4"><i class="margin-top-5 fa fa-plus-circle fa-2x default_blue add_more_select" data-field="' + field + '"></i><i class="margin-top-5 margin-left-5 fa fa-times-circle default_red fa-2x remove_more_select" data-field="' + field + '"></i></div></div>'
         );
         var options = '';
         $('.select_row_' + field).each(function() {
             var opt = $(this).find('.s_opt').val();
-            // var val = $(this).find('.s_val').val();
             var val = 'option';
             var s_opt = $(this).attr('data-opt');
             options += '<option data-opt="' + s_opt + '" value="' + val + '">' + opt + '</option>';
@@ -653,7 +568,6 @@ function getLinkedinHTML(parentId) {
                 var s_opt = $(this).attr('data-opt');
                 options += '<label class="mt-radio mt-radio-outline"><input data-opt="' + s_opt + '" type="radio" name="radio_' + field + '" value="' + val + '"> <p class="r_opt r_opt_name_' + s_opt + '">' + opt + '</p><span></span></label>';
             });
-            // $('.radio_list_' + field).html(options);
         });
     });
     $(document).on('click', '.remove_more_checkbox', function() {
@@ -667,7 +581,6 @@ function getLinkedinHTML(parentId) {
                 var s_opt = $(this).attr('data-opt');
                 options += '<label class="mt-checkbox mt-checkbox-outline"><input data-opt="' + s_opt + '" name="checkbox_' + field + '" type="checkbox" value="' + val + '"> <p class="c_opt r_opt_name_' + s_opt + '">' + opt + '</p><span></span></label>';
             });
-            // $('.checkbox_list_' + field).html(options);
         });
     });
     $(document).on('click', '.remove_more_select', function() {
@@ -685,7 +598,6 @@ function getLinkedinHTML(parentId) {
                 options += '<option data-opt="' + s_opt + '" value="' + val + '">' + opt + '</option>';
                 console.log(options);
             });
-            // $('select[name=select_' + field + ']').html(options);
         });
     });
 
@@ -753,7 +665,6 @@ function getLinkedinHTML(parentId) {
 
         var el = $('.sortable .form_output');
         var formRows = $('.html_item_row_container');
-         //console.log(el);
         var html = '';
         var field_detail_array = {};
         var sel_value = {};
@@ -768,7 +679,6 @@ function getLinkedinHTML(parentId) {
                 var data_type = $(this).attr('data-type');
                 var label = $(this).find('.form_input_label').val();
                 var name = $(this).find('.form_input_name').val();
-                // console.log(index);
                 if (data_type == 'text') {
                     html += '<div class="ste-mb-1 stedb-col form-group form_builder_field_preview" data-group_name="' + label.toLowerCase().replace(/ /g, "_") + '" data-group_type="' + data_type + '" ><div class=""><label class="control-label ste-public-form-label-text ">' + label + '</label></div><div class=" text-field"><input type="text" name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-control ste-container-alpha text-field" /></div></div>';
                     field_detail_array[index++] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': label };
@@ -806,9 +716,7 @@ function getLinkedinHTML(parentId) {
                     var option_html = '';
                     var radio_arr = [];
                     $(this).find('.mt-radio').each(function() {
-                        // var option = $(this).find('p').html();
                         var option = $(this).find('input[type=text]').val();
-                        // var value = $(this).find('input[type=radio]').val();
                         option_html += '<div class="form-check ste-mr-0-5 stedb-col"><label class="form-check-label"><input style="margin: 0px 5px 0px 0px;  vertical-align: middle;" type="radio" class="form-radio-field" name="' + label.toLowerCase().replace(/ /g, "_") + '" value="' + option + '">' + option + '</label></div>';
                         radio_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                     });
@@ -819,9 +727,7 @@ function getLinkedinHTML(parentId) {
                     var option_html = '';
                     var checkbox_arr = [];
                     $(this).find('.mt-checkbox').each(function() {
-                        // var option = $(this).find('p').html();
                         var option = $(this).find('input[type=text]').val();
-                        // var value = $(this).find('input[type=checkbox]').val();
                         option_html += '<div class="form-check ste-mr-0-5 stedb-col"><label class="form-check-label "><input style="margin: 0px 5px 0px 0px; border-radius:5px; vertical-align: middle;" type="checkbox" data-name="' + label.toLowerCase().replace(/ /g, "_") + '" class="form-checkbox-field" name="' + label.toLowerCase().replace(/ /g, "_") + '[]" value="' + option + '">' + option + '</label></div>';
                         checkbox_arr.push({ 'label': option, 'value': label.toLowerCase().replace(/ /g, "_") });
                     });
@@ -848,7 +754,6 @@ function getLinkedinHTML(parentId) {
             });//elements form output process[done]
             html += '</div>';
         });
-        // $full_html = $('#sortable').clone();
         $full_html = $('#ste-sortable').clone();
         $full_html.find('.appendableDiv').remove();
         full_html_code = $.trim($full_html.html());
@@ -877,7 +782,6 @@ function getLinkedinHTML(parentId) {
             if (full_html_code.indexOf("social_yahoo") != -1 || full_html_code.indexOf("social_gmail") != -1 || full_html_code.indexOf("social_linkedin") != -1) {
                 if (form_id != undefined) {
                     $.ajax({
-                        // url:site_url+'/wp-admin/admin-ajax.php',
                         url: ajax_url,
                         type: 'post',
                         data: { action: 'ste_update_form_builder_data', nonce: ste.nonce, form_id: form_id, html_code: html, full_html_code: full_html_code, form_name: form_name, receiver: receiver, field_detail_array: field_detail_array },
@@ -896,7 +800,6 @@ function getLinkedinHTML(parentId) {
                     });
                 } else {
                     $.ajax({
-                        // url:site_url+'/wp-admin/admin-ajax.php',
                         url: ajax_url,
                         type: 'post',
                         data: { action: 'ste_create_form_builder_data', nonce: ste.nonce, html_code: html, full_html_code: full_html_code, form_name: form_name, receiver: receiver, field_detail_array: field_detail_array },
@@ -910,9 +813,7 @@ function getLinkedinHTML(parentId) {
                             if (response.success) {
                                 $("#loader").hide();
                                 $(".create_form").prop("disabled", false);
-                                // $('.shortcode').text(response.shortcode);
                                 $('.shortcode').val(response.shortcode);
-                                // window.location.href = web_url+'/wp-admin/admin.php?page=ste-form-builder&id='+response.form_id;
                                 window.location.href = web_url + '/wp-admin/admin.php?page=ste-form-builder&action=form_creation_div&id=' + response.form_id;
                             }
                         }
@@ -923,7 +824,6 @@ function getLinkedinHTML(parentId) {
                 return false;
             }
         } else {
-            // $('#sortable').html(html);
             $('#ste-sortable').html(html);
         }
     }
@@ -935,7 +835,6 @@ function getLinkedinHTML(parentId) {
             var form_id = $(this).attr('id');
             var filter = $(this).data('target');
             $.ajax({
-                // url:site_url+'/wp-admin/admin-ajax.php',
                 url: ajax_url,
                 type: 'post',
                 data: { action: 'ste_update_form_builder_data', form_id: form_id, nonce: ste.nonce, filter: filter },
@@ -956,7 +855,6 @@ function getLinkedinHTML(parentId) {
         $(document).on('click', '.delete_form', function() {
             var form_id = $(this).attr('id');
             $.ajax({
-                // url:site_url+'/wp-admin/admin-ajax.php',
                 url: ajax_url,
                 type: 'post',
                 data: { action: 'ste_delete_form_builder_data', nonce: ste.nonce, form_id: form_id },
@@ -978,7 +876,6 @@ function getLinkedinHTML(parentId) {
                 });
 
                 $.ajax({
-                    // url:site_url+'/wp-admin/admin-ajax.php',
                     url: ajax_url,
                     type: 'post',
                     data: { action: 'ste_update_form_builder_data', nonce: ste.nonce, form_id: val, filter: action },
@@ -1000,7 +897,6 @@ function getLinkedinHTML(parentId) {
                 });
 
                 $.ajax({
-                    // url:site_url+'/wp-admin/admin-ajax.php',
                     url: ajax_url,
                     type: 'post',
                     data: { action: 'ste_delete_form_builder_data', nonce: ste.nonce, form_id: val },
@@ -1024,7 +920,6 @@ function getLinkedinHTML(parentId) {
                 $('.preview_form').html('<span class="icon">&#8592;</span>Back');
                 $('.create_form').prop('disabled', true);
             } else {
-                // $('#sortable').html(full_html_code);
                 $('#ste-sortable').html(full_html_code);
                 /**row container droppable*/
                 addDroppableListener();
@@ -1054,7 +949,6 @@ function getLinkedinHTML(parentId) {
     var formID = getUrlParameter('id');
     if (formID != undefined) {
         $.ajax({
-            // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
             data: { action: 'ste_get_edit_form_data', nonce: ste.nonce, form_id: formID },
@@ -1189,7 +1083,6 @@ function getLinkedinHTML(parentId) {
     $( "[title]" ).tooltip({
         position: {
         my: "left",
-        // at: "right+5 top-5",
         collision: "none"
         }
     });

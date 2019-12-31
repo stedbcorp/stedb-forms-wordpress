@@ -106,7 +106,7 @@ class Stedb_Form_Data extends WP_List_Table {
 	 */
 	public function prepare_items() {
 		global $wpdb;
-		$args  = wp_unslash( $_REQUEST );
+		$args     = wp_unslash( $_REQUEST );
 		$table    = $wpdb->get_results( 'SELECT * FROM stedb_form_builder_data' );
 		$per_page = 20;
 		$columns  = $this->get_columns();

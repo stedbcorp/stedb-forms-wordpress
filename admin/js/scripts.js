@@ -42,19 +42,6 @@
             jQuery(e.target).select();
         });
         // on press backspace return previous field
-
-        //     jQuery('input[name="code[]"]').on('keyup', 'input.phone-input', function()
-        // {
-        //   if( key == 8 || key == 46 )
-        //   {
-        //     var indexNum = inputs.index(this);
-        //     if(indexNum != 0)
-        //     {
-        //     inputs.eq(inputs.index(this) - 1).val('').focus();
-        //     }
-        //   }
-
-        // });
     });
 
     /////start//

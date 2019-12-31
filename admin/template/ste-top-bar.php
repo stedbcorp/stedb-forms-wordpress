@@ -63,7 +63,6 @@ $email        = $user->user_email;
 						</div>
 				<div class="col-3 ste-btn">
 					<?php if ( 'ste-report-template' != $current_page && 'ste-form-builder' != $current_page && 'ste-send-email-template' != $current_page ) { ?> 
-					<!-- <button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span>< ?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button> -->
 					<button type="button"  class="btn btn-success set_email_draft ste-btn-draft" name="ste-btn-draft"><span class="icon icon-tick "></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
 						<?php
 					}

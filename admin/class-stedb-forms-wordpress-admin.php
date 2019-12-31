@@ -427,7 +427,6 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					$secret    = get_option( 'stedb_secret' );
 					$base_url  = get_option( 'stedb_base_url' );
 					$results   = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE user_id = %d AND form_id = %s', $user->ID, $form_id ) );
-					//print_r($results);die;
 					$stedb_obj = new STEDB_Account();
 					$output    = $stedb_obj->stedb_get_custom_field_information( $user_id, $secret, $base_url, $results[0]->stedb_form_id );
 					echo wp_json_encode(
@@ -697,7 +696,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 					global $wpdb;
 					$args = wp_unslash( $_POST );
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
-							$filter = sanitize_text_field( $args['filter'] );
+							$filter         = sanitize_text_field( $args['filter'] );
 							$list_id        = sanitize_text_field( $args['list_id'] );
 							$get_email_data = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_send_email_entries WHERE list_id = %d', $list_id ) );
 							echo wp_json_encode(
@@ -798,7 +797,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$args = wp_unslash( $_POST );
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $args['stedb_email'] ) && isset( $args['code'] ) ) {
-						$code = $args['code'];
+						$code     = $args['code'];
 						$user     = wp_get_current_user();
 						$base_url = 'https://opt4.stedb.com/crm';
 						$data     = array(

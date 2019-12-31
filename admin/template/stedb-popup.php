@@ -22,9 +22,6 @@ $email        = $user->user_email;
 						<div class="modal-title align-self-center col-9  ml-5" id="exampleModalCenterTitle">
 						<span>  Verification</span>
 						</div>
-						<!-- <button type="button" class="btn align-self-center col-1" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true" class="icon icon-close"></span>
-						</button> -->
 					</div>
 					<div class="modal-body">
 						<div class="code-bg-img mb-3"></div>
