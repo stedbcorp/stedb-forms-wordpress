@@ -96,6 +96,7 @@
 .stedb-li-row-flex {
     display:flex;
     min-height: 100px;
+    padding: 0px 10px;
 }
 .stedb-col {
     width: 100%;
@@ -1231,6 +1232,7 @@ img#loader1 {
     font-size: 14px !important;
     text-align: center;
     color: #989ca8;
+    height: 500px;
 }
 
 
@@ -1491,4 +1493,14 @@ font-size: 14px;
     background: #2f333b;
     border: 1px solid #3688e1;
     color: #fff !important;
+}
+.message-box{
+    border:1px solid black;
+    height:200px;
+    width:100%;
+    color:#DCDDC9;
+    font-size: 20px;
+    margin: 0 auto;
+    text-align:center;
+    background-color:#2F333B ;
 }

@@ -341,8 +341,11 @@ function getLinkedinHTML(parentId) {
     }
     /* draggable jquery*/
     $(".html_row").draggable({
+        stop: function( event, ui ) {
+            $('.message-box').hide();
+        },
         helper: function() {
-            return getHTMLRow();
+            return getHTMLRow(); 
         },
         connectToSortable: "#ste-sortable"
     });
@@ -423,6 +426,14 @@ function getLinkedinHTML(parentId) {
         },
         connectToSortable: ".html_item_row_container",
     });
+
+    if(jQuery("#ste-sortable").find("[data-type='row']").length <= 0){
+        $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box, .social_yahoo, .social_gmail, .social_linkedin").on( "dragstart", function( event, ui ) {
+            var full_html_code ='<div id="message" class="message-box">Please Insert Row To Add Fields !</div>'
+            $('.appendableDiv').before(full_html_code);
+        });
+        
+    }
     $("#ste-sortable").sortable({
         cursor: 'move',
         placeholder: 'placeholder',
@@ -596,7 +607,6 @@ function getLinkedinHTML(parentId) {
                 var val = $(this).find('.s_val').val();
                 var s_opt = $(this).attr('data-opt');
                 options += '<option data-opt="' + s_opt + '" value="' + val + '">' + opt + '</option>';
-                console.log(options);
             });
         });
     });
@@ -1082,7 +1092,7 @@ function getLinkedinHTML(parentId) {
 
     $( "[title]" ).tooltip({
         position: {
-        my: "left",
+        my: "down",
         collision: "none"
         }
     });

@@ -41,7 +41,6 @@
 					<div class="ste-se-multi-btn-container  pt-4 col-9">
 						<button type="button" class="btn btn-primary ste-btn-send-email   send_regular_email " name="ste-btn-send-email"><span class="icon icon-send"></span><?php esc_html_e( 'Email Entire List', 'ste-social-form-builder' ); ?></button>
 						<button type="button" class="btn btn-success ste-btn-autoresponder " name="ste-btn-autoresponder" id="getdata"><span class="icon icon-auto-response"></span><?php esc_html_e( 'Run Autoresponder', 'ste-social-form-builder' ); ?></button>
-						<!-- <button class="ste-btn-preview" id="show_preview" type="button" name="show_preview"><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button> -->
 						<button type="button" id="show_preview" name="show_preview" class="btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
 						<button type="button" class="btn btn-light ste-btn-cancel  clear_form  " name="ste-btn-cancel"><span class="icon icon-close"></span><?php esc_html_e( 'Cancel', 'ste-social-form-builder' ); ?></button>
 					</div>

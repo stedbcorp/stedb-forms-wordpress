@@ -160,7 +160,7 @@
 					</div>
 				</div>
 				<div class="tab-pane  fade" id="stedb_property" role="tabpanel" aria-labelledby="property-tab">
-					<div class="container-2  ste-coming-soon p-2 m-3 icon icon-time"> 		
+					<div class="container-2  ste-coming-soon p-2 m-3 icon icon-time mb-9"> 		
 						<?php esc_html_e( 'Coming soon in our next release...', 'ste-social-form-builder' ); ?>
 					</div>
 				</div>
