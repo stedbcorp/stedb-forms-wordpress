@@ -108,7 +108,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 						$form_data = array(
 							'email'         => $email,
 							'list_id'       => $list_id,
-							'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
+							'custom_fields' => wp_json_encode( $_SESSION['form_data_array'] ),
 						);
 					}
 					$user_id      = get_option( 'stedb_user_id' );

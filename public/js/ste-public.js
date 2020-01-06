@@ -25,24 +25,24 @@ var web_url = ste.site_url;
                 var name = group.data('group_name');
                 if (data_type != undefined && name != undefined) {
                     if (data_type == 'text') {
-                        group.find('.text-field').each(function() {
+                        group.find('input.text-field').each(function() {
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
                     } else if (data_type == 'radio') {
-                        group.find('.form-radio-field:checked').each(function() {
+                        group.find('input.form-radio-field:checked').each(function() {
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
                     } else if (data_type == 'number') {
-                            group.find('.number-field:checked').each(function() {
+                            group.find('input.number-field:checked').each(function() {
                                 postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                             });
                     } else if (data_type == 'link') {
-                            group.find('.link-field:checked').each(function() {
+                            group.find('input.link-field:checked').each(function() {
                                 postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                             });
                     } else if (data_type == 'checkbox') {
                         sel_val = [];
-                        group.find('.form-checkbox-field:checked').each(function() {
+                        group.find('input.form-checkbox-field:checked').each(function() {
                             sel_val.push($(this).val());
                         });
                         var sel_str_val = sel_val.toString();
@@ -53,11 +53,11 @@ var web_url = ste.site_url;
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
                     } else if (data_type == 'date') {
-                        group.find('.date-field').each(function() {
+                        group.find('input.date-field').each(function() {
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
                     } else if (data_type == 'textarea') {
-                        group.find('.textarea-field').each(function() {
+                        group.find('textarea.textarea-field').each(function() {
                             postArray[data_type].push({ 'name': name, 'value': $(this).val() });
                         });
                     } else if (data_type == 'social_yahoo') {
