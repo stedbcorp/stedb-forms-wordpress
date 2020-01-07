@@ -95,7 +95,9 @@
 							<div id="add_row_item"  class="col ste-fields-icon ste-drag-text-box draggable html_row">
 								<div class="inner-col">
 									<div class="icon icon-add-row"></div>
-									<span class="word"> Row </span>
+									<span class="word"> Row 
+									<a href="#" class="arrow down arrow_message text-primary"style="display: none;">Down</a>
+									</span>
 								</div>
 							</div>
 						</div>

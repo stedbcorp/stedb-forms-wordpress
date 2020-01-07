@@ -30,7 +30,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
-
 // edit form ajax
 
 /**
@@ -341,15 +340,15 @@ function getLinkedinHTML(parentId) {
     }
     /* draggable jquery*/
     $(".html_row").draggable({
-        stop: function( event, ui ) {
-            $('.message-box').hide();
-        },
         helper: function() {
             return getHTMLRow(); 
         },
         connectToSortable: "#ste-sortable"
     });
     $(".text_box").draggable({
+        stop: function( event, ui ) {
+            $('.message-box').remove();
+        },
         helper: function() {
             $('.btn-shortcode').show();
             return getTextFieldHTML();
@@ -426,14 +425,20 @@ function getLinkedinHTML(parentId) {
         },
         connectToSortable: ".html_item_row_container",
     });
-
-    if(jQuery("#ste-sortable").find("[data-type='row']").length <= 0){
-        $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box, .social_yahoo, .social_gmail, .social_linkedin").on( "dragstart", function( event, ui ) {
-            var full_html_code ='<div id="message" class="message-box">Please Insert Row To Add Fields !</div>'
-            $('.appendableDiv').before(full_html_code);
+        $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box, .social_yahoo, .social_gmail, .social_linkedin").draggable({
+             start :function( event, ui ) {
+                if(jQuery("#ste-sortable").find("[data-type='row']").length <= 0){
+                    $(".arrow_message").show();
+                    var full_html_code ='<div id="message" class="message-box"><span class="message-text align-middle">Please Insert Row To Add Fields !</span></div>'
+                    $('.appendableDiv').before(full_html_code); 
+                }
+              },
+            stop: function(){
+                $('.message-box').remove();
+                $(".arrow_message").hide();
+            } 
         });
-        
-    }
+
     $("#ste-sortable").sortable({
         cursor: 'move',
         placeholder: 'placeholder',
