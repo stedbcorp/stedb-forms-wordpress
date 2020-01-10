@@ -96,7 +96,7 @@
 								<div class="inner-col">
 									<div class="icon icon-add-row"></div>
 									<span class="word"> Row 
-									<a href="#" class="arrow down arrow_message text-primary"style="display: none;">Down</a>
+									<a href="#" class="arrow down arrow_message text-primary" style="display: none;">Down</a>
 									</span>
 								</div>
 							</div>
