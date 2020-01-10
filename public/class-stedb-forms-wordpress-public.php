@@ -43,7 +43,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_style() {
-			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
+			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), 'rand(111,9999)', '0.1' );
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
 		/**
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_script() {
-			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', true );
+			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', 'rand(111,9999)', true );
 			// Localize script.
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
@@ -101,7 +101,8 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			$request_args = wp_unslash( $_REQUEST );
 			if ( isset( $request_args['_wpnonce'] ) ) {
 				$nonce = sanitize_text_field( $request_args );
-			} else {
+			}
+			if ( isset( $get_form_detail ) ) {
 				if ( isset( $request_args['email'] ) ) {
 					$email = sanitize_email( $request_args['email'] );
 					if ( null !== ( sanitize_email( $email ) ) && $email ) {

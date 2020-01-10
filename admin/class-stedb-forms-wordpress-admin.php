@@ -86,9 +86,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function enqueue_styles() {
 			wp_enqueue_style( 'ste_google_fonts', '//fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap', '', '0.1' );
 			wp_register_style( 'ste_bootstrap', plugins_url( '/bootstrap/css/bootstrap.css', __FILE__ ), '', '0.1' );
-			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
-			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), '', '0.1' );
-			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), '', '0.1' );
+			wp_register_style( 'ste_css', plugins_url( '/css/ste-style.css', __FILE__ ), 'rand(111,9999)', '0.1' );
+			wp_register_style( 'ste_fonts_css', plugins_url( '/css/stedb-fonts.css', __FILE__ ), 'rand(111,9999)', '0.1' );
+			wp_register_style( 'ste_jquery-ui', plugins_url( '/css/jquery-ui.css', __FILE__ ), 'rand(111,9999)', '0.1' );
 			// including generic media.
 			wp_enqueue_style( 'ste_css' );
 			wp_enqueue_style( 'ste_fonts_css' );
@@ -104,11 +104,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function enqueue_scripts() {
 			wp_register_script( 'ste_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', '', '0.1', true );
 			wp_register_script( 'ste_popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', array( 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
-			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'ste_popper' ), '0.1', true );
-			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'ste_bootstrap', 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', true );
+			wp_enqueue_script( 'ste-generic', plugins_url( '/js/scripts.js', __FILE__ ), array( 'ste_popper' ), '0.1', 'rand(111,9999)', true );
+			wp_enqueue_script( 'ste-backend', plugins_url( '/js/ste-backend.js', __FILE__ ), array( 'ste_bootstrap', 'jquery-ui-draggable', 'jquery-ui-sortable', 'jquery-ui-droppable' ), '0.1', 'rand(111,9999)', true );
 			wp_register_script( 'ste-ckeditor', 'https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js', '', '0.1', false );
-			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', true );
-			wp_register_script( 'ste-template', plugins_url( '/js/template.js', __FILE__ ), '', '0.1', true );
+			wp_register_script( 'ste-email-backend', plugins_url( '/js/ste-email-backend.js', __FILE__ ), '', '0.1', 'rand(111,9999)', true );
+			wp_register_script( 'ste-template', plugins_url( '/js/template.js', __FILE__ ), '', '0.1', 'rand(111,9999)', true );
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
