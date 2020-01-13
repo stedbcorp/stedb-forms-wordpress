@@ -102,7 +102,8 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 			if ( isset( $request_args['_wpnonce'] ) ) {
 				$nonce = sanitize_text_field( $request_args );
 			}
-			if ( isset( $get_form_detail ) ) {
+
+			if ( isset( $get_form_detail ) && isset( $_SESSION['form_data_array'] ) ) {
 				if ( isset( $request_args['email'] ) ) {
 					$email = sanitize_email( $request_args['email'] );
 					if ( null !== ( sanitize_email( $email ) ) && $email ) {
@@ -118,18 +119,18 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
 					unset( $_SESSION['form_data_array'] );
-					echo '<div class="thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
-					die;
+					$html =  '<div class = "thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
+
 				}
-			}
-			$html = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
+			} else {
+				$html = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
 					'<div class="form-group">' .
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
 					wp_nonce_field() .
 					$html_code .
 				'</form>';
-
+			}
 			$html .= '
 				<script type="text/javascript">
 					var site_url = "' . esc_js( get_option( 'siteurl' ) ) . '";
