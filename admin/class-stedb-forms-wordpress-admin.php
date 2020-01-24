@@ -72,6 +72,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_action( 'wp_ajax_stedb_create_campaign', array( $this, 'stedb_create_campaign' ) );
 			add_action( 'wp_ajax_ste_get_form_data', array( $this, 'ste_get_form_data' ) );
 			add_action( 'wp_ajax_ste_verify_code', array( $this, 'ste_verify_code' ) );
+			add_action( 'wp_ajax_ste_send_address', array( $this, 'ste_send_address' ) );
 
 			/* Public Ajax*/
 			add_action( 'wp_ajax_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
@@ -139,6 +140,8 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_submenu_page( 'ste-form-builder', 'Report', 'Report', 'manage_options', 'ste-report-template', array( $this, 'ste_report_page' ) );
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'STEdb Forms', 'manage_options', 'ste-from-data-template', array( $this, 'ste_form_data_page' ) );
+			/*adding submenu*/
+			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'STEdb Settings', 'manage_options', 'ste-setting', array( $this, 'ste_setting_page' ) );
 		}
 		/**
 		 * [ste_form_admin_page description]
@@ -197,6 +200,16 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		}
 
 		/**
+		 * [ste_setting_page description]
+		 * html template for settings
+		 */
+		public function ste_setting_page() {
+			$this->authenticate_stedb();
+			$this->ste_top_bar();
+			$this->ste_setting();
+		}
+
+		/**
 		 * [ste_top_bar description]
 		 * html template for top header
 		 */
@@ -230,7 +243,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 		/**
 		 * [ste_form_data description]
-		 * Html template for sanitize from data.
+		 * Html template for sanitize setting.
 		 */
 		public function ste_form_data() {
 			require_once 'template/ste-form-data.php';
@@ -244,6 +257,13 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			require_once 'template/ste-footer.php';
 		}
 
+		/**
+		 * [ste_setting description]
+		 * Html template for sanitize setting.
+		 */
+		public function ste_setting() {
+			require_once 'template/ste-setting.php';
+		}
 		/**
 		 * [ste_plugin_notification description]
 		 * HTML template for the plugin notification
@@ -831,7 +851,39 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						}
 				}
 			}
-
+		}
+			/**
+			 * [ste_send_address description]
+			 * HTML template to verify email
+			 */
+		public function ste_send_address() {
+			global $wpdb;
+			$user = wp_get_current_user();
+			$id   = $user->ID;
+			$args = wp_unslash( $_POST );
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ), 'ajax-nonce' ) && isset( $args['address'] ) ) {
+				$is_saved = false;
+				if ( get_option( 'address' ) ) {
+					$is_saved = update_option( 'address', $args['address'] );
+				} else {
+					$is_saved = add_option( 'address', $args['address'] );
+				}
+				$msg = wp_json_encode(
+					array(
+						'error'   => true,
+						'message' => 'Please Try Again later.',
+					)
+				);
+				if ( $is_saved ) {
+					$msg = wp_json_encode(
+						array(
+							'success' => true,
+							'message' => 'Address Saved',
+						)
+					);
+				}
+				die( $msg );
+			}
 		}
 	}
 }

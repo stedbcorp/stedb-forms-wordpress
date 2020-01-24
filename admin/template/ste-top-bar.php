@@ -37,7 +37,7 @@ $email        = $user->user_email;
 </div>
 </div>       
 <div class="ste-round-setting-icon">
-<span class="icon icon-settings" title="Coming Soon"></span>
+<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-setting' ) ); ?>"><span class="icon icon-settings" style="text-decoration:none"></span></a>
 </div>
 
 </div>
@@ -62,7 +62,7 @@ $email        = $user->user_email;
 							</div>
 						</div>
 				<div class="col-3 ste-btn">
-					<?php if ( 'ste-report-template' != $current_page && 'ste-form-builder' != $current_page && 'ste-send-email-template' != $current_page ) { ?> 
+					<?php if ( 'ste-report-template' != $current_page && 'ste-form-builder' != $current_page && 'ste-send-email-template' != $current_page && 'ste-setting' != $current_page ) { ?> 
 					<button type="button"  class="btn btn-success set_email_draft ste-btn-draft" name="ste-btn-draft"><span class="icon icon-tick "></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
 						<?php
 					}

@@ -99,6 +99,18 @@ var web_url = ste_email.site_url;
         var new_list_id = $("#form_data_table .email_list .selected_form_list_tr").attr('id');
         /*****list_id ******/
         var list_id = $("#form_data_table .email_list .selected_form_list_tr").attr('data-list-id');
+        if (from_name == '') {
+            alert("Please Enter Form Name!");
+            return false;
+        }
+        if (email_subject == '') {
+            alert("Please Enter Autoresponder Subject!");
+            return false;
+        }
+        if (email_content == '') {
+            alert("Please Enter Autoresponder Content!");
+            return false;
+        }
         if (list_id == '' || list_id == undefined) {
             alert("Please select the form to which you would like to broadcast your message, to do that  just click at any part of the above rows");
             return false;
@@ -153,12 +165,23 @@ var web_url = ste_email.site_url;
         var email_type = 0; //Regular email
         var new_list_id = $("#form_data_table .email_list .selected_form_list_tr").attr('id');
         var list_id = $("#form_data_table .email_list .selected_form_list_tr").attr('data-list-id');
+        if (from_name == '') {
+            alert("Please Enter Form Name!");
+            return false;
+        }
+        if (email_subject == '') {
+            alert("Please Enter Email Subject!");
+            return false;
+        }
+        if (email_message == '') {
+            alert("Please Enter Email Messsage Content!");
+            return false;
+        }
         if (list_id == '' || list_id == undefined) {
             alert("Please select the form to which you would like to broadcast your message, to do that  just click at any part of the above rows");
             return false;
         }
         $.ajax({
-            // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
             data: { 'action': 'ste_send_regular_email', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id, nonce: ste.nonce },

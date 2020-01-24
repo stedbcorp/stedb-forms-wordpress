@@ -776,7 +776,6 @@ function getLinkedinHTML(parentId) {
         $full_html = $('#ste-sortable').clone();
         $full_html.find('.appendableDiv').remove();
         full_html_code = $.trim($full_html.html());
-        console.log($full_html);
         
         if (plain_html == 'html') {
             var form_name = $('#form_name').val();
@@ -885,7 +884,23 @@ function getLinkedinHTML(parentId) {
                 }
             });
         });
-
+// Address start
+ $(document).on('click', '.send_address', function(e) {
+    e.preventDefault();
+    var address = $("#address").val();
+            $.ajax({
+                url: ajax_url,
+                type: 'post',
+                data: { 'action': 'ste_send_address', 'address': address,  nonce: ste.nonce },
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Address Saved');
+                    }
+                },
+            });
+});
+// Address End
         $(document).on('click', '#bulk_action', function() {
             var action = $('#bulk-action-selector-top').val();
             if (action == 'move_to_trash' || action == 'restore') {
@@ -893,7 +908,6 @@ function getLinkedinHTML(parentId) {
                 $('.gform_list_checkbox:checked').each(function(i) {
                     val[i] = $(this).val();
                 });
-
                 $.ajax({
                     url: ajax_url,
                     type: 'post',
