@@ -25,6 +25,16 @@
 				<div class="ste-form-field-input ste-sc-form-name-container">	
 					<input type="text" id="from_name" name="from_name" class="ste-sc-form-name" >
 				</div>
+				<div class="ste-form-field-label ste-sc-form-name-container">
+					<label><?php esc_html_e( 'From E-mail:', 'ste-social-form-builder' ); ?></label>
+				</div>
+				<div class="ste-form-field-input ste-sc-form-name-container">	
+					<input type="text" id="from_email" name="from_email" class="ste-sc-form-name" value="<?php
+					global $current_user;
+					wp_get_current_user();
+					$email = $current_user->user_email;
+					echo( $email );?>">
+				</div>
 				<div class="ste-form-field-label ste-sc-subject-container">
 					<label><?php esc_html_e( 'Subject:', 'ste-social-form-builder' ); ?></label>
 				</div>
