@@ -884,23 +884,7 @@ function getLinkedinHTML(parentId) {
                 }
             });
         });
-// Address start
- $(document).on('click', '.send_address', function(e) {
-    e.preventDefault();
-    var address = $("#address").val();
-            $.ajax({
-                url: ajax_url,
-                type: 'post',
-                data: { 'action': 'ste_send_address', 'address': address,  nonce: ste.nonce },
-                dataType: 'JSON',
-                success: function(response) {
-                    if (response.success) {
-                        alert('Address Saved');
-                    }
-                },
-            });
-});
-// Address End
+
         $(document).on('click', '#bulk_action', function() {
             var action = $('#bulk-action-selector-top').val();
             if (action == 'move_to_trash' || action == 'restore') {

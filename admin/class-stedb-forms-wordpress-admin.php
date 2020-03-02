@@ -858,31 +858,49 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			 */
 		public function ste_send_address() {
 			global $wpdb;
-			$user = wp_get_current_user();
-			$id   = $user->ID;
 			$args = wp_unslash( $_POST );
-			if ( isset( $args['nonce'] ) && wp_verify_nonce( sanitize_text_field( $args['nonce'] ), 'ajax-nonce' ) && isset( $args['address'] ) ) {
-				$is_saved = false;
-				if ( get_option( 'address' ) ) {
-					$is_saved = update_option( 'address', $args['address'] );
-				} else {
-					$is_saved = add_option( 'address', $args['address'] );
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+				if ( isset( $args['address'] ) && isset( $args['address2'] ) && isset( $args['city'] ) && isset( $args['state_province'] ) && isset( $args['zip_code'] ) && isset( $args['country'] ) ) {
+						$base_url = 'https://opt4.stedb.com/crm';
+						$user     = wp_get_current_user();
+						$user_id  = $user->id;
+						$data     = array(
+							'address'        => $args['address'],
+							'address2'       => $args['address'],
+							'city'           => $args['address'],
+							'state_province' => $args['state_province'],
+							'zip_code'       => $args['zip_code'],
+							'country'        => $args['country'],
+						);
+						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
+						$output   = $client->ste_send_request( '/accnt/save_address/', 'POST', $data );
+						if ( ! isset( $output->data->error ) ) {
+							$address        = $output->data->address;
+							$address2       = $output->data->address2;
+							$city           = $output->data->city;
+							$state_province = $output->data->state_province;
+							$zip_code       = $output->data->zip_code;
+							$country        = $output->data->country;
+							if ( ! empty( $address ) && ! empty( $address2 ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
+								add_option( 'address', $address );
+								add_option( 'address2', $address2 );
+								add_option( 'city', $city );
+								add_option( 'state_province', $state_province );
+								add_option( 'zip_code', $zip_code );
+								add_option( 'country', $country );
+							}
+							echo wp_json_encode( array( 'success' => true ) );
+							die;
+						} else {
+							echo wp_json_encode(
+								array(
+									'error'   => true,
+									'message' => $output->data->error,
+								)
+							);
+							die;
+						}
 				}
-				$msg = wp_json_encode(
-					array(
-						'error'   => true,
-						'message' => 'Please Try Again later.',
-					)
-				);
-				if ( $is_saved ) {
-					$msg = wp_json_encode(
-						array(
-							'success' => true,
-							'message' => 'Address Saved',
-						)
-					);
-				}
-				die( $msg );
 			}
 		}
 	}

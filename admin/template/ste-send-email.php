@@ -49,7 +49,7 @@
 
 				<div class="row">
 					<div class="ste-se-multi-btn-container  pt-4 col-9">
-						<button type="button" class="btn btn-primary ste-btn-send-email   send_regular_email " name="ste-btn-send-email"><span class="icon icon-send"></span><?php esc_html_e( 'Email Entire List', 'ste-social-form-builder' ); ?></button>
+						<button type="button" class="btn btn-primary ste-btn-send-email   send_regular_email" id="send_regular_email" name="ste-btn-send-email"><span class="icon icon-send"></span><?php esc_html_e( 'Email Entire List', 'ste-social-form-builder' ); ?></button>
 						<button type="button" class="btn btn-success ste-btn-autoresponder " name="ste-btn-autoresponder" id="getdata"><span class="icon icon-auto-response"></span><?php esc_html_e( 'Run Autoresponder', 'ste-social-form-builder' ); ?></button>
 						<button type="button" id="show_preview" name="show_preview" class="btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
 						<button type="button" class="btn btn-light ste-btn-cancel  clear_form  " name="ste-btn-cancel"><span class="icon icon-close"></span><?php esc_html_e( 'Cancel', 'ste-social-form-builder' ); ?></button>
@@ -93,28 +93,70 @@
 		</div>
 		<!-- side nav -->
 </div>
-<div class="modal fade bd-example-modal-xl" id="emailPreviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header temp_form_header ">
-				<h5 class="modal-title" id="exampleModalLabel">Email Preview</h5>
+<div class="modal fade " id="emailPreviewModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header temp_form_header ">
+					<h5 class="modal-title" id="emailPreviewModalLabel">Email Preview</h5>
+				</div>
+			<div class="modal-body">
+					<div class="row gray">	
+						<div class="col from_name" > </div>
+						<div class="col current_date"> </div>
+					</div>
+					<div class="row gray">	
+						<div class="col subject" > </div>
+					</div>
+					<div class="row bordered">	
+						<div class="col email-body"> </div>
+					</div>
 			</div>
-		<div class="modal-body">
-		<div class="row gray">	
-			<div class="col from_name" > </div>
-			<div class="col current_date"> </div>
-		</div>
-		<div class="row gray">	
-			<div class="col subject" > </div>
-		</div>
-		<div class="row bordered">	
-			<div class="col email-body"> </div>
+			<div class="modal-footer"><span class="tag_line">Your email preview will  look like above content. </span>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div> 
 		</div>
 	</div>
-	<div class="modal-footer"><span class="tag_line">Your email preview will  look like above content. </span>
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 </div>
-</div>
-</div>
-</div>
-<!-- Modal -->
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModal">Physical Address</h5>
+			</div>
+		<div class="modal-body">
+			<label class="ste-form-label "><?php esc_html_e( 'Street Address', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="Street Address."  id="address" name="address" class="ste-form-receiver" placeholder="Enter your Street Address" value = <?php
+			global $wpdb;
+			$args = wp_unslash( $_POST );
+			if ( get_option( 'address' ) ) {
+				echo( esc_html( get_option( 'address' ) ) );
+			}
+			?>>
+			<label class="ste-form-label "><?php esc_html_e( 'Street Address 2', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="Street Address 2."  id="address2" name="address2" class="ste-form-receiver" placeholder="Enter your Street Address" >
+
+			<label class="ste-form-label "><?php esc_html_e( 'City', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="City."  id="city" name="city" class="ste-form-receiver" placeholder="Enter your City" >
+
+			<label class="ste-form-label "><?php esc_html_e( 'State', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="State/Province."  id="state_province" name="state_province" class="ste-form-receiver" placeholder="Enter your State" >
+
+			<label class="ste-form-label "><?php esc_html_e( 'Zip Code', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="Zip Code."  id="zip_code" name="zip_code" class="ste-form-receiver" placeholder="Enter your Zip_Code" >
+
+			<label class="ste-form-label "><?php esc_html_e( 'Country', 'ste-social-form-builder' ); ?></label>
+			<input type="text" title="Country."  id="country" name="country" class="ste-form-receiver" placeholder="Enter your Country" >
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success  send_address " name="ste-send-address"><span class="icon icon-tick"></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+	</div>
+</div> 
+<!-- End -->
+
+
+

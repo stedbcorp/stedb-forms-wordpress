@@ -93,7 +93,10 @@ var web_url = ste_email.site_url;
     document.getElementById('getdata').addEventListener('click', () => {
         var email_content = CKEDITOR.instances["txtFT_Content"].getData();
         var from_name = $("#from_name").val();
+        var address = $("#address").val();
+        var from_email = $("#from_email").val();
         var email_subject = $("#subject").val();
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var email_status = 4; //Running status
         var email_type = 1; //Autoresponder type
         var new_list_id = $("#form_data_table .email_list .selected_form_list_tr").attr('id');
@@ -102,6 +105,16 @@ var web_url = ste_email.site_url;
         if (from_name == '') {
             alert("Please Enter Form Name!");
             return false;
+        }
+        if (from_email == '') {
+                alert('Please Enter From Email');
+                return;
+        }
+        if (from_email != '') {
+            if (!regex.test(from_email)) {
+                alert('Please Enter a Valid From Email');
+                return;
+            }
         }
         if (email_subject == '') {
             alert("Please Enter Autoresponder Subject!");
@@ -113,6 +126,10 @@ var web_url = ste_email.site_url;
         }
         if (list_id == '' || list_id == undefined) {
             alert("Please select the form to which you would like to broadcast your message, to do that  just click at any part of the above rows");
+            return false;
+        }
+        if (address == '') {
+            $("#exampleModal").modal('show');
             return false;
         }
         $.ajax({
@@ -156,10 +173,14 @@ var web_url = ste_email.site_url;
             }
         });
     });
-    $(document).on('click', '.send_regular_email', function(e) {
+ 
+    $(document).on('click', '#send_regular_email', function(e) {
         e.preventDefault();
+        var address = $("#address").val();
         var from_name = $("#from_name").val();
+        var from_email = $("#from_email").val();
         var email_subject = $("#subject").val();
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var email_message = CKEDITOR.instances["txtFT_Content"].getData();
         var email_status = 3; //Scheduled status
         var email_type = 0; //Regular email
@@ -169,16 +190,30 @@ var web_url = ste_email.site_url;
             alert("Please Enter Form Name!");
             return false;
         }
+        if (from_email == '') {
+            alert('Please Enter a From Email');
+            return;
+        }
+        if (from_email != '') {
+            if (!regex.test(from_email)) {
+                alert('Please Enter a Valid From Email');
+                return;
+            }
+        }
         if (email_subject == '') {
             alert("Please Enter Email Subject!");
             return false;
         }
         if (email_message == '') {
             alert("Please Enter Email Messsage Content!");
-            return false;
+            return false; 
         }
         if (list_id == '' || list_id == undefined) {
             alert("Please select the form to which you would like to broadcast your message, to do that  just click at any part of the above rows");
+            return false;
+        }
+        if (address == '') {
+            $("#exampleModal").modal('show');
             return false;
         }
         $.ajax({
@@ -325,6 +360,28 @@ var web_url = ste_email.site_url;
         $(".current_date").text(current_date);
     });
 
+// Address start
+$(document).on('click', '.send_address', function(e) {
+    e.preventDefault();
+    var address = $("#address").val();
+    var address2    = $("#address2").val();
+    var city = $("#city").val();
+    var state_province = $("#state_province").val();
+    var zip_code = $("#zip_code").val();
+    var country = $("#country").val();
+            $.ajax({
+                url: ajax_url,
+                type: 'post',
+                data: { 'action': 'ste_send_address', 'address': address, 'address2': address2, 'city': city, 'state_province': state_province, 'zip_code': zip_code, 'country': country, nonce: ste.nonce },
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.success);
+                    }
+                },
+            });
+});
+// Address End
 })(jQuery);
 
 

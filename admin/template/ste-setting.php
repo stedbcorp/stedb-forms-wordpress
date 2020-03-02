@@ -18,13 +18,13 @@
 <label class="ste-form-label"><?php esc_html_e( 'Address:', 'ste-social-form-builder' ); ?></label>
 <textarea rows="4" id="address" name="address" class="ste-form-name" placeholder="Enter your Physical Address" required >
 <?php
+global $wpdb;
 $args = wp_unslash( $_POST );
 if ( get_option( 'address' ) ) {
     echo( esc_html( get_option( 'address' ) ) );
 }
 ?>
 </textarea>
-<button type="button" class="btn btn-success  send_address " name="ste-send-address"><span class="icon icon-tick"></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
 </div>
 </div>
 </div>

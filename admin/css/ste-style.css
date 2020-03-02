@@ -1492,7 +1492,7 @@ font-size: 14px;
     background: #2f333b;
     border: 1px solid #3688e1;
     color: #fff !important;
-}
+} 
 
 @-webkit-keyframes downarrow {
     0% { -webkit-transform: translateY(0); opacity: 0.4 }
