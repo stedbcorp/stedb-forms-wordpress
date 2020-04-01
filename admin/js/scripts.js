@@ -2,7 +2,6 @@
 (function() {
     'use strict';
     jQuery('#exampleModalCenter').on('shown.bs.modal', function() {
-        // alert('yes')
         jQuery('input[name="code[]"]').get(0).focus(); //focus on first index
         jQuery('input[name="code[]"]').on('keyup', function(e) { // move to next fields
 
@@ -96,3 +95,4 @@
     //Pop-up end//
 
 })();
+
