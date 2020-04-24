@@ -866,29 +866,29 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						$user_id  = $user->id;
 						$data     = array(
 							'address'        => $args['address'],
-							'address2'       => $args['address'],
-							'city'           => $args['address'],
+							'address2'       => $args['address2'],
+							'city'           => $args['city'],
 							'state_province' => $args['state_province'],
 							'zip_code'       => $args['zip_code'],
 							'country'        => $args['country'],
 						);
+						if ( ! isset( $output->data->error ) ) {
 						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
 						$output   = $client->ste_send_request( '/accnt/save_address/', 'POST', $data );
-						if ( ! isset( $output->data->error ) ) {
-							$address        = $output->data->address;
-							$address2       = $output->data->address2;
-							$city           = $output->data->city;
-							$state_province = $output->data->state_province;
-							$zip_code       = $output->data->zip_code;
-							$country        = $output->data->country;
-							if ( ! empty( $address ) && ! empty( $address2 ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
+							$address        = $args['address'];
+							$address2       = $args['address2'];
+							$city           = $args['city'];
+							$state_province = $args['state_province'];
+							$zip_code       = $args['zip_code'];
+							$country        = $args['country'];
+							if ( ! empty( $address ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
 								add_option( 'address', $address );
 								add_option( 'address2', $address2 );
 								add_option( 'city', $city );
 								add_option( 'state_province', $state_province );
 								add_option( 'zip_code', $zip_code );
 								add_option( 'country', $country );
-							}
+							 }
 							echo wp_json_encode( array( 'success' => true ) );
 							die;
 						} else {

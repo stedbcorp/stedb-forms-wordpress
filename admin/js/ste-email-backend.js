@@ -376,7 +376,9 @@ $(document).on('click', '.send_address', function(e) {
                 dataType: 'JSON',
                 success: function(response) {
                     if (response.success) {
-                        alert(response.success);
+                        alert('Address Saved');
+                    }else{
+                        alert("Failed")
                     }
                 },
             });
