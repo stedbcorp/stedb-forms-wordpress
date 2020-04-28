@@ -125,7 +125,10 @@
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModal">Physical Address</h5>
 			</div>
-		<div class="modal-body">
+			<div class="address-text">
+				<p>According to USA Law, CAN SPAM ACT of 2003, all emails must have a physical address. Your account currently does not have a default physical address. Please complete the below:</p>
+			</div>
+			<div class="modal-body">
 			<label class="ste-form-label "><?php esc_html_e( 'Street Address', 'ste-social-form-builder' ); ?></label>
 			<input type="text" title="Street Address."  id="address" name="address" class="ste-form-receiver" placeholder="Enter your Street Address" value = <?php
 			global $wpdb;
