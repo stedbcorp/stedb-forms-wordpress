@@ -103,7 +103,7 @@ class STEDB_Api_Client {
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
 			echo sprintf( 'Something went wrong: %s', esc_html( $error_message ) );
-
+			
 			$body  = $error_message;
 			$error = '';
 		} else {

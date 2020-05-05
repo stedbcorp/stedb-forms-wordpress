@@ -16,6 +16,11 @@ var web_url = ste_email.site_url;
 /******************form Data****************/
 (function($) {
     $(document).ready(function() {
+            var address = $("#address").val();
+            if (address == '') {
+                    $("#exampleModal").modal('show');
+                    return false;
+                }
         // CKEDITOR.replace('txtFT_Content', {
         //      allowedContent: true
         //    });
@@ -384,6 +389,7 @@ $(document).on('click', '.send_address', function(e) {
             });
 });
 // Address End
+
 })(jQuery);
 
 

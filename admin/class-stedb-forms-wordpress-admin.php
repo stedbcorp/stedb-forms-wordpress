@@ -861,9 +861,9 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			$args = wp_unslash( $_POST );
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $args['address'] ) && isset( $args['address2'] ) && isset( $args['city'] ) && isset( $args['state_province'] ) && isset( $args['zip_code'] ) && isset( $args['country'] ) ) {
-						$base_url = 'https://opt4.stedb.com/crm';
-						$user     = wp_get_current_user();
-						$user_id  = $user->id;
+						$base_url      = 'https://opt4.stedb.com/dbm9x/api';
+						$user_id       = get_option( 'stedb_user_id' );
+						$secret        = get_option( 'stedb_secret' );
 						$data     = array(
 							'address'        => $args['address'],
 							'address2'       => $args['address2'],
