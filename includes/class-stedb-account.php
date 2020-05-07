@@ -273,7 +273,7 @@ class STEDB_Account {
 		global $wpdb;
 		$save_subscriber = new STEDB_Api_Client( $user_id, $secret, $base_url );
 		$output          = $save_subscriber->ste_send_request( 'emails/', 'POST', $data );
-		$id              = $output->data->id;
+		@$id              = $output->data->id;
 		return $id;
 
 	}

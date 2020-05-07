@@ -1231,7 +1231,11 @@ img#loader1 {
 .address-text{
     padding: 10px;
 }
-
+.popup-country{
+    font-size: 13px !important;
+    font-family: 'Open Sans', sans-serif !important;
+    color: #6C757D !important;
+}
 /* report */
 
 .ste-coming-soon {
