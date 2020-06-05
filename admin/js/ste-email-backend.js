@@ -43,7 +43,6 @@ var web_url = ste_email.site_url;
             success: function(response) {
                 if (response.success) {
                     var emailList = response.result;
-                    // console.log(emailList);
                     for (var i = 0; i < emailList.length; i++) {
                         if (emailList[i].status == 4) {
                             var status = "Running";
@@ -178,7 +177,66 @@ var web_url = ste_email.site_url;
             }
         });
     });
- 
+    function is_email_valid_check(from_email){
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (from_email == '') {
+            $('.error-msg-email').text('Please Enter Email Address');
+            return false;
+        }
+        if (from_email != '') {
+            if (!regex.test(from_email)) {
+                $('.error-msg-email').text('Please Enter a Valid From Email');
+                return false;
+            }
+        }
+        return true;
+    }
+    $(document).on('click', '#verify_email_stedb', function(e) {
+        var from_email = $("#from_email").val();
+        var validate_email = is_email_valid_check(from_email);
+        if(!validate_email){
+            return;
+        }
+        $('#emailVerifyPopup .stedb_popup_email span').text(from_email);
+        //$('#emailVerifyPopup .stedb_popup .stedb_popup_code_field input[name="code_email[]"]').val('');
+        $('#emailVerifyPopup .stedb_popup_code_field').find(':input[name="code_email[]"]').each(function(){
+            $(this).val('');
+          })
+        jQuery('.needs-validation-email-form #stedb_modal_error_wrong_code').hide();
+        jQuery('.needs-validation-email-form #stedb_modal_success_code').hide();
+        jQuery("#emailVerifyPopup").modal('show');
+        
+    });
+    $("#from_email").focusin(function(){
+        $('.error-msg-email').text('');
+    });
+    $("#from_email").focusout(function(){
+        var from_email = $("#from_email").val();
+        var validate_email = is_email_valid_check(from_email);
+        if(!validate_email){
+            return;
+        }
+        $('.error-msg-email').text('');
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: { action: 'check_stedb_email_exist', 'nonce': ste.nonce, 'from_email':from_email },
+            dataType: 'JSON',
+            beforeSend: function() {
+                $("#loader1").show();
+            },
+            success: function(response) {
+                $("#loader1").hide();
+                if(response.success && response.message=='From email saved, confirmation message sent'){
+                    $('.error-msg-email').html('<button class="btn btn-success ste-btn-autoresponder " id="verify_email_stedb">Verify Email</button>'); 
+                }
+                if(response.error){
+                    $('.error-msg-email').text(response.message); 
+                }
+            }
+        });
+
+    }); 
     $(document).on('click', '#send_regular_email', function(e) {
         e.preventDefault();
         var address = $("#address").val();
@@ -224,7 +282,7 @@ var web_url = ste_email.site_url;
         $.ajax({
             url: ajax_url,
             type: 'post',
-            data: { 'action': 'ste_send_regular_email', 'from_name': from_name, 'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id, nonce: ste.nonce },
+            data: { 'action': 'ste_send_regular_email', 'from_name': from_name, 'from_email':from_email,'email_subject': email_subject, 'email_message': email_message, 'email_status': email_status, 'list_id': list_id, 'email_type': email_type, 'form_id': new_list_id, nonce: ste.nonce },
             dataType: 'JSON',
             beforeSend: function() {
                 $("#loader1").show();
@@ -283,8 +341,6 @@ var web_url = ste_email.site_url;
                 $("#loader1").show();
             },
             success: function(response) {
-                // console.log(response);
-                // return false;
                 if (response.success) {
                     if (response.status == 'updated') {
                         alert("Draft email has been updated.");
@@ -368,12 +424,32 @@ var web_url = ste_email.site_url;
 // Address start
 $(document).on('click', '.send_address', function(e) {
     e.preventDefault();
+    $('#exampleModal .modal-body .ajax-message').html('');
     var address = $("#address").val();
     var address2    = $("#address2").val();
     var city = $("#city").val();
     var state_province = $("#state_province").val();
     var zip_code = $("#zip_code").val();
     var country = $("#country").val();
+    var valid = true;
+    $('#exampleModal .modal-body').find(':input').each(function(){
+        $(this).removeClass('input-field-error');
+        var string = $(this).val();
+        if( string== '' && $(this).attr('name') !='address2'){
+            $(this).addClass('input-field-error');
+            valid =false;
+        }
+      });
+      if($('#exampleModal .modal-body').find('select').val()===null){
+        valid =false;
+        $('#exampleModal .modal-body').find('select').addClass('input-field-error')
+      }else{
+        $('#exampleModal .modal-body').find('select').removeClass('input-field-error') 
+      }
+      $('#exampleModal .modal-body').find('.input-field-error:first').focus();
+      if(!valid)
+      return false;
+
             $.ajax({
                 url: ajax_url,
                 type: 'post',
@@ -381,13 +457,14 @@ $(document).on('click', '.send_address', function(e) {
                 dataType: 'JSON',
                 success: function(response) {
                     if (response.success) {
-                        alert('Address Saved');
+                        $('#exampleModal .modal-body .ajax-message').html('<b style="color:green;font-size: 15px;">Successfully Saved</b>')
                     }else{
-                        alert("Failed")
+                        $('#exampleModal .modal-body .ajax-message').html('<b style="color:red;font-size: 15px;">'+response.message+'</b>')
                     }
                 },
             });
 });
+
 // Address End
 
 })(jQuery);

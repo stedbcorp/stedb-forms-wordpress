@@ -436,6 +436,39 @@ a.ste-tab-item {
     display: block;
 }
 
+.error-msg-email{
+    color: #f31313;
+    margin-bottom: 6px
+}
+.ste-btn-remove-option {
+    background: #F1F1F1;
+    /* width: 50px; */
+    height: 30px;
+    color: #B7B8BA;
+    border: none;
+    padding: 0px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+.loaderbg{
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    display: none;
+    left: 0;
+    z-index: 99999;
+    text-align: center;
+}
+.loaderbg img{
+    margin-top: 12%;
+}
+#verify_email_stedb{
+    font-size: 14px;
+    font-weight: 600;
+}
 
 /* responsive design */
 
@@ -1732,4 +1765,7 @@ font-size: 14px;
 		opacity: 1;
 		transform: scale(1) rotate(0deg);
 	}
+}
+.input-field-error{
+    border:1px solid red !important;
 }

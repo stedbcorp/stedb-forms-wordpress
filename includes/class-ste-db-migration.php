@@ -101,7 +101,10 @@ class STE_DB_Migration {
 				'ALTER TABLE `stedb_send_email_entries`
                                 MODIFY `campaign_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;',
 			);
-
+			$migration[9] = array(
+				'ALTER TABLE `stedb_send_email_entries` ADD `from_email` VARCHAR(255) NULL AFTER `from_name`;',
+			);
+			
 			foreach ( $migration as $version => $queries ) {
 				foreach ( $queries as $query ) {
 					/**

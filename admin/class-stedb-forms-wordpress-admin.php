@@ -72,9 +72,11 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_action( 'wp_ajax_stedb_create_campaign', array( $this, 'stedb_create_campaign' ) );
 			add_action( 'wp_ajax_ste_get_form_data', array( $this, 'ste_get_form_data' ) );
 			add_action( 'wp_ajax_ste_verify_code', array( $this, 'ste_verify_code' ) );
+			add_action( 'wp_ajax_ste_verify_email_code', array( $this, 'ste_verify_email_code' ) );
 			add_action( 'wp_ajax_ste_send_address', array( $this, 'ste_send_address' ) );
 
 			/* Public Ajax*/
+			add_action( 'wp_ajax_check_stedb_email_exist', array( $this, 'check_stedb_email_exist' ) );
 			add_action( 'wp_ajax_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
 			add_action( 'wp_ajax_nopriv_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
 		}
@@ -656,6 +658,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'main_form_id' => sanitize_text_field( $args['form_id'] ),
 							'subject'      => sanitize_text_field( $args['email_subject'] ),
 							'content'      => $email_message,
+							'from_email'   =>	sanitize_text_field( $args['from_email'] ),
 							'type'         => sanitize_text_field( $args['email_type'] ),
 							'status'       => sanitize_text_field( $args['email_status'] ),
 						);
@@ -852,6 +855,77 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				}
 			}
 		}
+		public function ste_verify_email_code() {
+			global $wpdb;
+			$args = wp_unslash( $_POST );
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+				if ( isset( $args['stedb_email'] ) && isset( $args['code_email'] ) ) {
+						$code 		   = $args['code_email'];
+						$email 		   = $args['email'];
+						$user     = wp_get_current_user();
+						$user_id       = get_option( 'stedb_user_id' );
+						$secret        = get_option( 'stedb_secret' );
+						$base_url      = 'https://opt4.stedb.com/dbm9x/api';
+						
+						$data     = array(
+							'from_email'  => $email,
+							'code'   => implode( '', $code ),
+						);
+						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
+						$output   = $client->ste_send_request( '/campaign/check_from_email/'.$email.'?code='.$data['code'] ,'GET');
+						if ( ! isset( $output->data->error ) ) {
+							if($output->data[0] ==='Confirmed address'){
+								echo wp_json_encode( array( 'success' => true ) );
+								die;
+							}else{
+								echo wp_json_encode(
+									array(
+										'error'   => true,
+										'message' => $output->data[0],
+									)
+								);
+								die;
+							}
+
+						} else {
+							echo wp_json_encode(
+								array(
+									'error'   => true,
+									'message' => $output->data->error,
+								)
+							);
+							die;
+						}
+				}
+			}
+		}	
+		public function check_stedb_email_exist(){
+			global $wpdb;
+			$args = wp_unslash( $_POST );
+			$base_url = 'https://opt4.stedb.com/dbm9x/api';
+			$user_id       = get_option( 'stedb_user_id' );
+			$secret        = get_option( 'stedb_secret' );
+			$data = array(
+				'from_email'  => $args['from_email'],
+				'id'=>$user_id
+			);
+
+			$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
+			$output   = $client->ste_send_request( '/campaign/check_from_email', 'POST',$data );
+			if ( ! isset( $output->data->error ) ) {
+				echo wp_json_encode( array( 'success' => true,'message'=>$output->data[0] ) );
+				die;
+			}else{
+				echo wp_json_encode(
+					array(
+						'success'   => true,
+						'error' => true,
+						'message' => $output->data->error,
+					)
+				);
+				die;
+			}
+		}
 			/**
 			 * [ste_send_address description]
 			 * HTML template to verify email
@@ -872,25 +946,31 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 							'zip_code'       => $args['zip_code'],
 							'country'        => $args['country'],
 						);
-						if ( ! isset( $output->data->error ) ) {
+
 						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
 						$output   = $client->ste_send_request( '/accnt/save_address/', 'POST', $data );
-							$address        = $args['address'];
-							$address2       = $args['address2'];
-							$city           = $args['city'];
-							$state_province = $args['state_province'];
-							$zip_code       = $args['zip_code'];
-							$country        = $args['country'];
-							if ( ! empty( $address ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
-								add_option( 'address', $address );
-								add_option( 'address2', $address2 );
-								add_option( 'city', $city );
-								add_option( 'state_province', $state_province );
-								add_option( 'zip_code', $zip_code );
-								add_option( 'country', $country );
-							 }
-							echo wp_json_encode( array( 'success' => true ) );
-							die;
+						if ( ! isset( $output->data->error ) ) {
+							if(isset($output->data->id)){
+								$address        = $args['address'];
+								$address2       = $args['address2'];
+								$city           = $args['city'];
+								$state_province = $args['state_province'];
+								$zip_code       = $args['zip_code'];
+								$country        = $args['country'];
+								if ( ! empty( $address ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
+									add_option( 'address', $address );
+									add_option( 'address2', $address2 );
+									add_option( 'city', $city );
+									add_option( 'state_province', $state_province );
+									add_option( 'zip_code', $zip_code );
+									add_option( 'country', $country );
+								}
+								echo wp_json_encode( array( 'success' => true ) );
+								die;
+							}else{
+								echo wp_json_encode( array( 'error' => true,'message'=>$output->data[0] ) );
+								die;
+							}
 						} else {
 							echo wp_json_encode(
 								array(

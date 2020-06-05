@@ -236,7 +236,7 @@ class STEDB_Account {
 		global $wpdb;
 
 		$create_campaign = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output          = $create_campaign->ste_send_request( 'campaign/', 'POST', $data );
+		$output          = $create_campaign->ste_send_request( 'campaign', 'POST', $data );
 		$id              = $output->data->id;
 
 		return $id;
