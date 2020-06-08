@@ -1569,12 +1569,15 @@ font-size: 14px;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
-    height: 480px;
+    /* height: 480px; */
     width: 100%;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
   }
+  #submit-setting-update #country{
+        max-width: 100%;
+    }  
   .setting-card-body {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;

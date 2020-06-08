@@ -137,7 +137,6 @@ var web_url = ste_email.site_url;
             return false;
         }
         $.ajax({
-            // url:site_url+'/wp-admin/admin-ajax.php',
             url: ajax_url,
             type: 'post',
             data: { 'action': 'stedb_create_campaign', 'email_content': email_content, 'from_name': from_name, 'email_subject': email_subject, 'email_status': email_status, 'email_type': email_type, 'list_id': list_id, 'form_id': new_list_id, nonce: ste.nonce },

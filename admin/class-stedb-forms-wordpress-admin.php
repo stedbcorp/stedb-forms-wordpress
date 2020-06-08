@@ -74,6 +74,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_action( 'wp_ajax_ste_verify_code', array( $this, 'ste_verify_code' ) );
 			add_action( 'wp_ajax_ste_verify_email_code', array( $this, 'ste_verify_email_code' ) );
 			add_action( 'wp_ajax_ste_send_address', array( $this, 'ste_send_address' ) );
+			add_action( 'wp_ajax_ste_send_update_address', array( $this, 'ste_send_update_address' ) );
 
 			/* Public Ajax*/
 			add_action( 'wp_ajax_check_stedb_email_exist', array( $this, 'check_stedb_email_exist' ) );
@@ -964,6 +965,58 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 									add_option( 'state_province', $state_province );
 									add_option( 'zip_code', $zip_code );
 									add_option( 'country', $country );
+								}
+								echo wp_json_encode( array( 'success' => true ) );
+								die;
+							}else{
+								echo wp_json_encode( array( 'error' => true,'message'=>$output->data[0] ) );
+								die;
+							}
+						} else {
+							echo wp_json_encode(
+								array(
+									'error'   => true,
+									'message' => $output->data->error,
+								)
+							);
+							die;
+						}
+				}
+			}
+		}
+		public function ste_send_update_address() {
+			global $wpdb;
+			$args = wp_unslash( $_POST );
+			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
+				if ( isset( $args['address'] ) && isset( $args['address2'] ) && isset( $args['city'] ) && isset( $args['state_province'] ) && isset( $args['zip_code'] ) && isset( $args['country'] ) ) {
+						$base_url      = 'https://opt4.stedb.com/dbm9x/api';
+						$user_id       = get_option( 'stedb_user_id' );
+						$secret        = get_option( 'stedb_secret' );
+						$data     = array(
+							'address'        => $args['address'],
+							'address2'       => $args['address2'],
+							'city'           => $args['city'],
+							'state_province' => $args['state_province'],
+							'zip_code'       => $args['zip_code'],
+							'country'        => $args['country'],
+						);
+						$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
+						$output   = $client->ste_send_request( '/accnt/save_address/', 'POST', $data );
+						if ( ! isset( $output->data->error ) ) {
+							if(isset($output->data->id)){
+								$address        = $args['address'];
+								$address2       = $args['address2'];
+								$city           = $args['city'];
+								$state_province = $args['state_province'];
+								$zip_code       = $args['zip_code'];
+								$country        = $args['country'];
+								if ( ! empty( $address ) && ! empty( $city ) && ! empty( $state_province ) && ! empty( $zip_code ) && ! empty( $country ) ) {
+									update_option( 'address', $address );
+									update_option( 'address2', $address2 );
+									update_option( 'city', $city );
+									update_option( 'state_province', $state_province );
+									update_option( 'zip_code', $zip_code );
+									update_option( 'country', $country );
 								}
 								echo wp_json_encode( array( 'success' => true ) );
 								die;

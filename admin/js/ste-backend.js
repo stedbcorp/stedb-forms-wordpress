@@ -827,7 +827,6 @@ function getLinkedinHTML(parentId) {
                             $(".create_form").prop("disabled", true);
                         },
                         success: function(response) {
-                            console.log(response);
                             if (response.success) {
                                 $("#loader").hide();
                                 $(".create_form").prop("disabled", false);
@@ -1103,4 +1102,52 @@ function getLinkedinHTML(parentId) {
         collision: "none"
         }
     });
+
+    // Address start
+$(document).on('click', '.update_send_address', function(e) {
+    e.preventDefault();
+    var address = $("#address").val();
+    
+    var address2    = $("#address2").val();
+    var city = $("#city").val();
+    var state_province = $("#state_province").val();
+    var zip_code = $("#zip_code").val();
+    var country = $("#country").val();
+    var valid = true;
+    $('#submit-setting-update').find('input[type=text]').each(function(){
+        $(this).removeClass('input-field-error');
+        var string = $(this).val();
+        if( string== '' && $(this).attr('name') !='address2'){
+            $(this).addClass('input-field-error');
+            valid =false;
+        }
+      });
+      if($('#submit-setting-update').find('select').val()===null){
+        valid =false;
+        $('#submit-setting-update').find('select').addClass('input-field-error')
+      }else{
+        $('#submit-setting-update').find('select').removeClass('input-field-error') 
+      }
+      $('#submit-setting-update').find('.input-field-error:first').focus();
+      if(!valid)
+      return false;
+            $.ajax({
+                url: ajax_url,
+                type: 'post',
+                data: { 'action': 'ste_send_update_address', 'address': address, 'address2': address2, 'city': city, 'state_province': state_province, 'zip_code': zip_code, 'country': country, nonce: ste.nonce },
+                dataType: 'JSON',
+                beforeSend: function() {
+                    $("#loader1").show();
+                },
+                success: function(response) {
+                    $("#loader1").hide();
+                    if (response.success) {
+                        $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:green;font-size: 15px;">Successfully Saved</b></div>')
+                    }else{
+                        $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:red;font-size: 15px;">'+response.message+'</b></div>')
+                    }
+                },
+            });
+});
+
 })(jQuery);
