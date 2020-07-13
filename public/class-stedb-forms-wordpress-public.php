@@ -127,7 +127,7 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 					'<div class="form-group">' .
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
-					wp_nonce_field() .
+					wp_nonce_field(  -1,  '_wpnonce',  true, false ).
 					$html_code .
 				'</form>';
 			}
