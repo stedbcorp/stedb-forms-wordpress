@@ -409,7 +409,16 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						);
 					}
 					$form_id = $args['form_id'];
-
+					if(isset($data['form_name'])){
+						$user_id               = get_option( 'stedb_user_id' );
+						$secret                = get_option( 'stedb_secret' );
+						$base_url              = get_option( 'stedb_base_url' );
+						$list_data_update_stedb = array('form_id'=>$form_id,'form_name'=>$data['form_name'],'receiver'=>$data['receiver']); 
+						$stedb_obj = new STEDB_Account();
+						$output    = $stedb_obj->stedb_update_form_list($user_id, $secret, $base_url, $list_data_update_stedb);
+						//print_r($output);exit;
+					}
+					
 					if ( is_array( $form_id ) ) {
 						foreach ( $form_id as $id ) {
 							$id = sanitize_text_field( $id );

@@ -71,9 +71,12 @@ class STEDB_Api_Client {
 		$header = array(
 			'X-Auth-UserId'    => $this->user_id,
 			'X-Auth-Time'      => $stamp,
-			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp ),
+			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp )
 		);
-
+		if($method =='PUT'){
+			$header['Content-Type'] = 'application/json';
+		}
+		
 		switch ( $method ) {
 
 			case 'POST':

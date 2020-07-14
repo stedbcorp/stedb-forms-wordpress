@@ -49,11 +49,11 @@
 					<div class="row card-body">
 						<div class="col-6 form-group">
 							<label class="ste-form-label"><?php esc_html_e( 'Form Name:', 'ste-social-form-builder' ); ?></label>
-							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Enter a name to your form" required >
+							<input type="text" id="form_name" name="form_name" class="ste-form-name" placeholder="Type a name for your form" required >
 						</div>
 						<div class="col-6 form-group">
 							<label class="ste-form-label "><?php esc_html_e( 'Receiver:', 'ste-social-form-builder' ); ?></label>
-							<input type="email" title="Please enter your email address at which you would like to receive the information."  id="receiver" name="receiver" class="ste-form-receiver" placeholder="Enter your email at which you would like to receive the form submissions" required>
+							<input type="email" title="Please enter your email address at which you would like to receive the information."  id="receiver" name="receiver" class="ste-form-receiver" placeholder="Type an email to get a copy of the data" required>
 						</div>
 					</div>
 				</div>
