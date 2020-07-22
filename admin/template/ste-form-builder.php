@@ -17,22 +17,22 @@
 				<h5 class="modal-title" id="exampleModalLabel">Please Choose Any STEdb Form Template.</h5>
 			</div>
 		<div class="modal-body">
-		<div class="row" id="contact_form" data-dismiss="modal" style="cursor:pointer">
-			<div class="col-3 form_thumb"> <img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
-			<div class="col-9 form_content align-self-center" >Contact Form</div>
+			<div class="row" id="contact_form" data-dismiss="modal" style="cursor:pointer">
+				<div class="col-3 form_thumb"> <img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+				<div class="col-9 form_content align-self-center" >Contact Form</div>
+			</div>
+			<div class="row" id="simple_form" data-dismiss="modal" style="cursor:pointer">	
+				<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+				<div class="col-9 form_content align-self-center" >Simple Form</div>
+			</div>
+			<div class="row"  id="shipping_form" data-dismiss="modal" style="cursor:pointer">
+				<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
+				<div class="col-9 form_content align-self-center">Shipping Form</div>
+			</div>
 		</div>
-		<div class="row" id="simple_form" data-dismiss="modal" style="cursor:pointer">	
-			<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
-			<div class="col-9 form_content align-self-center" >Simple Form</div>
-		</div>
-		<div class="row"  id="shipping_form" data-dismiss="modal" style="cursor:pointer">
-			<div class="col-3 form_thumb"><img src="<?php echo esc_url( stedb_plugin_url() . 'admin/images/form.png' ); ?>"></div>
-			<div class="col-9 form_content align-self-center">Shipping Form</div>
-		</div>
-	</div>
 	<div class="modal-footer"><span class="tag_line">No, I would like to create my own form. </span>
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip</button>
-</div>
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip</button>
+	</div>
 </div>
 </div>
 </div>

@@ -21,7 +21,7 @@ class STEDB_Account {
 	 */
 	public function stedb_registration() {
 		if ( empty( get_option( 'stedb_user_id' ) ) && empty( get_option( 'stedb_secret' ) ) && empty( get_option( 'stedb_base_url' ) ) ) {
-			$this->stedb_create_registration();
+			return $this->stedb_create_registration();
 		}
 	}
 	/**
@@ -51,7 +51,7 @@ class STEDB_Account {
 				add_option( 'stedb_base_url', $base_url );
 			}
 		}
-
+		return $output;
 	}
 
 	/**

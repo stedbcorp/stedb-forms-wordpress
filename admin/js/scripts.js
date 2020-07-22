@@ -177,6 +177,10 @@
         //keyboard: false,
         //backdrop: 'static',
     });
+    jQuery('#exampleModalCenter2').modal({
+        //keyboard: false,
+        //backdrop: 'static',
+    });
 });
     
     (jQuery);

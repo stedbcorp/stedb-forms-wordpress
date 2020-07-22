@@ -817,8 +817,28 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 		public function authenticate_stedb() {
 			if ( empty( get_option( 'stedb_user_id' ) ) && empty( get_option( 'stedb_secret' ) ) && empty( get_option( 'stedb_base_url' ) ) ) {
 				$account = new STEDB_Account();
-				$account->stedb_registration();
-				require_once plugin_dir_path( __FILE__ ) . 'template/stedb-popup.php';
+				$output = $account->stedb_registration();
+				if($output->data->err_code == 1){
+					require_once plugin_dir_path( __FILE__ ) . 'template/stedb-popup.php';	
+				}
+				else{
+					if($output->data->error){
+
+						$error_mmsgs = array(
+							4=>'Your WordPress installation is using an invalid email, please add a valid one and try again',
+							5=>'The email used in your WordPress installation is using an invalid domain, please add a valid one and try again',
+							6=>'The email used in your WordPress installation is using a domain that is blocked, please try with another email',
+							7=>'The email used in your WordPress installation is blocked, please try with another email'
+						);
+						if($error_mmsgs[$output->data->err_code]){
+							$err_msg = $error_mmsgs[$output->data->err_code];
+							require_once plugin_dir_path( __FILE__ ) . 'template/stedb-popup-email-errors.php';
+						}else{
+							$err_msg = $output->data->error;
+							require_once plugin_dir_path( __FILE__ ) . 'template/stedb-popup-email-errors.php';
+						}
+					}
+				}
 			}
 		}
 				/**
