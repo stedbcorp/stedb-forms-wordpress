@@ -5,12 +5,12 @@ var site_url = ste.plugin_url;
 var web_url = ste.site_url;
 
 /* 
-* Find Parent Objet
-*/
-var getParentId = function( row ){
+ * Find Parent Objet
+ */
+var getParentId = function(row) {
     var parentElem = jQuery(row).find('.li_row[data-field]');
     var parentId = 0;
-    if(parentElem.length > 0){
+    if (parentElem.length > 0) {
         parentId = parentElem.attr('data-field');
     }
     return parentId;
@@ -38,16 +38,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function generateField() {
     return Math.floor(Math.random() * (100000 - 1 + 1) + 57);
 }
+
 function getHTMLRow() {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row-full html_item_row_container html_row">' +
         '<div class="ste-row ste-flex ste-align-center control-box">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-    '<div class="li_row stedb-li-row-flex" data-type="row" data-field="' + field + '"></div>' +
+        '<div class="li_row stedb-li-row-flex" data-type="row" data-field="' + field + '"></div>' +
         '</div>';
     return html;
 }
+
 function getTextFieldHTML(parentId) {
     var field = generateField();
     var html = '<div class="li_' + field + '  ste-builder-field ste-row stedb-col">' +
@@ -55,7 +57,7 @@ function getTextFieldHTML(parentId) {
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>'
 
     +'</div>' +
-    '<div id="text-box" class="li_row  form_output" data-type="text" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+    '<div id="text-box" class="li_row  form_output" data-type="text" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
@@ -68,7 +70,7 @@ function getTextAreaFieldHTML(parentId) {
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-        '<div class="li_row form_output" data-type="textarea" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output" data-type="textarea" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
@@ -81,8 +83,8 @@ function getNumberFieldHTML(parentId) {
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-        '<div class="li_row form_output" data-type="number" data-field="' + field + '" data-parent-field="'+parentId+'">' +
-        '<input type="text" name="label_' + field +'" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
+        '<div class="li_row form_output" data-type="number" data-field="' + field + '" data-parent-field="' + parentId + '">' +
+        '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
     // return html;   
@@ -95,7 +97,7 @@ function getLinkFieldHTML(parentId) {
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-        '<div class="li_row form_output" data-type="url" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output" data-type="url" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
@@ -110,7 +112,7 @@ function getRadioFieldHTML(parentId) {
         '<div class="ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-        '<div class="li_row form_output" data-type="radio" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output" data-type="radio" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="' + field + '">'
         // +'</div>'
         +
@@ -202,7 +204,7 @@ function getDateFieldHTML(parentId) {
         '<div class="ste-flex ste-justify-space ste-align-center">' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="' + field + '"></button>' +
         '</div>' +
-        '<div class="li_row form_output" data-type="date" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output" data-type="date" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<input type="text" name="label_' + field + '" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="' + field + '">' +
         '</div>' +
         '</div>';
@@ -212,12 +214,12 @@ function getDateFieldHTML(parentId) {
 function getYahooHTML(parentId) {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row  stedb-col">' +
-        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_yahoo" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_yahoo" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<div class="sign-up-button ste-sign-up-button yh">' +
         '<a class="form_save" social-yahoo="s_yahoo">' +
         '<img src="' + site_url + 'admin/images/yahoo.png">' +
         // '<img src="' + site_url + 'admin/images/vertical_yh.png">' +
-        '<span class="align-self-center">Use My Yahoo Mail!</span>' +
+        '<span class="align-self-center">Submit via Yahoo!</span>' +
         '</a>' +
         '</div>' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="' + field + '"></button>' +
@@ -229,12 +231,12 @@ function getYahooHTML(parentId) {
 function getGmailHTML(parentId) {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto stedb-col">' +
-        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<div class="sign-up-button ste-sign-up-button gp">' +
         '<a class="form_save" social-gmail="s_gmail">' +
         '<img src="' + site_url + 'admin/images/gmail.png">' +
         // '<img src="' + site_url + 'admin/images/vertical_gp.png">' +
-        '<span class="align-self-center">Use My Gmail!</span>' +
+        '<span class="align-self-center">Submit via Gmail</span>' +
         '</a>' +
         '</div>' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="' + field + '"></button>' +
@@ -246,12 +248,12 @@ function getGmailHTML(parentId) {
 function getLinkedinHTML(parentId) {
     var field = generateField();
     var html = '<div class="li_' + field + ' ste-builder-field ste-row ste-height-auto stedb-col">' +
-        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="' + field + '" data-parent-field="'+parentId+'">' +
+        '<div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="' + field + '" data-parent-field="' + parentId + '">' +
         '<div class="sign-up-button ste-sign-up-button ln">' +
         '<a class="form_save" social-linkedin="s_linkedin">' +
         '<img src="' + site_url + 'admin/images/linkedin.png">' +
         // '<img src="' + site_url + 'admin/images/vertical_ln.png">' +
-        '<span class="align-self-center">Use My Linkedin!</span>' +
+        '<span class="align-self-center">Submit via Linkedin</span>' +
         '</a>' +
         '</div>' +
         '<button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="' + field + '"></button>' +
@@ -261,92 +263,92 @@ function getLinkedinHTML(parentId) {
 }
 (function($) {
 
-    var addDroppableListener = function () {
-        $( ".html_item_row_container" ).droppable({
-            accept: ".draggable, .social_gmail, .social_yahoo, .social_linkedin",
-            classes: {
-            "ui-droppable-active": "ui-state-active",
-            "ui-droppable-hover": "ui-state-hover",
-            },  
-            drop: function( event, ui ) {
-                $("#sortable").removeClass('ste-bg-drag-img');
+    var addDroppableListener = function() {
+            $(".html_item_row_container").droppable({
+                accept: ".draggable, .social_gmail, .social_yahoo, .social_linkedin",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover",
+                },
+                drop: function(event, ui) {
+                    $("#sortable").removeClass('ste-bg-drag-img');
                     var elem;
                     var parentId = getParentId(this);
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'text' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'text') {
                         elem = getTextFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'textarea' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'textarea') {
                         elem = getTextAreaFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'number' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'number') {
                         elem = getNumberFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'url' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'url') {
                         elem = getLinkFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'radio' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'radio') {
                         elem = getRadioFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'checkbox' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'checkbox') {
                         elem = getCheckboxFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'select' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'select') {
                         elem = getSelectFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'date' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'date') {
                         elem = getDateFieldHTML(parentId);
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'social_yahoo' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'social_yahoo') {
                         elem = getYahooHTML(parentId);
-                        if('.social_yahoo' != -1){
+                        if ('.social_yahoo' != -1) {
                             jQuery(".social_gmail").draggable('disable');
                             jQuery(".social_yahoo").draggable('disable');
                             jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
                             jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-                            $( "[title]" ).tooltip({
+                            $("[title]").tooltip({
                                 position: {
-                                  my: "left top",
-                                  at: "right+5 top-5",
-                                  collision: "none"
+                                    my: "left top",
+                                    at: "right+5 top-5",
+                                    collision: "none"
                                 }
-                              });
+                            });
                         }
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'social_gmail' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'social_gmail') {
                         elem = getGmailHTML(parentId);
-                        if ('social_gmail' != -1 ) { 
+                        if ('social_gmail' != -1) {
                             jQuery(".social_gmail").draggable('disable');
                             jQuery(".social_yahoo").draggable('disable');
                             jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
                             jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-                            $( "[title]" ).tooltip({
+                            $("[title]").tooltip({
                                 position: {
-                                  my: "left top",
-                                  at: "right+5 top-5",
-                                  collision: "none"
+                                    my: "left top",
+                                    at: "right+5 top-5",
+                                    collision: "none"
                                 }
-                              });
+                            });
                         }
                     }
-                    if( ui.helper.find('[data-type]').attr('data-type') == 'social_linkedin' ){
+                    if (ui.helper.find('[data-type]').attr('data-type') == 'social_linkedin') {
                         elem = getLinkedinHTML(parentId);
-                        if ('.social_linkedin' != -1 ) { 
-                            jQuery(".social_linkedin").draggable('disable');    
+                        if ('.social_linkedin' != -1) {
+                            jQuery(".social_linkedin").draggable('disable');
                         }
-                    }   
-                    $(this).find('[data-type=row]').append(elem);                            
-            },
-        });
-    }
-    /* draggable jquery*/
+                    }
+                    $(this).find('[data-type=row]').append(elem);
+                },
+            });
+        }
+        /* draggable jquery*/
     $(".html_row").draggable({
         helper: function() {
-            return getHTMLRow(); 
+            return getHTMLRow();
         },
         connectToSortable: "#ste-sortable"
     });
     $(".text_box").draggable({
-        stop: function( event, ui ) {
+        stop: function(event, ui) {
             $('.message-box').remove();
         },
         helper: function() {
@@ -425,23 +427,23 @@ function getLinkedinHTML(parentId) {
         },
         connectToSortable: ".html_item_row_container",
     });
-        $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box, .social_yahoo, .social_gmail, .social_linkedin").draggable({
-             start :function( event, ui ) {
-                if(jQuery("#ste-sortable").find("[data-type='row']").length <= 0){
-                    $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box").draggable('disable')
-                    $(".sp-container").show();
-                    $(".arrow_message").show();
-                    var full_html_code ='<div class="sp-container"><div class="sp-content"><div class="sp-globe"></div><h2 class="frame-1">Please Drag The Row First !</h2></div></div>'
-                    $('.appendableDiv').before(full_html_code);
+    $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box, .social_yahoo, .social_gmail, .social_linkedin").draggable({
+        start: function(event, ui) {
+            if (jQuery("#ste-sortable").find("[data-type='row']").length <= 0) {
+                $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box").draggable('disable')
+                $(".sp-container").show();
+                $(".arrow_message").show();
+                var full_html_code = '<div class="sp-container"><div class="sp-content"><div class="sp-globe"></div><h2 class="frame-1">Please Drag The Row First !</h2></div></div>'
+                $('.appendableDiv').before(full_html_code);
 
-                }
-              },
-            stop: function(){
-                $('.sp-container').remove();
-                $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box").draggable('enable')
-                $(".arrow_message").hide();
-            } 
-        });
+            }
+        },
+        stop: function() {
+            $('.sp-container').remove();
+            $(".text_box, .text_area, .number_box, .number_box, .radio_button, .checkbox, .select_box, .date_box, .link_box").draggable('enable')
+            $(".arrow_message").hide();
+        }
+    });
 
     $("#ste-sortable").sortable({
         cursor: 'move',
@@ -450,14 +452,14 @@ function getLinkedinHTML(parentId) {
             ui.placeholder.height(ui.helper.outerHeight());
             //$("#sortable").removeClass('ste-bg-drag-img');
         },
-        receive: function(ev, ui){
-            if('add_row_item' == ui.item.attr('id') ){
+        receive: function(ev, ui) {
+            if ('add_row_item' == ui.item.attr('id')) {
                 /**row container droppable*/
                 addDroppableListener();
             }
         },
         stop: function(ev, ui) {
-            if (!$('.sortable .form_output').length > 0) { 
+            if (!$('.sortable .form_output').length > 0) {
 
                 $("#sortable").addClass('ste-bg-drag-img');
             }
@@ -469,26 +471,26 @@ function getLinkedinHTML(parentId) {
         e.preventDefault();
         var field = $(this).attr('data-field');
         $(this).closest('.li_' + field).hide('400', function() {
-           
+
             var len = $('.form_builder_field').length;
             if (len == 0) {
-                $('.btn-shortcode').hide();   
+                $('.btn-shortcode').hide();
             }
-            if($(this).hasClass("html_row")){
-                if($(this).find("[data-type='social_gmail'],[data-type='social_yahoo']").length > 0){
+            if ($(this).hasClass("html_row")) {
+                if ($(this).find("[data-type='social_gmail'],[data-type='social_yahoo']").length > 0) {
                     jQuery(".social_gmail").draggable('enable');
-                    jQuery(".social_yahoo").draggable('enable');   
+                    jQuery(".social_yahoo").draggable('enable');
                     jQuery(".ste-social-icon").find(".help").remove();
-                }      
+                }
             }
-            if($(this).hasClass("html_row")){
-                if($(this).find("[data-type='social_linkedin']").length > 0){
+            if ($(this).hasClass("html_row")) {
+                if ($(this).find("[data-type='social_linkedin']").length > 0) {
                     jQuery(".social_linkedin").draggable('enable');
-                }      
+                }
             }
             $(this).remove();
         });
-        
+
     });
     $(document).on('click', '.remove_social_bal_field', function(e) {
         e.preventDefault();
@@ -501,10 +503,10 @@ function getLinkedinHTML(parentId) {
             }
         });
         jQuery(".social_gmail").draggable('enable');
-        jQuery(".social_yahoo").draggable('enable');   
+        jQuery(".social_yahoo").draggable('enable');
         jQuery(".ste-social-icon").find(".help").remove();
-                
-        
+
+
     });
     $(document).on('click', '.remove_linkedin_bal_field', function(e) {
         e.preventDefault();
@@ -517,7 +519,7 @@ function getLinkedinHTML(parentId) {
             }
         });
         jQuery(".social_linkedin").draggable('enable');
-        
+
     });
     $(document).on('click', '.add_more_radio', function() {
         $(this).closest('.ste-builder-field').css('height', 'auto');
@@ -535,7 +537,7 @@ function getLinkedinHTML(parentId) {
             '</div>' +
             '</div>'
         );
-        
+
     });
 
     $(document).on('click', '.add_more_checkbox', function() {
@@ -691,10 +693,10 @@ function getLinkedinHTML(parentId) {
         var $full_html = '';
         var full_html_code = '';
         var index = 0;
-        formRows.each(function(){
+        formRows.each(function() {
             var elTmp = $(this).find('.form_output');
             html += '<div class="li_row stedb-li-row-flex">';
-            elTmp.each(function(i) {//elements form output process[started]
+            elTmp.each(function(i) { //elements form output process[started]
                 var data_type = $(this).attr('data-type');
                 var label = $(this).find('.form_input_label').val();
                 var name = $(this).find('.form_input_name').val();
@@ -754,29 +756,29 @@ function getLinkedinHTML(parentId) {
                     field_detail_array[index++] = { 'field_name': label.toLowerCase().replace(/ /g, "_"), 'field_type': data_type, 'default_value': checkbox_arr };
                 }
                 if (data_type == 'social_yahoo') {
-                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-sign-up-button yh"><a style="text-decoration:none" class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yahoo.png"><span class="align-self-center">Use My Yahoo Mail!</span></a></div></div>';
+                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_yahoo" data-group_type="' + data_type + '" ><div class="sign-up-button ste-sign-up-button yh"><a style="text-decoration:none" class="form_save" social-yahoo="s_yahoo"><img src="' + site_url + 'admin/images/yahoo.png"><span class="align-self-center">Submit via Yahoo!</span></a></div></div>';
                     field_detail_array[index++] = { 'field_type': data_type };
-    
+
                 }
                 if (data_type == 'social_gmail') {
-                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-sign-up-button gp"><a style="text-decoration:none" class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div></div>';
+                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_gmail" data-group_type="' + data_type + '"><div class="sign-up-button ste-sign-up-button gp"><a style="text-decoration:none" class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Submit via Gmail</span></a></div></div>';
                     field_detail_array[index++] = { 'field_type': data_type };
-    
+
                 }
                 if (data_type == 'social_linkedin') {
-                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button  ste-sign-up-button ln"><a style="text-decoration:none" class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div></div>';
+                    html += '<div class="ste-mb-1 form-group form_builder_field_preview stedb-col" data-group_name="social_linkedin" data-group_type="' + data_type + '" ><div class="sign-up-button  ste-sign-up-button ln"><a style="text-decoration:none" class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Submit via Linkedin</span></a></div></div>';
                     field_detail_array[index++] = { 'field_type': data_type };
-    
+
                 }
-                
-    
-            });//elements form output process[done]
+
+
+            }); //elements form output process[done]
             html += '</div>';
         });
         $full_html = $('#ste-sortable').clone();
         $full_html.find('.appendableDiv').remove();
         full_html_code = $.trim($full_html.html());
-        
+
         if (plain_html == 'html') {
             var form_name = $('#form_name').val();
             var receiver = $('#receiver').val();
@@ -988,47 +990,57 @@ function getLinkedinHTML(parentId) {
                     /**row container droppable*/
                     addDroppableListener();
                     //Disable Gmail and Yahoo Button if either of them is loaded.
-                    if($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo']").length > 0){
+                    if ($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo']").length > 0) {
                         jQuery(".social_gmail").draggable('disable');
                         jQuery(".social_yahoo").draggable('disable');
                         jQuery(".social_linkedin").draggable('disable');
                         jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
                         jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-                        $( "[title]" ).tooltip({
+                        $("[title]").tooltip({
                             position: {
-                            my: "left top",
-                            at: "right+5 top-5",
-                            collision: "none"
+                                my: "left top",
+                                at: "right+5 top-5",
+                                collision: "none"
                             }
                         });
-                    }   
-                    
+                    }
+
                 }
                 //Disable LinkedIn if linkedin button is loaded.
-                if($("#ste-sortable").find("[data-type='social_linkedin']").length > 0){
+                if ($("#ste-sortable").find("[data-type='social_linkedin']").length > 0) {
                     jQuery(".social_linkedin").draggable('disable');
-                }   
-                
-            
+                }
+
+
             }
-            });
+        });
     } else {
         $('.btn-shortcode').hide();
-        if(jQuery('#formTemplateChoiceModal').length > 0){
+        if (jQuery('#formTemplateChoiceModal').length > 0) {
             jQuery('#formTemplateChoiceModal').modal('show');
         }
-        
+
     }
-    
-    
+
+    $(document).on('click', 'input[name="form_hide_checkbox"]', function() {
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: { action: 'ste_dont_show' },
+            dataType: 'json',
+            beforeSend: function() {},
+            success: function(response) {}
+        });
+        $("#formTemplateChoiceModal").modal('hide');
+    });
     $(document).on('click', '#contact_form', function() {
-        
-        var full_html_code = '<div class="li_68708 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="68708"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="68708"><div class="li_52171  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="52171"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="52171" data-parent-field="68708"><input type="text" name="label_52171" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="52171" value="First Name"></div></div><div class="li_31260  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="31260"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="31260" data-parent-field="68708"><input type="text" name="label_31260" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="31260" value="Last Name"></div></div></div></div><div class="li_61915 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="61915"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="61915"><div class="li_28948 ste-builder-field ste-row stedb-col" style="height: auto;"><div class="ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="28948"></button></div><div class="li_row form_output" data-type="select" data-field="28948"><input type="text" name="label_28948" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="28948" value="You can contact us at"><div class="ste-selectbox-list my-3"><div class="ste-flex"><select name="select_28948" class="ste-selectbox form-control mb-3  ste-selectbox-value col-3 mr-3"><option data-opt="4525" value="option">Facebook</option><option data-opt="59073" value="option">Twitter</option><option data-opt="80025" value="option">Instagram</option></select><button class="ste-add-more ste-btn-add-option add_more_select" data-field="28948">+ Add</button></div><div class="field_extra_info_28948"><div data-field="28948" class="row select_row_28948" data-opt="4525"><label class="ste-selectbox-inputbox ste-flex ste-py-rm-0-4"><input type="text" name="ste-selectbox-options" class="s_opt ste-selectbox-options form-control ste-flexb-90 " placeholder="Enter option" value="Facebook"></label></div><div data-field="28948" class="row select_row_28948" data-opt="59073"><div class="ste-flex mb-3 "><input type="text" name="ste-selectbox-options" class="s_opt form-control ste-selectbox-options col-8 mr-3 " value="Twitter"><button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="28948" data-opt="59073">x</button></div></div><div data-field="28948" class="row select_row_28948" data-opt="80025"><div class="ste-flex mb-3 "><input type="text" name="ste-selectbox-options" class="s_opt form-control ste-selectbox-options col-8 mr-3 " value="Instagram"><button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="28948" data-opt="80025">x</button></div></div></div></div></div></div></div></div><div class="li_44828 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="44828"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="44828"><div class="li_79732 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="79732"></button></div><div class="li_row form_output" data-type="textarea" data-field="79732" data-parent-field="44828"><input type="text" name="label_79732" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="79732" value="Message"></div></div></div></div><div class="li_8747 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="8747"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="8747"><div class="li_16706 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="16706" data-parent-field="8747"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+ site_url +'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="16706"></button></div></div><div class="li_85539 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="85539" data-parent-field="8747"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+ site_url +'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="85539"></button></div></div></div></div>';
+
+        var full_html_code = '<div class="li_68708 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="68708"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="68708"><div class="li_52171  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="52171"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="52171" data-parent-field="68708"><input type="text" name="label_52171" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="52171" value="First Name"></div></div><div class="li_31260  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="31260"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="31260" data-parent-field="68708"><input type="text" name="label_31260" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="31260" value="Last Name"></div></div></div></div><div class="li_61915 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="61915"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="61915"><div class="li_28948 ste-builder-field ste-row stedb-col" style="height: auto;"><div class="ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="28948"></button></div><div class="li_row form_output" data-type="select" data-field="28948"><input type="text" name="label_28948" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="28948" value="You can contact us at"><div class="ste-selectbox-list my-3"><div class="ste-flex"><select name="select_28948" class="ste-selectbox form-control mb-3  ste-selectbox-value col-3 mr-3"><option data-opt="4525" value="option">Facebook</option><option data-opt="59073" value="option">Twitter</option><option data-opt="80025" value="option">Instagram</option></select><button class="ste-add-more ste-btn-add-option add_more_select" data-field="28948">+ Add</button></div><div class="field_extra_info_28948"><div data-field="28948" class="row select_row_28948" data-opt="4525"><label class="ste-selectbox-inputbox ste-flex ste-py-rm-0-4"><input type="text" name="ste-selectbox-options" class="s_opt ste-selectbox-options form-control ste-flexb-90 " placeholder="Enter option" value="Facebook"></label></div><div data-field="28948" class="row select_row_28948" data-opt="59073"><div class="ste-flex mb-3 "><input type="text" name="ste-selectbox-options" class="s_opt form-control ste-selectbox-options col-8 mr-3 " value="Twitter"><button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="28948" data-opt="59073">x</button></div></div><div data-field="28948" class="row select_row_28948" data-opt="80025"><div class="ste-flex mb-3 "><input type="text" name="ste-selectbox-options" class="s_opt form-control ste-selectbox-options col-8 mr-3 " value="Instagram"><button class="ste-add-more ste-btn-remove-option remove_more_select" data-field="28948" data-opt="80025">x</button></div></div></div></div></div></div></div></div><div class="li_44828 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="44828"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="44828"><div class="li_79732 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="79732"></button></div><div class="li_row form_output" data-type="textarea" data-field="79732" data-parent-field="44828"><input type="text" name="label_79732" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="79732" value="Message"></div></div></div></div><div class="li_8747 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="8747"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="8747"><div class="li_16706 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="16706" data-parent-field="8747"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Submit via Linkedin</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="16706"></button></div></div><div class="li_85539 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="85539" data-parent-field="8747"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Submit via Gmail</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="85539"></button></div></div></div></div>';
         $('#form_name').val('');
         $('#receiver').val('');
         $('.appendableDiv').before(full_html_code);
         $("#sortable").removeClass('ste-bg-drag-img');
-        if($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0){
+        if ($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0) {
             jQuery(".social_gmail").draggable('disable');
             jQuery(".social_yahoo").draggable('disable');
             jQuery(".social_linkedin").draggable('disable');
@@ -1036,118 +1048,118 @@ function getLinkedinHTML(parentId) {
             addDroppableListener();
             jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
             jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-            $( "[title]" ).tooltip({
+            $("[title]").tooltip({
                 position: {
-                my: "left top",
-                at: "right+5 top-5",
-                collision: "none"
+                    my: "left top",
+                    at: "right+5 top-5",
+                    collision: "none"
                 }
             });
-        }      
+        }
     });
-    
+
     $(document).on('click', '#simple_form', function() {
-        var full_html_code = '<div class="li_28345 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="28345"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="28345"><div class="li_10555  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="10555"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="10555" data-parent-field="28345"><input type="text" name="label_10555" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="10555" value="First Name"></div></div><div class="li_57169  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="57169"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="57169" data-parent-field="28345"><input type="text" name="label_57169" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="57169" value="Last Name"></div></div></div></div><div class="li_97713 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="97713"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="97713"><div class="li_71367 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="71367"></button></div><div class="li_row form_output" data-type="textarea" data-field="71367" data-parent-field="97713"><input type="text" name="label_71367" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="71367" value="Message"></div></div></div></div><div class="li_69667 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="69667"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="69667"><div class="li_21048 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="21048" data-parent-field="69667"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+ site_url +'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="21048"></button></div></div><div class="li_29836 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="29836" data-parent-field="69667"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+ site_url +'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="29836"></button></div></div></div></div>';
+        var full_html_code = '<div class="li_28345 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="28345"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="28345"><div class="li_10555  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="10555"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="10555" data-parent-field="28345"><input type="text" name="label_10555" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="10555" value="First Name"></div></div><div class="li_57169  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="57169"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="57169" data-parent-field="28345"><input type="text" name="label_57169" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="57169" value="Last Name"></div></div></div></div><div class="li_97713 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="97713"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="97713"><div class="li_71367 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="71367"></button></div><div class="li_row form_output" data-type="textarea" data-field="71367" data-parent-field="97713"><input type="text" name="label_71367" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="71367" value="Message"></div></div></div></div><div class="li_69667 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="69667"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="69667"><div class="li_21048 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="21048" data-parent-field="69667"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Submit via Linkedin</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="21048"></button></div></div><div class="li_29836 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="29836" data-parent-field="69667"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Submit via Gmail</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="29836"></button></div></div></div></div>';
         $('#form_name').val('');
         $('#receiver').val('');
         $('.appendableDiv').before(full_html_code);
         $("#sortable").removeClass('ste-bg-drag-img');
         /**row container droppable*/
         addDroppableListener();
-        if($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0){
+        if ($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0) {
             jQuery(".social_gmail").draggable('disable');
             jQuery(".social_yahoo").draggable('disable');
             jQuery(".social_linkedin").draggable('disable');
             jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
             jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-            $( "[title]" ).tooltip({
+            $("[title]").tooltip({
                 position: {
-                my: "left top",
-                at: "right+5 top-5",
-                collision: "none"
+                    my: "left top",
+                    at: "right+5 top-5",
+                    collision: "none"
                 }
             });
-        }      
-       
+        }
+
     });
-   
+
     $(document).on('click', '#shipping_form', function() {
-        var full_html_code = '<div class="li_66748 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="66748"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="66748"><div class="li_64171  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="64171"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="64171" data-parent-field="66748"><input type="text" name="label_64171" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="64171" value="First Name"></div></div><div class="li_85762  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="85762"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="85762" data-parent-field="66748"><input type="text" name="label_85762" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="85762" value="Last Name"></div></div></div></div><div class="li_73976 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="73976"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="73976"><div class="li_4034 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="4034"></button></div><div class="li_row form_output" data-type="textarea" data-field="4034" data-parent-field="73976"><input type="text" name="label_4034" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="4034" value="Message"></div></div></div></div><div class="li_10829 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="10829"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="10829"><div class="li_7870 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="7870"></button></div><div class="li_row form_output" data-type="date" data-field="7870" data-parent-field="10829"><input type="text" name="label_7870" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="7870" value="Departure Date"></div></div><div class="li_3437 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="3437"></button></div><div class="li_row form_output" data-type="date" data-field="3437" data-parent-field="10829"><input type="text" name="label_3437" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="3437" value="Arrival Date"></div></div></div></div><div class="li_20535 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="20535"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="20535"><div class="li_41528 ste-builder-field ste-row stedb-col" style="height: auto;"><div class="ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="41528"></button></div><div class="li_row form_output" data-type="checkbox" data-field="41528"><input type="text" name="label_41528" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="41528" value="Status"><div class="field_extra_info_41528"><div class="ste-checkbox-list my-3 checkbox_row_41528" data-field="41528" data-opt="43155"><div class="ste-flex mt-checkbox checkbox_list_41528"><label class="ste-custom-input ste-flex"><input data-opt="43155" type="checkbox" name="checkbox_41528" class=" c_opt_name_43155"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" placeholder="Enter option" value="Pending"><button class="ste-add-more ste-btn-add-option add_more_checkbox" data-field="41528">+ Add</button></div></div><div class="ste-checkbox-list  checkbox_row_41528" data-field="41528" data-opt="25071"><div class="ste-flex mt-checkbox my-3 checkbox_list_41528"><label class="ste-custom-input ste-flex "><input data-opt="25071" type="checkbox" name="checkbox_41528" class=" c_opt_name_25071"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" value="Shipped"><button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="41528">x</button></div></div><div class="ste-checkbox-list  checkbox_row_41528" data-field="41528" data-opt="70798"><div class="ste-flex mt-checkbox my-3 checkbox_list_41528"><label class="ste-custom-input ste-flex "><input data-opt="70798" type="checkbox" name="checkbox_41528" class=" c_opt_name_70798"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" value="Canceled"><button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="41528">x</button></div></div></div></div></div></div></div><div class="li_81921 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="81921"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="81921"><div class="li_44309 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="44309" data-parent-field="81921"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="'+ site_url +'admin/images/linkedin.png"><span class="align-self-center">Use My Linkedin!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="44309"></button></div></div><div class="li_50787 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="50787" data-parent-field="81921"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="'+ site_url +'admin/images/gmail.png"><span class="align-self-center">Use My Gmail!</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="50787"></button></div></div></div></div>';
+        var full_html_code = '<div class="li_66748 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="66748"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="66748"><div class="li_64171  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="64171"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="64171" data-parent-field="66748"><input type="text" name="label_64171" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="64171" value="First Name"></div></div><div class="li_85762  ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="85762"></button></div><div id="text-box" class="li_row  form_output" data-type="text" data-field="85762" data-parent-field="66748"><input type="text" name="label_85762" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="85762" value="Last Name"></div></div></div></div><div class="li_73976 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="73976"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="73976"><div class="li_4034 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="4034"></button></div><div class="li_row form_output" data-type="textarea" data-field="4034" data-parent-field="73976"><input type="text" name="label_4034" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="4034" value="Message"></div></div></div></div><div class="li_10829 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="10829"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="10829"><div class="li_7870 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="7870"></button></div><div class="li_row form_output" data-type="date" data-field="7870" data-parent-field="10829"><input type="text" name="label_7870" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="7870" value="Departure Date"></div></div><div class="li_3437 ste-builder-field ste-row stedb-col"><div class="ste-flex ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="3437"></button></div><div class="li_row form_output" data-type="date" data-field="3437" data-parent-field="10829"><input type="text" name="label_3437" class="ste-field form_input_label form-control" placeholder="Enter your label here" data-field="3437" value="Arrival Date"></div></div></div></div><div class="li_20535 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="20535"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="20535"><div class="li_41528 ste-builder-field ste-row stedb-col" style="height: auto;"><div class="ste-justify-space ste-align-center"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="41528"></button></div><div class="li_row form_output" data-type="checkbox" data-field="41528"><input type="text" name="label_41528" class="ste-field form-control form_input_label" placeholder="Enter your label here" data-field="41528" value="Status"><div class="field_extra_info_41528"><div class="ste-checkbox-list my-3 checkbox_row_41528" data-field="41528" data-opt="43155"><div class="ste-flex mt-checkbox checkbox_list_41528"><label class="ste-custom-input ste-flex"><input data-opt="43155" type="checkbox" name="checkbox_41528" class=" c_opt_name_43155"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" placeholder="Enter option" value="Pending"><button class="ste-add-more ste-btn-add-option add_more_checkbox" data-field="41528">+ Add</button></div></div><div class="ste-checkbox-list  checkbox_row_41528" data-field="41528" data-opt="25071"><div class="ste-flex mt-checkbox my-3 checkbox_list_41528"><label class="ste-custom-input ste-flex "><input data-opt="25071" type="checkbox" name="checkbox_41528" class=" c_opt_name_25071"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" value="Shipped"><button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="41528">x</button></div></div><div class="ste-checkbox-list  checkbox_row_41528" data-field="41528" data-opt="70798"><div class="ste-flex mt-checkbox my-3 checkbox_list_41528"><label class="ste-custom-input ste-flex "><input data-opt="70798" type="checkbox" name="checkbox_41528" class=" c_opt_name_70798"><span class="checkmark-checkbox ste-pos-relative"></span></label><input type="text" name="ste-checkbox-value" class="c_opt ste-checkbox-value form-control col-3 mx-3" value="Canceled"><button class="ste-add-more  ste-btn-remove-option remove_more_checkbox" data-field="41528">x</button></div></div></div></div></div></div></div><div class="li_81921 ste-builder-field ste-row-full html_item_row_container html_row ui-droppable" style="width: 291px; right: auto; height: 183px; bottom: auto;"><div class="ste-row ste-flex ste-align-center control-box"><button class="ste-remove-field ste-icon-field icon icon-close remove_bal_field" data-field="81921"></button></div><div class="li_row stedb-li-row-flex" data-type="row" data-field="81921"><div class="li_44309 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_linkedin" data-field="44309" data-parent-field="81921"><div class="sign-up-button ste-sign-up-button ln"><a class="form_save" social-linkedin="s_linkedin"><img src="' + site_url + 'admin/images/linkedin.png"><span class="align-self-center">Submit via Linkedin</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_linkedin_bal_field" data-field="44309"></button></div></div><div class="li_50787 ste-builder-field ste-row ste-height-auto stedb-col"><div class="li_row form_output ste-flex ste-my-0-5" data-type="social_gmail" data-field="50787" data-parent-field="81921"><div class="sign-up-button ste-sign-up-button gp"><a class="form_save" social-gmail="s_gmail"><img src="' + site_url + 'admin/images/gmail.png"><span class="align-self-center">Submit via Gmail</span></a></div><button class="ste-remove-field ste-icon-field icon icon-close remove_social_bal_field" data-field="50787"></button></div></div></div></div>';
         $('#form_name').val('');
         $('#receiver').val(' ');
         $('.appendableDiv').before(full_html_code);
         $("#sortable").removeClass('ste-bg-drag-img');
         /**row container droppable*/
         addDroppableListener();
-        if($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0){
+        if ($("#ste-sortable").find("[data-type='social_gmail'],[data-type='social_yahoo'],[data-type='social_linkedin']").length > 0) {
             jQuery(".social_gmail").draggable('disable');
             jQuery(".social_yahoo").draggable('disable');
             jQuery(".social_linkedin").draggable('disable');
             jQuery(".social_yahoo").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
             jQuery(".social_gmail").closest(".ste-social-icon").append("<a href='javascript:void(0);' title='Due to some technical restrictions, Yahoo and Gmail cannot be used together in one form.' class='help'>&#8505;</a>");
-            $( "[title]" ).tooltip({
+            $("[title]").tooltip({
                 position: {
-                my: "left top",
-                at: "right+5 top-5",
-                collision: "none"
+                    my: "left top",
+                    at: "right+5 top-5",
+                    collision: "none"
                 }
             });
-        }      
-    
+        }
+
     });
 
-    $( "[title]" ).tooltip({
+    $("[title]").tooltip({
         position: {
-        my: "down",
-        collision: "none"
+            my: "down",
+            collision: "none"
         }
     });
 
     // Address start
-$(document).on('click', '.update_send_address', function(e) {
-    e.preventDefault();
-    var address = $("#address").val();
-    
-    var address2    = $("#address2").val();
-    var city = $("#city").val();
-    var state_province = $("#state_province").val();
-    var zip_code = $("#zip_code").val();
-    var country = $("#country").val();
-    var valid = true;
-    $('#submit-setting-update').find('input[type=text]').each(function(){
-        $(this).removeClass('input-field-error');
-        var string = $(this).val();
-        if( string== '' && $(this).attr('name') !='address2'){
-            $(this).addClass('input-field-error');
-            valid =false;
+    $(document).on('click', '.update_send_address', function(e) {
+        e.preventDefault();
+        var address = $("#address").val();
+
+        var address2 = $("#address2").val();
+        var city = $("#city").val();
+        var state_province = $("#state_province").val();
+        var zip_code = $("#zip_code").val();
+        var country = $("#country").val();
+        var valid = true;
+        $('#submit-setting-update').find('input[type=text]').each(function() {
+            $(this).removeClass('input-field-error');
+            var string = $(this).val();
+            if (string == '' && $(this).attr('name') != 'address2') {
+                $(this).addClass('input-field-error');
+                valid = false;
+            }
+        });
+        if ($('#submit-setting-update').find('select').val() === null) {
+            valid = false;
+            $('#submit-setting-update').find('select').addClass('input-field-error')
+        } else {
+            $('#submit-setting-update').find('select').removeClass('input-field-error')
         }
-      });
-      if($('#submit-setting-update').find('select').val()===null){
-        valid =false;
-        $('#submit-setting-update').find('select').addClass('input-field-error')
-      }else{
-        $('#submit-setting-update').find('select').removeClass('input-field-error') 
-      }
-      $('#submit-setting-update').find('.input-field-error:first').focus();
-      if(!valid)
-      return false;
-            $.ajax({
-                url: ajax_url,
-                type: 'post',
-                data: { 'action': 'ste_send_update_address', 'address': address, 'address2': address2, 'city': city, 'state_province': state_province, 'zip_code': zip_code, 'country': country, nonce: ste.nonce },
-                dataType: 'JSON',
-                beforeSend: function() {
-                    $("#loader1").show();
-                },
-                success: function(response) {
-                    $("#loader1").hide();
-                    if (response.success) {
-                        $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:green;font-size: 15px;">Successfully Saved</b></div>')
-                    }else{
-                        $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:red;font-size: 15px;">'+response.message+'</b></div>')
-                    }
-                },
-            });
-});
+        $('#submit-setting-update').find('.input-field-error:first').focus();
+        if (!valid)
+            return false;
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: { 'action': 'ste_send_update_address', 'address': address, 'address2': address2, 'city': city, 'state_province': state_province, 'zip_code': zip_code, 'country': country, nonce: ste.nonce },
+            dataType: 'JSON',
+            beforeSend: function() {
+                $("#loader1").show();
+            },
+            success: function(response) {
+                $("#loader1").hide();
+                if (response.success) {
+                    $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:green;font-size: 15px;">Successfully Saved</b></div>')
+                } else {
+                    $('.ajax-message-settings').html('<div style="margin:15px 0px"><b style="color:red;font-size: 15px;">' + response.message + '</b></div>')
+                }
+            },
+        });
+    });
 
 })(jQuery);

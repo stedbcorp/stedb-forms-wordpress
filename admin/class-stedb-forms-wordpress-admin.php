@@ -75,7 +75,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			add_action( 'wp_ajax_ste_verify_email_code', array( $this, 'ste_verify_email_code' ) );
 			add_action( 'wp_ajax_ste_send_address', array( $this, 'ste_send_address' ) );
 			add_action( 'wp_ajax_ste_send_update_address', array( $this, 'ste_send_update_address' ) );
-
+			add_action( 'wp_ajax_ste_dont_show', array( $this, 'ste_dont_show'));
 			/* Public Ajax*/
 			add_action( 'wp_ajax_check_stedb_email_exist', array( $this, 'check_stedb_email_exist' ) );
 			add_action( 'wp_ajax_ste_save_form_data', array( $this, 'ste_save_form_data' ) );
@@ -138,13 +138,15 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 			/*adding main admin menu*/
 			add_menu_page( 'STEdb Form', 'STEdb Form', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
 			/*adding submenu*/
+			add_submenu_page( 'ste-form-builder', 'Form Builder', 'Form Builder', 'manage_options', 'ste-form-builder', array( $this, 'ste_form_admin_page' ) );
+			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Send Email', 'Send Email', 'manage_options', 'ste-send-email-template', array( $this, 'ste_send_email_page' ) );
 			/*adding submenu*/
 			add_submenu_page( 'ste-form-builder', 'Report', 'Report', 'manage_options', 'ste-report-template', array( $this, 'ste_report_page' ) );
 			/*adding submenu*/
-			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'STEdb Forms', 'manage_options', 'ste-from-data-template', array( $this, 'ste_form_data_page' ) );
+			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'Forms', 'manage_options', 'ste-from-data-template', array( $this, 'ste_form_data_page' ) );
 			/*adding submenu*/
-			add_submenu_page( 'ste-form-builder', 'STEdb Forms', 'STEdb Settings', 'manage_options', 'ste-setting', array( $this, 'ste_setting_page' ) );
+			add_submenu_page( 'ste-form-builder', 'STEdb Settings', 'Settings', 'manage_options', 'ste-setting', array( $this, 'ste_setting_page' ) );
 		}
 		/**
 		 * [ste_form_admin_page description]
@@ -1012,6 +1014,12 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 						}
 				}
 			}
+		}
+		public function ste_dont_show(){
+			global $wpdb;
+			update_option( 'stedb_form_popup_hide', 1 );
+			echo wp_json_encode( array( 'success' => true ) );
+			die;
 		}
 		public function ste_send_update_address() {
 			global $wpdb;

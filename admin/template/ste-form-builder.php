@@ -8,8 +8,9 @@
 	 * @package    ste-form-builder.php
 	 * @subpackage ste-form-builder/admin/template
 	 */
-
 ?>
+<?php
+if(	 get_option('stedb_form_popup_hide') != 1 ){?>
 <div class="modal fade temp_form_main" id="formTemplateChoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -30,12 +31,21 @@
 				<div class="col-9 form_content align-self-center">Shipping Form</div>
 			</div>
 		</div>
-	<div class="modal-footer"><span class="tag_line">No, I would like to create my own form. </span>
-		<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip</button>
+	<div class="modal-footer" style="display:block">
+		<div>
+			<span class="tag_line popup-skip">No, I would like to create my own form. </span>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Skip</button>
+		</div>
+		<div>
+			<input type="checkbox" name="form_hide_checkbox"/>
+			<span class="tag_line popup-dont-show" id="donot-show-checkbox">Do not show again</span>
+		</div>
+		
 	</div>
 </div>
 </div>
 </div>
+<?php } ?>
 <!-- Modal -->
 <div class="ste-form-builder container-fluid form-builder-box ste-block">
 	<div class="row updated_base gform_editor_status" id="after_update_dialog" style="display: none;">
@@ -70,8 +80,10 @@
 				<div class="col py-3">
 					<button type="button" class="btn btn-primary ste-form-btn-show-shortcode  ste-form-btn-show-shortcode-disable create_form " id="shortcode"><span class="icon icon-code "></span><?php esc_html_e( 'Save my form', 'ste-social-form-builder' ); ?></button>
 					<button type="button"  class="preview_form btn btn-secondary  ste-btn-preview ste-form-btn-show-shortcode"><span class="icon icon-view"></span><?php esc_html_e( 'Preview', 'ste-social-form-builder' ); ?></button>
+					<?php if(isset($_GET['id'])){ ?>
 					<button type="button" id="shortcode" class="btn btn-success mr-2 ste-form-btn-show-shortcode " name="copy_shortcode"> <span class="icon icon-copy "></span> <?php esc_html_e( 'Copy Shortcode', 'ste-social-form-builder' ); ?></button>
 					<input type="text" id="shortcode_box" name="ste-form-shortcode-display" class="shortcode-show-input shortcode ste-form-shortcode-display mr-2" disabled="disabled">								
+					<?php } ?>
 					<img id="loader" src="<?php echo esc_url( plugins_url( 'images/giphy.gif', dirname( __FILE__ ) ) ); ?>">
 				</div> 
 			</div>

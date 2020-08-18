@@ -108,6 +108,7 @@ class Stedb_Form_Data extends WP_List_Table {
 		global $wpdb;
 		$args     = wp_unslash( $_REQUEST );
 		$table    = $wpdb->get_results( 'SELECT * FROM stedb_form_builder_data' );
+		$sql =  'SELECT * FROM stedb_form_builder_data';
 		$per_page = 20;
 		$columns  = $this->get_columns();
 		$hidden   = array();
@@ -121,8 +122,21 @@ class Stedb_Form_Data extends WP_List_Table {
 		$orderby     = ( isset( $args['orderby'] ) && in_array( $args['orderby'], array_keys( $this->get_sortable_columns() ) ) ) ? $args['orderby'] : 'form_name';
 		$order       = ( isset( $args['order'] ) && in_array( $args['order'], array( 'asc', 'desc' ) ) ) ? $args['order'] : 'asc';
 
-		$this->items = $wpdb->get_results( 'SELECT * FROM stedb_form_builder_data', ARRAY_A );
 
+		
+		if ( ! empty( $_REQUEST['orderby'] ) ) {
+            $sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
+            $sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+        }
+
+		$sql .= " LIMIT $per_page";
+		if(! empty($_REQUEST['paged'])){
+
+			$sql .= ' OFFSET ' . ( $_REQUEST['paged'] - 1 ) * $per_page;
+		}
+		
+
+		$this->items = $wpdb->get_results( $sql, ARRAY_A );
 		$this->set_pagination_args(
 			array(
 				'total_items' => $total_items,
