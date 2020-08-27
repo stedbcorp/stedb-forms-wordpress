@@ -1623,6 +1623,7 @@ a.ui-draggable-disabled {
 
 #submit-setting-update #country {
     max-width: 100%;
+    height: auto !important;
 }
 
 .setting-card-body {
