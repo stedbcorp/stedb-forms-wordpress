@@ -32,18 +32,18 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 */
 		public function __construct() {
 			/************ Short code */
-			add_shortcode( 'STE_db_form', array( $this, 'ste_get_shortcode' ) );
+			add_shortcode( 'stedb_form', array( $this, 'ste_get_shortcode' ) );
 			/*************** Public style & script*/
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 		}
 		/**
 		 * Register the JavaScript for the admin area.
 		 *
 		 * @since    1.0.0
 		 */
-		public function enqueue_styles() {
-			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), '', '0.1' );
+		public function enqueue_style() {
+			wp_enqueue_style( 'ste_public_css', plugins_url( '/css/ste-style.css', __FILE__ ), 'rand(111,9999)', '0.1' );
 			wp_enqueue_style( 'ste_public_font-awesome_css', plugins_url( '/css/font-awesome.min.css', __FILE__ ), '', '0.1' );
 		}
 		/**
@@ -51,14 +51,14 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function enqueue_scripts() {
-			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', true );
+		public function enqueue_script() {
+			wp_enqueue_script( 'ste-public', plugins_url( '/js/ste-public.js', __FILE__ ), array( 'jquery' ), '0.1', 'rand(111,9999)', true );
 			// Localize script.
 			$stedata = array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'site_url'   => site_url(),
 				'plugin_url' => stedb_plugin_url(),
-
+				'nonce'      => wp_create_nonce( 'ajax-nonce' ),
 			);
 			wp_localize_script( 'ste-public', 'ste', $stedata );
 		}
@@ -71,12 +71,11 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 		public function ste_get_shortcode( $atts ) {
 
 			global $wpdb;
-			$form_id          = $atts['id'];
-			$list_id          = $atts['list-id'];
-			$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
-			$get_social_links = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
-
-			$api_field_ids                 = $get_form_detail[0]->stedb_form_id;
+			$form_id                       = $atts['id'];
+			$list_id                       = $atts['list-id'];
+			$get_form_detail               = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
+			$get_social_links              = $wpdb->get_results( $wpdb->prepare( 'SELECT `form_social_link` FROM stedb_form_list WHERE form_id = %d', $list_id ) );
+			$api_field_ids                 = $get_form_detail[0]->form_id;
 			$api_field_id                  = explode( ',', $api_field_ids );
 			$get_social_link               = $get_social_links[0]->form_social_link;
 			$social_link                   = json_decode( $get_social_link );
@@ -104,44 +103,49 @@ if ( ! class_exists( 'Stedb_Forms_Wordpress_Public' ) ) {
 				$nonce = sanitize_text_field( $request_args );
 			}
 
-			if ( ! wp_verify_nonce( $nonce ) && ! isset( $get_form_detail ) && ! $get_form_detail ) {
-
-				die( 'unable to process your request pleae try again' );
-
-			} else {
-
-				if ( isset( $request_args['email'] ) ) {
+			if ( isset( $get_form_detail ) && isset( $_SESSION['form_data_array'] ) ) {
+				// if ( isset( $request_args['email'] ) ) {
 					$email = sanitize_email( $request_args['email'] );
 					if ( null !== ( sanitize_email( $email ) ) && $email ) {
 						$form_data = array(
 							'email'         => $email,
 							'list_id'       => $list_id,
-							'custom_fileds' => wp_json_encode( $_SESSION['form_data_array'] ),
+							'custom_fields' => wp_json_encode( $_SESSION['form_data_array'] ),
 						);
 					}
-					session_destroy();
-					$user_id      = sanitize_option( get_option( 'stedb_user_id' ) );
-					$secret       = sanitize_option( get_option( 'stedb_secret' ) );
-					$base_url     = sanitize_option( get_option( 'stedb_base_url' ) );
+					$user_id      = get_option( 'stedb_user_id' );
+					$secret       = get_option( 'stedb_secret' );
+					$base_url     = get_option( 'stedb_base_url' );
 					$stedb_public = new STEDB_Account();
 					$output       = $stedb_public->stedb_save_subscriber( $user_id, $secret, $base_url, $form_data );
+					unset( $_SESSION['form_data_array'] );
+					$html =  '<div class = "thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
 
-					echo '<div class="thank-you-message">Thanks for contacting us! We will get in touch with you shortly.</div>';
-					die;
-				}
-			}
-			$html  = '<form method="post" action="" id="front_end_form" class="ste-col-60">' .
+				// }
+			} else {
+				$html = '<form method="post" action="" id="front_end_form" class="ste-col-60 stedb-form">' .
 					'<div class="form-group">' .
 					'</div>' .
 					'<input type="hidden" value="' . esc_attr( $get_form_detail[0]->form_id ) . '" class="form_id">' .
-					wp_nonce_field() .
+					wp_nonce_field(  -1,  '_wpnonce',  true, false ).
 					$html_code .
 				'</form>';
+			}
 			$html .= '
 				<script type="text/javascript">
 					var site_url = "' . esc_js( get_option( 'siteurl' ) ) . '";
 					var page_id = "' . esc_js( get_the_ID() ) . '";
-					var page_link = "' . esc_js( get_page_link( 'page_id' ) ) . '";					
+					var page_link = "' . esc_js( get_permalink( get_the_ID() ) ) . '";	
+					jQuery(document).ready(function(){
+
+						jQuery("form.stedb-form").find("input").each(function(){
+				        if(!jQuery(this).prop("required")){
+				        	jQuery(this).attr("required", true);
+				        } else {
+				            console.log("Not Required");
+				        }
+				    });
+						});
 				</script>';
 			return $html;
 		}

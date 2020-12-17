@@ -21,7 +21,7 @@ class STEDB_Account {
 	 */
 	public function stedb_registration() {
 		if ( empty( get_option( 'stedb_user_id' ) ) && empty( get_option( 'stedb_secret' ) ) && empty( get_option( 'stedb_base_url' ) ) ) {
-			$this->stedb_create_registration();
+			return $this->stedb_create_registration();
 		}
 	}
 	/**
@@ -36,6 +36,8 @@ class STEDB_Account {
 			'email'  => $user->user_email,
 			'domain' => get_option( 'siteurl' ),
 		);
+		$user_id  = '';
+		$secret   = '';
 		$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
 		$output   = $client->ste_send_request( '/account/create', 'POST', $data );
 		if ( ! isset( $output->data->error ) ) {
@@ -49,7 +51,7 @@ class STEDB_Account {
 				add_option( 'stedb_base_url', $base_url );
 			}
 		}
-
+		return $output;
 	}
 
 	/**
@@ -185,6 +187,31 @@ class STEDB_Account {
 	}
 
 	/**
+	 * [stedb_update_form_list description]
+	 * HTML template for update form list
+	 *
+	 * @param user_id   $user_id get user_id.
+	 * @param secret    $secret get secret.
+	 *  @param base_url  $base_url get base_url.
+	 * @param list_data $list_data get list_data.
+	 */
+	public function stedb_update_form_list( $user_id, $secret, $base_url, $list_data ) {
+
+		global $wpdb;
+		$list_data = array(
+			'id'       => $list_data['form_id'],
+			'name' => $list_data['form_name'],
+			'receiver'  => $list_data['receiver'],
+		);
+		$data = json_encode($list_data);
+		$update_form_list = new STEDB_Api_Client( $user_id, $secret, $base_url );
+		$output           = $update_form_list->ste_send_request( 'lists/' . $list_data['id'] . '', 'PUT', $data );
+		$id               = $output->data->id;
+		return $id;
+	}
+
+
+	/**
 	 * [stedb_create_form_list description]
 	 * HTML template for create form list
 	 *
@@ -234,7 +261,7 @@ class STEDB_Account {
 		global $wpdb;
 
 		$create_campaign = new STEDB_Api_Client( $user_id, $secret, $base_url );
-		$output          = $create_campaign->ste_send_request( 'campaign/', 'POST', $data );
+		$output          = $create_campaign->ste_send_request( 'campaign', 'POST', $data );
 		$id              = $output->data->id;
 
 		return $id;
@@ -271,7 +298,7 @@ class STEDB_Account {
 		global $wpdb;
 		$save_subscriber = new STEDB_Api_Client( $user_id, $secret, $base_url );
 		$output          = $save_subscriber->ste_send_request( 'emails/', 'POST', $data );
-		$id              = $output->data->id;
+		@$id              = $output->data->id;
 		return $id;
 
 	}

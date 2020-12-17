@@ -26,7 +26,8 @@ class STE_DB_Migration {
 	public function stedb_migrate() {
 
 		global $wpdb;
-
+		$user             = wp_get_current_user();
+		$id               = $user->ID;
 			$migration    = array();
 			$migration[1] = array(
 				"CREATE TABLE if not exists `stedb_form_builder_data` (
@@ -42,7 +43,7 @@ class STE_DB_Migration {
                               `creation_date` date DEFAULT NULL,
 							  `stedb_form_id` varchar(255) DEFAULT NULL,
 							  PRIMARY KEY (`form_id`)
-                            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+							) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			);
 			$migration[2] = array(
 				'ALTER TABLE `stedb_form_builder_data`
@@ -100,7 +101,10 @@ class STE_DB_Migration {
 				'ALTER TABLE `stedb_send_email_entries`
                                 MODIFY `campaign_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;',
 			);
-
+			$migration[9] = array(
+				'ALTER TABLE `stedb_send_email_entries` ADD `from_email` VARCHAR(255) NULL AFTER `from_name`;',
+			);
+			
 			foreach ( $migration as $version => $queries ) {
 				foreach ( $queries as $query ) {
 					/**

@@ -71,9 +71,12 @@ class STEDB_Api_Client {
 		$header = array(
 			'X-Auth-UserId'    => $this->user_id,
 			'X-Auth-Time'      => $stamp,
-			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp ),
+			'X-Auth-Signature' => hash_hmac( 'SHA256', $this->secret, $this->user_id . ':' . $stamp )
 		);
-
+		if($method =='PUT'){
+			$header['Content-Type'] = 'application/json';
+		}
+		
 		switch ( $method ) {
 
 			case 'POST':
@@ -99,11 +102,12 @@ class STEDB_Api_Client {
 			'cookies'     => array(),
 		);
 		$response = wp_remote_request( $url, $pload );
-
+		//echo $url;
+		//print_r($response);
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
 			echo sprintf( 'Something went wrong: %s', esc_html( $error_message ) );
-
+			
 			$body  = $error_message;
 			$error = '';
 		} else {
