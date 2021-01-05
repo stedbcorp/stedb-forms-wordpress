@@ -11,54 +11,69 @@
 
 $args         = wp_unslash( $_GET );
 $current_page = $args['page'];
-
+$user         = wp_get_current_user();
+$email        = $user->user_email;
 ?>
 <div class="ste-container">
-	<div class="ste-header-section">
+<div class=" ste-header-section ">
+<div class="row   ste-top-bar">
+<div class="col-7 align-self-center py-4">
+<span class="ste-header-title white"><?php esc_html_e( "Easy drag & drop STEdb's form builder", 'ste-social-form-builder' ); ?></span>
+</div>
+<div class=" col-5 ste-header-icons">
+<div class="row">
+<div class="align-self-center"><span class="icon icon-account-id"></span></div>  
+<div class="col py-4">
+<span class="ste-header-account-id f-clr"><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span>
+<div> 
+<a class="f-clr" href="javascript:void(0);"><?php esc_html_e( get_option( 'stedb_secret' ) ); ?></a> 
+</div>
+</div>       
+<div class="align-self-center f-clr"><span class="icon icon-phone-call"></span></div>  
+<div class="col ste-header-phone py-4">
+<a class="f-clr" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
+<div> 
+<a class="f-clr" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
+</div>
+</div>       
+<div class="ste-round-setting-icon">
+<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-setting' ) ); ?>"><span class="icon icon-settings" style="text-decoration:none"></span></a>
+</div>
 
-		<div class="ste-row ste-flex ste-flex-center">
+</div>
 
-			<div class="ste-col-25"></div>
-			<div class="ste-col-50 ste-my-m-1">
-				<p class="ste-header-title"><?php esc_html_e( "Easy drag & drop STEdb's form builder", 'ste-social-form-builder' ); ?></p>
-			</div>
-			<div class="ste-col-25">
-				<div class="ste-header-info-container ste-text-right ste-text-m-center ste-text-m-center ste-mt-1">
-					<div class="ste-header-help-container">
-						<img src="<?php echo esc_url( plugins_url( 'images/ste_mainlogo.png', dirname( __FILE__ ) ) ); ?>" class="ste-help-img"><span class="ste-help-title ste-ml-1"><?php esc_html_e( 'Need help?', 'ste-social-form-builder' ); ?></span>
-					</div>
-					<div class="ste-header-tel ste-my-p3">
-						<span><?php esc_html_e( 'Tel:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="tel:+15612285630"><?php esc_html_e( '+1 (561) 228-5630', 'ste-social-form-builder' ); ?></a>
-					</div>
-					<div class="ste-header-email ste-my-p3">
-						<span><?php esc_html_e( 'Email:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="mailto:support@stedbcorp.com"><?php esc_html_e( 'support@stedbcorp.com', 'ste-social-form-builder' ); ?></a>
-					</div>
-					<div class="ste-header-account-id ste-my-p3">
-						<span><?php esc_html_e( 'Account ID:', 'ste-social-form-builder' ); ?></span> <a class="ste_underline_none" href="javascript:void(0);"><?php esc_html_e( get_option( 'stedb_secret' ) ); ?></a>
+</div>
+
+</div>
+<!-- links -->
+<div class=".container-fluid ste-clr-wh ste-top-container-border">
+					<div class="row align-items-center ste-top-container-border">
+						<div class="col-9 ste-nav-bar">
+							<div class="ste-header-tabs-container ste-h-auto ste-col-100 ste-flex ste-flex-left ">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" id="main_page" class="ste-tab-item form_builder  <?php echo ( 'ste-form-builder' == $current_page ) ? 'active' : ''; ?>">
+								<?php esc_html_e( 'Form Builder', 'ste-social-form-builder' );?>
+							</a>
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-send-email-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-send-email-template' == $current_page ) ? 'active' : ''; ?>">
+											<?php esc_html_e( 'Send Email', 'ste-social-form-builder' ); ?>
+							</a>
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-report-template' ) ); ?>" class="ste-tab-item <?php echo ( 'ste-report-template' == $current_page ) ? 'active' : ''; ?>">
+								<?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?>
+							</a>
+	
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-from-data-template' ) ); ?>" class="ste-tab-item">
+								<?php esc_html_e( 'Forms', 'ste-social-form-builder' ); ?>
+							</a>
+							</div>
+						</div>
+				<div class="col-3 ste-btn">
+					<?php if ( 'ste-report-template' != $current_page && 'ste-form-builder' != $current_page && 'ste-send-email-template' != $current_page && 'ste-setting' != $current_page ) { ?> 
+					<button type="button"  class="btn btn-success set_email_draft ste-btn-draft" name="ste-btn-draft"><span class="icon icon-tick "></span><?php esc_html_e( 'Save', 'ste-social-form-builder' ); ?></button>
+						<?php
+					}
+					?>
+				</div>
 					</div>
 				</div>
-			</div>
-		</div>
+<!-- links end -->
+</div>
 
-		<div class="ste-row">
-			<div class="ste-col-100">
-				<div class="ste-header-tabs-container ste-flex ste-flex-center ">
-					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1" id="form-page">
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-form-builder' ) ); ?>" class="ste-tab-item-title">
-							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-form-builder' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Form Builder', 'ste-social-form-builder' ); ?></p>
-						</a>
-					</div>
-					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1">
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-send-email-template' ) ); ?>" class="ste-tab-item-title">
-							<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-send-email-template' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Send Email', 'ste-social-form-builder' ); ?></p>
-						</a>
-					</div>
-					<div class="ste-header-tab-item ste-tab-item-1 ste-border-1">
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=ste-report-template' ) ); ?>" class="ste-tab-item-title">
-						<p class="ste-tab-item-title ste-m-0 ste-py-rm-0-2 ste-px-rm-1-2 ste-px-rm-m-1 ste-font-2 <?php echo ( 'ste-report-template' == $current_page ) ? 'ste-btn-success' : ''; ?>"><?php esc_html_e( 'Report', 'ste-social-form-builder' ); ?></p>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>

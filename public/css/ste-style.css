@@ -239,31 +239,73 @@
     border-radius: 3px;
     padding: 4px 8.25px;
 }
-.sign-up-button.yh{
-  background: #6B3695;
-    border-color: #6B3695;
+.sign-up-button.yh img{
+  display: inline-block;
 }
-
+.sign-up-button.yh a{
+  background-color: #F8F2FA;
+  border: 1px solid #6B3695;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  padding: 10px;
+}
+.sign-up-button.gp img{
+  display: inline-block;
+}
 .sign-up-button.gp{
-  background:#DF4B38;
-    border-color:#DF4B38;
+    background:#FFF5F4;
+    border: 1px solid #DF4B38;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    padding: 10px;   
 }
-
+.sign-up-button.ln img{
+  display: inline-block;
+}
 .sign-up-button.ln{
-  background: #117BB8;
-    border-color: #117BB8;
+  background: #F2F8FB;
+  border: 1px solid #117BB8;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  padding: 10px;
 }
-
-.sign-up-button a {
-    color:#fff;
-    font-size: 12px;
-    
-    padding:0px 12px;
-    text-decoration: none;
+.gp a span {
+  color: #DF4B38;
+  margin-left: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
 }
-.sign-up-button a span{
-  color: #ffffff;
-  padding-left: 10px;
+.yh a span {
+  color: #6B3695;
+  margin-left: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.ln a span {
+  color: #117BB8;
+  margin-left: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.stedb-col {
+  max-width: 100%;
+  /* display: inline-block; */
+  flex-grow: 1;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  margin: 10px 10px 10px 10px;
+}
+/* .li_row{
+  display:flex;
+} */
+.stedb-li-row-flex {
+  display:flex;
 }
 .ste-img{
   max-width: 100%;
@@ -531,17 +573,19 @@
     font-size: 16px;
     font-weight: bold;
 }
-.ste-sign-up-button a {
+/* .ste-sign-up-button a {
     color:#fff;
     font-size: 12px;
     display: flex;
     padding:0px 12px;
     text-decoration: none;
-}
-.ste-sign-up-button a span {
-    color: #ffffff;
-    padding: 10px;
-}
+} */
+/* .ste-sign-up-button a span {
+  color: #DF4B38;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 500;
+} */
 
 img#loader {
     width: 100px;
@@ -552,4 +596,8 @@ img#loader {
 
 #email_preview{
 display: none;
+}
+.ste-select{
+  padding: 0.3rem;
+  width: 100%;
 }
