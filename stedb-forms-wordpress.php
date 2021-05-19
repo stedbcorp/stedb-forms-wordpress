@@ -15,7 +15,7 @@
  * Plugin Name:       STEdb Forms
  * Plugin URI:        https://stedb.com/stedb-forms/
  * Description:       Drag and drop form builder, send button with social integration which guarantees no fake leads, no fake emails submitting your forms and FREE email marketing automation platforms.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            STEDB
  * Author URI:        https://stedb.com
  * License:           GPL-2.0+
@@ -38,7 +38,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('STEDB_FORMS_WORDPRESS_VERSION', '1.0.5');
+define('STEDB_FORMS_WORDPRESS_VERSION', '1.0.6');
 
 /**
  * The code that runs during plugin activation.

@@ -105,6 +105,21 @@ class STE_DB_Migration {
 				'ALTER TABLE `stedb_send_email_entries` ADD `from_email` VARCHAR(255) NULL AFTER `from_name`;',
 			);
 			
+		$migration[10] = array(
+			'CREATE TABLE if not exists `stedb_form_entries_temp` (
+                                `id` bigint(20) NOT NULL,
+                                `form_hash` varchar(255) NOT NULL,
+                                `form_id` bigint(20) NOT NULL,
+                                `token` varchar(255) NOT NULL,
+                                `data` text,
+                                PRIMARY KEY (`id`)
+                              ) ENGINE=InnoDB DEFAULT CHARSET=latin1;',
+		);
+
+		$migration[11] = array(
+			'ALTER TABLE `stedb_form_entries_temp`
+                                MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;',
+		);
 			foreach ( $migration as $version => $queries ) {
 				foreach ( $queries as $query ) {
 					/**

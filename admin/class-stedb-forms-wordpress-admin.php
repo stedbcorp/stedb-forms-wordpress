@@ -794,41 +794,43 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				 * HTML template to get email data
 				 */
 		public function ste_save_form_data() {
-			global $wpdb, $wp_session;
+			global $wpdb;
+
 			$args = wp_unslash( $_POST );
+
 			if ( isset( $args['nonce'] ) && wp_verify_nonce( $args['nonce'], 'ajax-nonce' ) ) {
 				if ( isset( $args['form_id'] ) && isset( $args['form_data'] ) ) {
-					$form_data        = wp_json_encode( sanitize_text_field( $args['form_data'] ) );
-					$form_data        = json_decode( json_decode( $form_data, true ), true );
-					$insert_data      = array();
-					$form_id          = sanitize_text_field( $args['form_id'] );
-					$get_max_entry_id = $wpdb->get_row( $wpdb->prepare( 'SELECT MAX(entry_id) as max_entry_id FROM stedb_form_entries WHERE form_id = %d', $form_id ) );
-					$get_form_detail  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM stedb_form_builder_data WHERE form_id = %d', $form_id ) );
-					$api_field_ids    = $get_form_detail[0]->stedb_form_id;
-					$api_field_id     = explode( ',', $api_field_ids );
-					if ( $get_max_entry_id ) {
-						$entry_id = $get_max_entry_id->max_entry_id + 1;
-					} else {
-						$entry_id = 1;
-					}
+					$form_data = wp_json_encode( sanitize_text_field( $args['form_data'] ) );
+					$form_data = json_decode( json_decode( $form_data, true ), true );
+
+					$form_data_array = array();
+
 					foreach ( $form_data as $key => $value ) {
 						foreach ( $value as $val ) {
-							$insert_data       = array(
-								'form_id'     => $form_id,
-								'entry_id'    => $entry_id,
-								'field_key'   => $val['name'],
-								'field_value' => $val['value'],
-							);
-							$form_data_array[] = $val['value'];
-							$result            = $wpdb->insert( 'stedb_form_entries', $insert_data );
+							$form_data_array[ $val['name'] ] = $val['value'];
 						}
 					}
 
-					$form_data_arr               = $this->stedb_remove_element_with_value( $form_data_array );
-					$new_arr                     = array_combine( $api_field_id, $form_data_arr );
-					$_SESSION['form_data_array'] = $new_arr;
-					if ( $result > 0 ) {
-						echo wp_json_encode( array( 'success' => true ) );
+					$form_data_arr = $this->stedb_remove_element_with_value( $form_data_array );
+
+					$stedb_form_data_array = $form_data_arr;
+					$stedb_form_hash       = time() . '|' . md5( json_encode( $stedb_form_data_array ) );
+					$stedb_token           = sanitize_text_field( $args['nonce'] );
+					$stedb_form_id         = absint( $args['form_id'] );
+
+					$wpdb->insert( 'stedb_form_entries_temp', array(
+						'form_hash' => $stedb_form_hash,
+						'form_id'   => $stedb_form_id,
+						'token'     => $stedb_token,
+						'data'      => json_encode( $stedb_form_data_array )
+					), array( '%s', '%d', '%s', '%s' ) );
+
+					if ( ! empty( $form_data_array ) ) {
+						echo wp_json_encode( array(
+							'form_hash' => $stedb_form_hash,
+							'token'     => $stedb_token,
+							'success'   => true
+						) );
 						die;
 					}
 				}
@@ -848,6 +850,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 				}
 				else{
 					if($output->data->error){
+
 						$error_mmsgs = array(
 							4=>'Your WordPress installation is using an invalid email, please add a valid one and try again',
 							5=>'The email used in your WordPress installation is using an invalid domain, please add a valid one and try again',
@@ -986,7 +989,7 @@ if ( ! class_exists( 'STEDB_Forms_WordPress_Admin' ) ) {
 
 			$client   = new STEDB_Api_Client( $user_id, $secret, $base_url );
 			$output   = $client->ste_send_request( '/campaign/check_from_email', 'POST',$data );
-			if (! isset( $output->data->error ) ) {
+			if ( ! isset( $output->data->error ) ) {
 				echo wp_json_encode( array( 'success' => true,'message'=>$output->data[0] ) );
 				die;
 			}else{
