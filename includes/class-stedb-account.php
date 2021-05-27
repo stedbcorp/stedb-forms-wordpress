@@ -347,7 +347,6 @@ class STEDB_Account
 	{
 		global $wpdb;
 		$user     = wp_get_current_user();
-		$base_url = 'https://opt4.stedb.com/crm';
 		$secret = get_option('stedb_secret');
 
 		// Create token header as a JSON string
@@ -370,7 +369,7 @@ class STEDB_Account
 
 		// Create JWT
 		$jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-		$base_url = 'https://opt4.stedb.com/dbm9x/api/';
+		$base_url = get_option( 'stedb_base_url' );
 		// link format:
 		$link = str_replace('/api', '/v10', $base_url) . 'index.php?action=login&method=jwt&token=' . $jwt;
 		return $link;
